@@ -497,9 +497,4 @@ Aprenderás a configurar tu propio entorno Linux: instalacion de Ubuntu en maqui
 
 ---
 
-*Volver a Sesion 00: ../sesion_00_introduccion/README.md | Inicio del curso: ../README.md*
-
-
----
-
 *← [Volver a Sesión 00](../sesion_00_introduccion/README.md) · [Inicio del curso](../README.md)*
