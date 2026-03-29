@@ -88,7 +88,7 @@ Nota Final = 10%(DD1) + 15%(PC1) + 25%(TP) + 10%(DD2) + 15%(PC2) + 25%(TF)
 ## 📅 Sesiones
 
 - [Sesión 00 — Introducción al curso](./sesion_00_introduccion/README.md)
-- Sesión 01 — *(próximamente)*
+- [Sesión 01](./sesion_01/README.md)
 
 ---
 
