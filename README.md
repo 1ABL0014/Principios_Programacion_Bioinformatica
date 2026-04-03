@@ -1,218 +1,176 @@
-# 📘 Sesión 00 — Presentación del Curso
+# 🧬 1ABL0014 — Principios de Programación en Bioinformática
 
-> **Curso:** 1ABL0014 · Principios de Programación en Bioinformática  
-> **Tipo de sesión:** Introductoria / Presentación del curso  
-> **Duración:** 230 minutos
-
----
-
-## 🎯 Objetivo de esta sesión
-
-Conocer la estructura del curso, el sistema de evaluación, los recursos disponibles y —lo más importante— entender **por qué un biólogo necesita saber programar**.
+> **Programa de Biología · Facultad de Ciencias de la Salud · UPC**
+> **Semestre:** 2026-1 · **Ciclo:** Cuarto · **Créditos:** 2 · **Horas:** 4 horas prácticas semanales
+> **Docentes:** Manuel Ramírez Sáenz · **Coordinación:** Frank Guzman Escudero
 
 ---
 
-## 🧬 ¿Por qué un biólogo necesita programar?
+## Descripción del curso
 
-Esta es una pregunta que probablemente te hayas hecho. La respuesta es simple: la biología moderna genera datos a una velocidad y escala que es imposible analizar a mano.
+El curso "Principios de Programación en Bioinformática" provee al estudiante las herramientas necesarias para manejar con eficiencia el sistema operativo GNU/Linux y el lenguaje de programación shell scripting. El manejo de estas herramientas permite al estudiante realizar análisis cuantitativos y cualitativos sobre grandes y pequeños volúmenes de información mediante la creación de scripts, por ejemplo, aquella proveniente de bases de datos públicas con información biológica.
 
-### El problema del volumen de datos
+**Propósito:** Introducir al estudiante en el mundo de la programación con shell scripting, explorar su sintaxis y estructura específica para diseñar programas propios que analicen y procesen datos biológicos complejos de forma automática y eficaz. El curso contribuye con el desarrollo de la competencia general Razonamiento Cuantitativo de logro 2.
 
-Imagina que quieres comparar el genoma de dos cepas de *Mycobacterium tuberculosis* para entender por qué una es resistente a antibióticos. Cada genoma tiene ~4.4 millones de pares de bases. No puedes revisar eso manualmente en una hoja de Excel. Necesitas herramientas computacionales.
+---
 
-> 🔬 **Ejemplo real:** Durante la pandemia de COVID-19, equipos bioinformáticos como GISAID procesaron millones de genomas del virus SARS-CoV-2 para rastrear variantes (Alpha, Delta, Omicron) en tiempo casi real. Esto fue posible gracias a pipelines automatizados escritos en Shell y Python.
+## Logro del curso
 
-### La cadena de análisis bioinformático
+Al finalizar el curso, el alumno será capaz de utilizar herramientas de gestión en el sistema operativo GNU/Linux y utilizar herramientas (shell scripting) en GNU/Linux en el entorno bioinformático.
+
+---
+
+## Unidades del curso
+
+| Unidad | Nombre | Logro |
+|--------|--------|-------|
+| **I** | Introducción a GNU/Linux | El estudiante maneja con suficiencia el sistema operativo Linux |
+| **II** | Shell scripting | El estudiante diseña programas o scripts en el lenguaje de programación Shell |
+
+**Competencia transversal:** Razonamiento Cuantitativo — Nivel 2
+Capacidad de razonar cuantitativamente, a partir de la interpretación, representación, cálculo, análisis y argumentación de problemas cuantitativos de contexto real.
+
+---
+
+## Contenido semana a semana
+
+### Unidad I — Introducción a GNU/Linux (Semanas 1–7)
+
+| Semana | Tema | Contenido |
+|--------|------|-----------|
+| 1 | **Sistema operativo** | Introducción a los sistemas operativos. Estructura y componentes. Importancia en bioinformática. Distribuciones de GNU/Linux |
+| 2 | **Ambiente de trabajo** | Interfaz de línea de comandos. Sistema de archivos y carpetas. Instalación y administración con Conda |
+| 3 | **Sistema de archivos** | Estructura de directorios y gestión de archivos. Rutas absolutas y relativas. Tipos de archivos y códigos de colores |
+| 4 | **Flujos de datos** | Redirección de entrada/salida estándar. Tuberías. Gestión de usuarios y permisos de acceso |
+| 5 | **Comandos básicos I** | Reglas de sintaxis. Comandos para manipulación de archivos y directorios (I). Instalación de paquetes y descarga de datos |
+| 6 | **Comandos básicos II** | Comandos para manipulación y gestión de archivos y directorios (II) |
+| 7 | **Evaluación** | Práctica calificada 1 + esquematización del trabajo parcial |
+| 8 | **Trabajo Parcial** | Presentación oral grupal |
+
+### Unidad II — Shell Scripting (Semanas 9–16)
+
+| Semana | Tema | Contenido |
+|--------|------|-----------|
+| 9 | **Introducción al Shell Scripting** | Utilidad y ventajas de los scripts. Tipos de Shell. Shell del sistema |
+| 10 | **Sintaxis Shell I — Variables** | Definición y tipos de variables. Variable del entorno global PATH. Variables especiales |
+| 11 | **Sintaxis Shell II — Expresiones regulares I** | Metacaracteres, contenedores, cuantificadores, punto de anclaje. Comandos de procesamiento de datos I |
+| 12 | **Sintaxis Shell III — Expresiones regulares II** | Expresiones regulares avanzadas. Comandos de procesamiento de datos II |
+| 13 | **Shell Scripting I** | Estructura básica de un script. Sentencias de control de flujo: bucles (loops) |
+| 14 | **Shell Scripting II** | Estructura básica de un script. Sentencias de control de flujo: condicionales |
+| 15 | **Evaluación** | Práctica calificada 2 + esquematización del trabajo final |
+| 16 | **Trabajo Final** | Presentación oral del script Shell que resuelve un problema biológico |
+
+---
+
+## Sistema de evaluación
+
+### Fórmula de nota final
 
 ```
-Muestra biológica
-       ↓
-Secuenciación (datos crudos: archivos FASTQ)
-       ↓
-Control de calidad (FastQC, Trimmomatic)
-       ↓
-Alineamiento / Ensamblaje (BWA, STAR, SPAdes)
-       ↓
-Análisis específico (variantes, expresión génica, etc.)
-       ↓
-Visualización e interpretación
+Nota Final = 25% (LB1) + 25% (TP) + 25% (LB2) + 25% (TF)
 ```
 
-> **Cada una de estas etapas se ejecuta desde la terminal de Linux.** Por eso este curso empieza desde allí.
+### Cronograma de evaluaciones
+
+| Unidad | Evaluación | Sigla | Peso | Semanas | Evidencia | Recuperable |
+|--------|-----------|-------|------|---------|-----------|-------------|
+| 1 | Práctica de laboratorio 1 | LB1 | 25% | 1–7 | Informes semanales + examen virtual | No |
+| 1 | Trabajo parcial | TP | 25% | 8 | Presentación oral grupal | No |
+| 2 | Práctica de laboratorio 2 | LB2 | 25% | 9–15 | Informes semanales + examen virtual | No |
+| 2 | Trabajo final | TF | 25% | 16 | Presentación oral grupal | No |
+
+### Detalle de las Prácticas de Laboratorio (LB1 y LB2)
+
+Cada LB se califica de dos formas que suman el 25% de cada unidad:
+
+**A) Informes de actividades asincrónicas semanales (10% por unidad)**
+Entrega semanal de informe de actividades en Blackboard Collaborate.
+
+**B) Práctica calificada — examen virtual**
+Preguntas de opción múltiple y de desarrollo sobre los temas de cada unidad.
+Se rinde en semana 7 (para LB1) y semana 15 (para LB2).
+
+> Las prácticas de laboratorio (LB1 + LB2) representan el 50% del promedio final.
+
+### Trabajos grupales (TP y TF) — 50% del promedio final
+
+| Trabajo | Semana | Descripción |
+|---------|--------|-------------|
+| **Trabajo Parcial (TP)** | 8 | Presentación grupal sobre la aplicación de lenguajes de programación en bioinformática |
+| **Trabajo Final (TF)** | 16 | Desarrollo y presentación oral de un script en Shell que resuelva un problema biológico real |
+
+Ambos trabajos incluyen presentación oral con recursos audiovisuales y retroalimentación entre grupos.
 
 ---
 
-## 🐧 ¿Qué es GNU/Linux y por qué es el sistema de los bioinformáticos?
-
-GNU/Linux es un sistema operativo de código abierto que domina los servidores, clusters de cómputo y supercomputadoras del mundo. Más del **96% de los servidores de internet** corren Linux.
-
-### ¿Por qué Linux en bioinformática?
-
-| Razón | Explicación |
-|-------|-------------|
-| **Gratuito y open source** | Las herramientas bioinformáticas son mayormente gratuitas en Linux |
-| **Potencia en la línea de comandos** | Puedes procesar miles de archivos con una sola línea |
-| **Compatibilidad** | BLAST, BWA, SAMtools, GATK... todas corren nativamente en Linux |
-| **Reproducibilidad** | Los scripts documentan exactamente qué se hizo y cómo |
-| **Servidores y HPC** | Los clústeres de cómputo usan Linux; necesitas saber operarlo |
-
-> 💡 *Aunque uses Windows o Mac en casa, aprenderás a conectarte a servidores Linux, que es donde se hace la ciencia real de datos genómicos.*
-
----
-
-## 🖥️ ¿Qué es Shell Scripting?
-
-El **Shell** (también llamado Bash) es el intérprete de comandos de Linux. Es el lenguaje que le hablas a la terminal.
-
-Un **script** es simplemente un archivo de texto con una serie de comandos que se ejecutan en orden, como una receta de cocina automatizada.
-
-### Ejemplo conceptual
-
-Imagina que tienes 100 archivos FASTQ (lecturas de secuenciación) y quieres correr FastQC en todos ellos. Sin scripting, tendrías que ejecutar 100 comandos manualmente. Con un script:
-
-```bash
-#!/bin/bash
-# Script para correr FastQC en todos los archivos FASTQ de un directorio
-
-for archivo in *.fastq.gz; do
-    echo "Procesando: $archivo"
-    fastqc "$archivo" --outdir resultados/
-done
-echo "¡Análisis completo!"
-```
-
-> ✅ Con 8 líneas de código automatizas horas de trabajo manual. Este es el poder del Shell scripting.
-
----
-
-## 📋 Estructura del curso
-
-### Unidad I — Introducción a GNU/Linux
-*(Semanas 1–7)*
-
-Aprenderás a moverte dentro del sistema operativo Linux usando únicamente la terminal:
-- Navegar directorios, crear y eliminar archivos
-- Permisos y usuarios
-- Redirección de entradas/salidas
-- Comandos esenciales para bioinformática: `grep`, `awk`, `sed`, `sort`, `uniq`
-
-### Unidad II — Shell Scripting
-*(Semanas 8–16)*
-
-Construirás tus propios programas en Bash:
-- Variables, condicionales y bucles
-- Funciones y modularización
-- Scripts para automatizar análisis bioinformáticos
-- **Trabajo final:** Script Shell que resuelve un problema biológico real
-
----
-
-## 📊 ¿Cómo me van a evaluar?
-
-### Resumen de evaluaciones
+## Estructura del repositorio
 
 ```
-Nota Final = 10%(DD1) + 15%(PC1) + 25%(TP) + 10%(DD2) + 15%(PC2) + 25%(TF)
-```
-
-| Evaluación | Qué es | Cuánto pesa |
-|-----------|--------|------------|
-| **DD1 y DD2** (Desempeño) | Actividades semanales + preguntas al final de sesión | 20% total |
-| **PC1 y PC2** (Prácticas) | Exámenes virtuales: opción múltiple, V/F y desarrollo | 30% total |
-| **TP** (Trabajo Parcial) | Presentación grupal: lenguajes de programación en bioinformática | 25% |
-| **TF** (Trabajo Final) | Script Shell que soluciona un problema biológico + presentación oral | 25% |
-
-### Detalle de las evaluaciones de desempeño (DD)
-
-Las DD se acumulan de dos formas:
-- **5% por unidad:** entrega semanal de informes de actividades asíncronas (Blackboard)
-- **5% por unidad:** preguntas al cierre de cada sesión en el aula virtual
-
-> ⚠️ **Las DD no son recuperables.** Sé constante desde la primera semana.
-
-### Trabajo Final — lo que construirás
-
-Al final del curso presentarás **un script en Bash que resuelva un problema biológico real**. Algunos ejemplos de trabajos anteriores:
-- Script para descargar y filtrar secuencias de GenBank según criterios taxonómicos
-- Pipeline para comparar calidad de secuencias antes y después de trimming
-- Script para buscar motivos regulatorios en secuencias promotoras
-
----
-
-## 🖥️ Aula virtual (Blackboard Collaborate)
-
-Todos los materiales del curso están en el **aula virtual**. Revísala constantemente.
-
-| Recurso | Qué encontrarás |
-|---------|----------------|
-| Sílabo | Contenido detallado semana a semana |
-| PPTs de clase | Diapositivas de cada sesión |
-| Fichas y materiales | Guías prácticas y ejercicios |
-| Bibliografía | Libros y artículos de referencia |
-| Evaluaciones | Entregas y exámenes |
-| Mensajes docentes | ¡Léelos! Contienen instrucciones importantes |
-
----
-
-## ⏰ Información logística
-
-| Ítem | Detalle |
-|------|---------|
-| **Duración de sesión** | 230 minutos |
-| **Tolerancia de ingreso** | 15 minutos |
-| **Máximo de inasistencias** | 3 sesiones (25% del total) |
-
-> ⚠️ Superar el 25% de inasistencias implica desaprobación automática del curso según el Reglamento del Estudiante UPC.
-
----
-
-## 🌟 Claves para tener éxito en este curso
-
-Para los que se inician en programación, estos cinco pilares marcan la diferencia:
-
-```
-🔥 MOTIVACIÓN      → Recuerda por qué estás aquí: la programación abre puertas
-🙋 PARTICIPACIÓN   → Pregunta sin miedo, todos comenzamos desde cero
-✅ RESPONSABILIDAD → Las DD son semanales; no dejes que se acumulen
-🤝 TRABAJO EN EQUIPO → Los trabajos grupales replican la dinámica real de investigación
-⏱️ PUNTUALIDAD     → En bioinformática, los tiempos de cómputo importan (y en clase, también)
+1ABL0014-Principios-Programacion-Bioinformatica/
+│
+├── sesion_00_introduccion/          # Presentación del curso
+│   ├── README.md
+│   └── slides_resumen.md
+│
+├── sesion_01/                       # Semana 1 — Sistema Operativo
+│   ├── README.md
+│   └── cheatsheet_comandos.md
+│
+├── recursos/
+│   └── links_utiles.md
+│
+└── README.md
 ```
 
 ---
 
-## 📚 Recursos recomendados para arrancar
+## Herramientas del curso
 
-### Para instalar y practicar Linux desde ya
-
-| Opción | Descripción | Enlace |
-|--------|-------------|--------|
-| **WSL2 (Windows)** | Linux dentro de Windows 10/11 | [Instalar WSL2](https://learn.microsoft.com/es-es/windows/wsl/install) |
-| **Ubuntu VM** | VirtualBox + Ubuntu | [Ubuntu Desktop](https://ubuntu.com/download/desktop) |
-| **The Odin Project** | Fundamentos de línea de comandos (gratis) | [theodinproject.com](https://www.theodinproject.com) |
-| **Linux Journey** | Tutorial interactivo de Linux | [linuxjourney.com](https://linuxjourney.com) |
-
-### Lecturas introductorias
-
-- Pevsner, J. (2015). *Bioinformatics and Functional Genomics*. Wiley-Blackwell.
-- Bioinformatics Data Skills — Vince Buffalo (O'Reilly) — *el manual de cabecera de este curso*
-- [A Primer for Computational Biology](https://open.oregonstate.education/computationalbiology/) — Open Oregon State (libre y gratuito)
+| Herramienta | Para qué |
+|-------------|---------|
+| **GNU/Linux (Ubuntu)** | Sistema operativo base de la bioinformática |
+| **Bash / Shell** | Automatización y scripting |
+| **Google Cloud Shell** | Terminal Linux en el navegador (entorno de práctica) |
+| **Conda / Bioconda** | Gestión de paquetes bioinformáticos |
+| **Blackboard Collaborate** | Plataforma de entrega de informes y evaluaciones |
 
 ---
 
-## ❓ Preguntas frecuentes
+## Bibliografía del curso
 
-**¿Necesito experiencia previa en programación?**  
-No. El curso está diseñado para estudiantes de biología sin conocimientos previos de informática.
+| Autor y año | Título | Uso en el curso |
+|------------|--------|----------------|
+| Hausenblas, M. (2022) | *Learning Modern Linux*. O'Reilly | Semana 1 |
+| Blum & Bresnahan (2021) | *Linux Command Line and Shell Scripting Bible* (4a ed.). Wiley | Semanas 2, 3 y Unidad II |
+| Brian Ward (2021) | *How Linux Works* (3a ed.). No Starch Press | Semana 5 |
+| Daniel J. Barrett (2022) | *Efficient Linux at the Command Line*. O'Reilly | Semana 6 |
+| Daniel J. Barrett (2024) | *Linux Pocket Guide* (4a ed.). O'Reilly | Referencia general |
+| Kothari et al. (2011) | *Linux*. New Age International | Semana 4 |
+| Parker, S. (2011) | *Shell Scripting: Expert Recipes*. Wiley | Semanas 13–14 |
+| Foster-Johnson et al. (2005) | *Beginning Shell Scripting*. Wiley | Semana 14 |
+| Sobell & Helmke (2017) | *A Practical Guide to Linux Commands* (4a ed.). Pearson | Referencia general |
+| Akalin, A. (2021) | *Computational Genomics with R*. CRC | Semana 1 — contexto bioinformático |
+| Curry, E. R. (2020) | *Introduction to Bioinformatics with R*. CRC | Semana 1 — contexto bioinformático |
 
-**¿Qué sistema operativo necesito en mi computadora?**  
-Cualquiera. Aprenderemos a instalar y usar Linux en entornos virtuales o WSL2.
-
-**¿Es difícil Shell scripting?**  
-Al principio puede parecer intimidante, pero con práctica constante verás que es muy lógico. La clave está en practicar los comandos todos los días, aunque sea 15 minutos.
-
-**¿Para qué me sirve esto después del curso?**  
-Para prácticamente cualquier análisis bioinformático: NGS, metagenómica, proteómica, modelado molecular. Es la base de todo.
+Todos los libros están disponibles en el catálogo UPC: https://catalogo.upc.edu.pe
 
 ---
 
-*Próxima sesión → [Sesión 01](../sesion_01/README.md)*
+## Equipo docente
+
+| Docente | Rol | Contacto |
+|--------|-----|---------|
+| Frank Guzman Escudero | Coordinación del curso | PCBLFGUZ@upc.edu.pe |
+| Manuel Ramírez Sáenz | Docente | PCBLMRAM@upc.edu.pe |
+
+---
+
+## Sesiones disponibles
+
+- [Sesión 00 — Presentación del curso](./sesion_00_introduccion/README.md)
+- [Sesión 01 — Sistema Operativo](./sesion_01/README.md)
+- Sesión 02 en adelante — próximamente
+
+---
+
+*Repositorio mantenido por Manuel Ramírez Sáenz · Semestre 2026-1*
