@@ -1,208 +1,218 @@
-# 🧬 Principios de Programación en Bioinformática
+# 📘 Sesión 00 — Presentación del Curso
 
-> **Código:** 1ABL0014 | **Créditos:** 2 | **Horas prácticas:** 4 hrs/semana  
-> **Programa:** Biología — Facultad de Ciencias de la Salud  
-> **Universidad:** Universidad Peruana de Ciencias Aplicadas (UPC)  
-> **Semestre:** 2026-1 | **Ciclo:** 4
-
----
-
-## 👨‍🏫 Docentes
-
-| Nombre | Correo |
-|--------|--------|
-| Frank Guzman Escudero | PCBLFGUZ@upc.edu.pe |
-| Manuel Ramírez Sáenz | PCBLMRAM@upc.edu.pe |
+> **Curso:** 1ABL0014 · Principios de Programación en Bioinformática  
+> **Tipo de sesión:** Introductoria / Presentación del curso  
+> **Duración:** 230 minutos
 
 ---
 
-## 📌 ¿Qué es este repositorio?
+## 🎯 Objetivo de esta sesión
 
-Este repositorio es el **recurso principal del curso**. Aquí encontrarás los materiales de cada sesión, enriquecidos con contexto bioinformático, ejemplos prácticos, pipelines reales y preguntas de autoevaluación.
-
-El objetivo es que este espacio sea tu **referencia de consulta** durante el semestre y más allá de él.
+Conocer la estructura del curso, el sistema de evaluación, los recursos disponibles y —lo más importante— entender **por qué un biólogo necesita saber programar**.
 
 ---
 
-## 🧪 Descripción del curso
+## 🧬 ¿Por qué un biólogo necesita programar?
 
-La bioinformática es el puente entre la biología y la informática. Este curso te entrega las **herramientas computacionales fundamentales** que usan los investigadores para analizar datos genómicos, proteómicos y transcriptómicos.
+Esta es una pregunta que probablemente te hayas hecho. La respuesta es simple: la biología moderna genera datos a una velocidad y escala que es imposible analizar a mano.
 
-Al finalizar el curso, podrás:
-- Trabajar con fluidez en entornos GNU/Linux
-- Gestionar archivos y datos biológicos desde la terminal
-- Programar en Python para automatizar análisis biológicos
-- Instalar, configurar y ejecutar herramientas bioinformáticas
-- Comprender y manipular formatos de datos biológicos estándar (FASTA, FASTQ, SAM/BAM, VCF)
+### El problema del volumen de datos
 
----
+Imagina que quieres comparar el genoma de dos cepas de *Mycobacterium tuberculosis* para entender por qué una es resistente a antibióticos. Cada genoma tiene ~4.4 millones de pares de bases. No puedes revisar eso manualmente en una hoja de Excel. Necesitas herramientas computacionales.
 
-## 📊 Evaluación
+> 🔬 **Ejemplo real:** Durante la pandemia de COVID-19, equipos bioinformáticos como GISAID procesaron millones de genomas del virus SARS-CoV-2 para rastrear variantes (Alpha, Delta, Omicron) en tiempo casi real. Esto fue posible gracias a pipelines automatizados escritos en Shell y Python.
 
-| Componente | Peso | Descripción |
-|---|---|---|
-| **LB1** — Laboratorio 1 | 25% | Evaluación práctica semanas 1–8 |
-| **TP** — Trabajo Parcial | 25% | Proyecto integrador semanas 1–8 |
-| **LB2** — Laboratorio 2 | 25% | Evaluación práctica semanas 9–16 |
-| **TF** — Trabajo Final | 25% | Proyecto integrador semanas 9–16 |
+### La cadena de análisis bioinformático
 
-> **Nota mínima aprobatoria:** 13 (escala vigesimal peruana)
+```
+Muestra biológica
+       ↓
+Secuenciación (datos crudos: archivos FASTQ)
+       ↓
+Control de calidad (FastQC, Trimmomatic)
+       ↓
+Alineamiento / Ensamblaje (BWA, STAR, SPAdes)
+       ↓
+Análisis específico (variantes, expresión génica, etc.)
+       ↓
+Visualización e interpretación
+```
 
----
-
-## 🗓️ Contenido del Curso — 16 Semanas
-
-### Unidad 1: Fundamentos del Entorno de Trabajo
-
-| Semana | Sesión | Tema | Estado |
-|--------|--------|------|--------|
-| 1 | [Sesión 00](session_00/) | Introducción al curso y a la bioinformática | ✅ Disponible |
-| 1 | [Sesión 01](session_01/) | Sistemas Operativos — Linux y la terminal | ✅ Disponible |
-| 2 | [**Sesión 02**](session_02/) | **Ambiente de Trabajo — CLI y Conda** | ✅ Disponible |
-| 3 | [Sesión 03](session_03/) | Estructura de Directorios y Gestión de Archivos | 🔜 Próximamente |
-| 4 | [Sesión 04](session_04/) | Editores de Texto y Scripts Bash | 🔜 Próximamente |
-
-### Unidad 2: Programación en Python para Bioinformática
-
-| Semana | Sesión | Tema | Estado |
-|--------|--------|------|--------|
-| 5 | [Sesión 05](session_05/) | Introducción a Python — Variables y Tipos de Datos | 🔜 Próximamente |
-| 6 | [Sesión 06](session_06/) | Estructuras de Control — Condicionales y Bucles | 🔜 Próximamente |
-| 7 | [Sesión 07](session_07/) | Funciones y Módulos | 🔜 Próximamente |
-| 8 | [Sesión 08](session_08/) | Biopython — Manejo de Secuencias Biológicas | 🔜 Próximamente |
-
-### Unidad 3: Formatos y Bases de Datos Biológicas
-
-| Semana | Sesión | Tema | Estado |
-|--------|--------|------|--------|
-| 9 | [Sesión 09](session_09/) | Formatos FASTA, FASTQ y Control de Calidad | 🔜 Próximamente |
-| 10 | [Sesión 10](session_10/) | Bases de Datos Biológicas — NCBI, UniProt, Ensembl | 🔜 Próximamente |
-| 11 | [Sesión 11](session_11/) | Alineamiento de Secuencias — BLAST y Aplicaciones | 🔜 Próximamente |
-| 12 | [Sesión 12](session_12/) | Formatos SAM/BAM y Mapeo al Genoma de Referencia | 🔜 Próximamente |
-
-### Unidad 4: Pipelines y Análisis Avanzados
-
-| Semana | Sesión | Tema | Estado |
-|--------|--------|------|--------|
-| 13 | [Sesión 13](session_13/) | Variantes Genéticas — Formato VCF y Anotación | 🔜 Próximamente |
-| 14 | [Sesión 14](session_14/) | Análisis de Expresión Génica — RNA-seq Básico | 🔜 Próximamente |
-| 15 | [Sesión 15](session_15/) | Automatización de Pipelines con Bash y Snakemake | 🔜 Próximamente |
-| 16 | [Sesión 16](session_16/) | Presentación de Proyectos Finales | 🔜 Próximamente |
+> **Cada una de estas etapas se ejecuta desde la terminal de Linux.** Por eso este curso empieza desde allí.
 
 ---
 
-## 🚀 ¿Cómo empezar?
+## 🐧 ¿Qué es GNU/Linux y por qué es el sistema de los bioinformáticos?
 
-### 1. Configura tu ambiente de trabajo
+GNU/Linux es un sistema operativo de código abierto que domina los servidores, clusters de cómputo y supercomputadoras del mundo. Más del **96% de los servidores de internet** corren Linux.
 
-Si aún no tienes GNU/Linux, elige una de estas opciones (detalladas en la [Sesión 02](session_02/)):
+### ¿Por qué Linux en bioinformática?
+
+| Razón | Explicación |
+|-------|-------------|
+| **Gratuito y open source** | Las herramientas bioinformáticas son mayormente gratuitas en Linux |
+| **Potencia en la línea de comandos** | Puedes procesar miles de archivos con una sola línea |
+| **Compatibilidad** | BLAST, BWA, SAMtools, GATK... todas corren nativamente en Linux |
+| **Reproducibilidad** | Los scripts documentan exactamente qué se hizo y cómo |
+| **Servidores y HPC** | Los clústeres de cómputo usan Linux; necesitas saber operarlo |
+
+> 💡 *Aunque uses Windows o Mac en casa, aprenderás a conectarte a servidores Linux, que es donde se hace la ciencia real de datos genómicos.*
+
+---
+
+## 🖥️ ¿Qué es Shell Scripting?
+
+El **Shell** (también llamado Bash) es el intérprete de comandos de Linux. Es el lenguaje que le hablas a la terminal.
+
+Un **script** es simplemente un archivo de texto con una serie de comandos que se ejecutan en orden, como una receta de cocina automatizada.
+
+### Ejemplo conceptual
+
+Imagina que tienes 100 archivos FASTQ (lecturas de secuenciación) y quieres correr FastQC en todos ellos. Sin scripting, tendrías que ejecutar 100 comandos manualmente. Con un script:
 
 ```bash
-# Opción A: WSL2 en Windows (más rápido para empezar)
-wsl --install -d Ubuntu-22.04
+#!/bin/bash
+# Script para correr FastQC en todos los archivos FASTQ de un directorio
 
-# Opción B: Ubuntu nativo o VirtualBox
-# Ver instrucciones en session_02/README.md
+for archivo in *.fastq.gz; do
+    echo "Procesando: $archivo"
+    fastqc "$archivo" --outdir resultados/
+done
+echo "¡Análisis completo!"
 ```
 
-### 2. Instala Miniconda
+> ✅ Con 8 líneas de código automatizas horas de trabajo manual. Este es el poder del Shell scripting.
 
-```bash
-mkdir -p ~/miniconda3
-wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
-     -O ~/miniconda3/miniconda.sh
-bash ~/miniconda3/miniconda.sh -b -u ~/miniconda3
-rm -f ~/miniconda3/miniconda.sh
-~/miniconda3/bin/conda init bash
-source ~/.bashrc
+---
+
+## 📋 Estructura del curso
+
+### Unidad I — Introducción a GNU/Linux
+*(Semanas 1–7)*
+
+Aprenderás a moverte dentro del sistema operativo Linux usando únicamente la terminal:
+- Navegar directorios, crear y eliminar archivos
+- Permisos y usuarios
+- Redirección de entradas/salidas
+- Comandos esenciales para bioinformática: `grep`, `awk`, `sed`, `sort`, `uniq`
+
+### Unidad II — Shell Scripting
+*(Semanas 8–16)*
+
+Construirás tus propios programas en Bash:
+- Variables, condicionales y bucles
+- Funciones y modularización
+- Scripts para automatizar análisis bioinformáticos
+- **Trabajo final:** Script Shell que resuelve un problema biológico real
+
+---
+
+## 📊 ¿Cómo me van a evaluar?
+
+### Resumen de evaluaciones
+
+```
+Nota Final = 10%(DD1) + 15%(PC1) + 25%(TP) + 10%(DD2) + 15%(PC2) + 25%(TF)
 ```
 
-### 3. Configura los canales de Conda
+| Evaluación | Qué es | Cuánto pesa |
+|-----------|--------|------------|
+| **DD1 y DD2** (Desempeño) | Actividades semanales + preguntas al final de sesión | 20% total |
+| **PC1 y PC2** (Prácticas) | Exámenes virtuales: opción múltiple, V/F y desarrollo | 30% total |
+| **TP** (Trabajo Parcial) | Presentación grupal: lenguajes de programación en bioinformática | 25% |
+| **TF** (Trabajo Final) | Script Shell que soluciona un problema biológico + presentación oral | 25% |
 
-```bash
-conda config --add channels defaults
-conda config --add channels bioconda
-conda config --add channels conda-forge
+### Detalle de las evaluaciones de desempeño (DD)
+
+Las DD se acumulan de dos formas:
+- **5% por unidad:** entrega semanal de informes de actividades asíncronas (Blackboard)
+- **5% por unidad:** preguntas al cierre de cada sesión en el aula virtual
+
+> ⚠️ **Las DD no son recuperables.** Sé constante desde la primera semana.
+
+### Trabajo Final — lo que construirás
+
+Al final del curso presentarás **un script en Bash que resuelva un problema biológico real**. Algunos ejemplos de trabajos anteriores:
+- Script para descargar y filtrar secuencias de GenBank según criterios taxonómicos
+- Pipeline para comparar calidad de secuencias antes y después de trimming
+- Script para buscar motivos regulatorios en secuencias promotoras
+
+---
+
+## 🖥️ Aula virtual (Blackboard Collaborate)
+
+Todos los materiales del curso están en el **aula virtual**. Revísala constantemente.
+
+| Recurso | Qué encontrarás |
+|---------|----------------|
+| Sílabo | Contenido detallado semana a semana |
+| PPTs de clase | Diapositivas de cada sesión |
+| Fichas y materiales | Guías prácticas y ejercicios |
+| Bibliografía | Libros y artículos de referencia |
+| Evaluaciones | Entregas y exámenes |
+| Mensajes docentes | ¡Léelos! Contienen instrucciones importantes |
+
+---
+
+## ⏰ Información logística
+
+| Ítem | Detalle |
+|------|---------|
+| **Duración de sesión** | 230 minutos |
+| **Tolerancia de ingreso** | 15 minutos |
+| **Máximo de inasistencias** | 3 sesiones (25% del total) |
+
+> ⚠️ Superar el 25% de inasistencias implica desaprobación automática del curso según el Reglamento del Estudiante UPC.
+
+---
+
+## 🌟 Claves para tener éxito en este curso
+
+Para los que se inician en programación, estos cinco pilares marcan la diferencia:
+
 ```
-
-### 4. Clona este repositorio
-
-```bash
-git clone https://github.com/[usuario]/principios-bioinformatica-upc.git
-cd principios-bioinformatica-upc
+🔥 MOTIVACIÓN      → Recuerda por qué estás aquí: la programación abre puertas
+🙋 PARTICIPACIÓN   → Pregunta sin miedo, todos comenzamos desde cero
+✅ RESPONSABILIDAD → Las DD son semanales; no dejes que se acumulen
+🤝 TRABAJO EN EQUIPO → Los trabajos grupales replican la dinámica real de investigación
+⏱️ PUNTUALIDAD     → En bioinformática, los tiempos de cómputo importan (y en clase, también)
 ```
 
 ---
 
-## 📁 Estructura del Repositorio
+## 📚 Recursos recomendados para arrancar
 
-```
-principios-bioinformatica-upc/
-│
-├── README.md                    ← este archivo
-├── .gitignore
-├── resources/
-│   ├── cheatsheet.md            ← referencia rápida de comandos
-│   ├── useful_links.md          ← enlaces recomendados
-│   └── github_setup.md          ← guía para configurar GitHub
-│
-├── session_00/
-│   └── README.md                ← Introducción al curso
-│
-├── session_01/
-│   └── README.md                ← Sistemas Operativos
-│
-├── session_02/
-│   └── README.md                ← Ambiente de Trabajo ← ESTÁS AQUÍ
-│
-└── session_03/ ... session_16/  ← Próximamente
-```
+### Para instalar y practicar Linux desde ya
+
+| Opción | Descripción | Enlace |
+|--------|-------------|--------|
+| **WSL2 (Windows)** | Linux dentro de Windows 10/11 | [Instalar WSL2](https://learn.microsoft.com/es-es/windows/wsl/install) |
+| **Ubuntu VM** | VirtualBox + Ubuntu | [Ubuntu Desktop](https://ubuntu.com/download/desktop) |
+| **The Odin Project** | Fundamentos de línea de comandos (gratis) | [theodinproject.com](https://www.theodinproject.com) |
+| **Linux Journey** | Tutorial interactivo de Linux | [linuxjourney.com](https://linuxjourney.com) |
+
+### Lecturas introductorias
+
+- Pevsner, J. (2015). *Bioinformatics and Functional Genomics*. Wiley-Blackwell.
+- Bioinformatics Data Skills — Vince Buffalo (O'Reilly) — *el manual de cabecera de este curso*
+- [A Primer for Computational Biology](https://open.oregonstate.education/computationalbiology/) — Open Oregon State (libre y gratuito)
 
 ---
 
-## 📚 Bibliografía del Curso
+## ❓ Preguntas frecuentes
 
-| # | Referencia | Semanas |
-|---|------------|---------|
-| 1 | Blum, R. & Bresnahan, C. (2021). *Linux command line and Shell scripting bible* (4th ed.). Wiley | 1–4 |
-| 2 | Kross, S. (2017). *The Unix Workbench*. Leanpub | 1–4 |
-| 3 | Griffiths, A. et al. (2015). *Introduction to Genetic Analysis* (11th ed.). W.H. Freeman | 1–4 |
-| 4 | Cock, P. et al. (2009). Biopython: freely available Python tools for computational biology. *Bioinformatics* | 5–8 |
-| 5 | Lutz, M. (2013). *Learning Python* (5th ed.). O'Reilly | 5–8 |
-| 6 | Altschul, S.F. et al. (1990). Basic local alignment search tool. *J. Mol. Biol.* | 9–12 |
-| 7 | Li, H. et al. (2009). The Sequence Alignment/Map format and SAMtools. *Bioinformatics* | 9–12 |
-| 8 | DePristo, M. et al. (2011). A framework for variation discovery using next-generation DNA sequencing data. *Nature Genetics* | 13–16 |
-| 9 | Andrews, S. (2010). FastQC: A quality control tool for high throughput sequence data | 9–12 |
-| 10 | Bolger, A.M. et al. (2014). Trimmomatic: a flexible trimmer for Illumina sequence data. *Bioinformatics* | 9–12 |
-| 11 | Love, M.I. et al. (2014). Moderated estimation of fold change and dispersion for RNA-seq data. *Genome Biology* | 13–16 |
+**¿Necesito experiencia previa en programación?**  
+No. El curso está diseñado para estudiantes de biología sin conocimientos previos de informática.
+
+**¿Qué sistema operativo necesito en mi computadora?**  
+Cualquiera. Aprenderemos a instalar y usar Linux en entornos virtuales o WSL2.
+
+**¿Es difícil Shell scripting?**  
+Al principio puede parecer intimidante, pero con práctica constante verás que es muy lógico. La clave está en practicar los comandos todos los días, aunque sea 15 minutos.
+
+**¿Para qué me sirve esto después del curso?**  
+Para prácticamente cualquier análisis bioinformático: NGS, metagenómica, proteómica, modelado molecular. Es la base de todo.
 
 ---
 
-## 🛠️ Recursos de Apoyo
-
-| Recurso | Descripción | Enlace |
-|---------|-------------|--------|
-| Cheatsheet | Referencia rápida de comandos Linux y Conda | [Ver](resources/cheatsheet.md) |
-| GitHub Setup | Cómo crear tu cuenta y trabajar con Git | [Ver](resources/github_setup.md) |
-| Useful Links | Bases de datos, tutoriales y herramientas recomendadas | [Ver](resources/useful_links.md) |
-
----
-
-## 💡 Consejos para el Éxito en el Curso
-
-1. **Practica a diario**: 30 minutos de terminal por día valen más que 3 horas el fin de semana.
-2. **No copies y pegues comandos sin leerlos**: entiende qué hace cada parte antes de ejecutar.
-3. **Usa `--help` y `man`**: casi todo programa tiene documentación integrada.
-4. **Mantén un diario de comandos**: anota los que uses frecuentemente.
-5. **Los errores son normales**: aprende a leer los mensajes de error, son tus mejores maestros.
-6. **Organiza tus proyectos desde el inicio**: una buena estructura de carpetas te ahorra horas.
-
----
-
-<div align="center">
-
-**Universidad Peruana de Ciencias Aplicadas — UPC**  
-Facultad de Ciencias de la Salud | Programa de Biología  
-*Exígete, innova*
-
-</div>
+*Próxima sesión → [Sesión 01](../sesion_01/README.md)*
