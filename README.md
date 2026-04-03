@@ -1,176 +1,208 @@
-# 🧬 1ABL0014 — Principios de Programación en Bioinformática
+# 🧬 Principios de Programación en Bioinformática
 
-> **Programa de Biología · Facultad de Ciencias de la Salud · UPC**
-> **Semestre:** 2026-1 · **Ciclo:** Cuarto · **Créditos:** 2 · **Horas:** 4 horas prácticas semanales
-> **Docentes:** Manuel Ramírez Sáenz · **Coordinación:** Frank Guzman Escudero
-
----
-
-## Descripción del curso
-
-El curso "Principios de Programación en Bioinformática" provee al estudiante las herramientas necesarias para manejar con eficiencia el sistema operativo GNU/Linux y el lenguaje de programación shell scripting. El manejo de estas herramientas permite al estudiante realizar análisis cuantitativos y cualitativos sobre grandes y pequeños volúmenes de información mediante la creación de scripts, por ejemplo, aquella proveniente de bases de datos públicas con información biológica.
-
-**Propósito:** Introducir al estudiante en el mundo de la programación con shell scripting, explorar su sintaxis y estructura específica para diseñar programas propios que analicen y procesen datos biológicos complejos de forma automática y eficaz. El curso contribuye con el desarrollo de la competencia general Razonamiento Cuantitativo de logro 2.
+> **Código:** 1ABL0014 | **Créditos:** 2 | **Horas prácticas:** 4 hrs/semana  
+> **Programa:** Biología — Facultad de Ciencias de la Salud  
+> **Universidad:** Universidad Peruana de Ciencias Aplicadas (UPC)  
+> **Semestre:** 2026-1 | **Ciclo:** 4
 
 ---
 
-## Logro del curso
+## 👨‍🏫 Docentes
 
-Al finalizar el curso, el alumno será capaz de utilizar herramientas de gestión en el sistema operativo GNU/Linux y utilizar herramientas (shell scripting) en GNU/Linux en el entorno bioinformático.
-
----
-
-## Unidades del curso
-
-| Unidad | Nombre | Logro |
-|--------|--------|-------|
-| **I** | Introducción a GNU/Linux | El estudiante maneja con suficiencia el sistema operativo Linux |
-| **II** | Shell scripting | El estudiante diseña programas o scripts en el lenguaje de programación Shell |
-
-**Competencia transversal:** Razonamiento Cuantitativo — Nivel 2
-Capacidad de razonar cuantitativamente, a partir de la interpretación, representación, cálculo, análisis y argumentación de problemas cuantitativos de contexto real.
+| Nombre | Correo |
+|--------|--------|
+| Frank Guzman Escudero | PCBLFGUZ@upc.edu.pe |
+| Manuel Ramírez Sáenz | PCBLMRAM@upc.edu.pe |
 
 ---
 
-## Contenido semana a semana
+## 📌 ¿Qué es este repositorio?
 
-### Unidad I — Introducción a GNU/Linux (Semanas 1–7)
+Este repositorio es el **recurso principal del curso**. Aquí encontrarás los materiales de cada sesión, enriquecidos con contexto bioinformático, ejemplos prácticos, pipelines reales y preguntas de autoevaluación.
 
-| Semana | Tema | Contenido |
-|--------|------|-----------|
-| 1 | **Sistema operativo** | Introducción a los sistemas operativos. Estructura y componentes. Importancia en bioinformática. Distribuciones de GNU/Linux |
-| 2 | **Ambiente de trabajo** | Interfaz de línea de comandos. Sistema de archivos y carpetas. Instalación y administración con Conda |
-| 3 | **Sistema de archivos** | Estructura de directorios y gestión de archivos. Rutas absolutas y relativas. Tipos de archivos y códigos de colores |
-| 4 | **Flujos de datos** | Redirección de entrada/salida estándar. Tuberías. Gestión de usuarios y permisos de acceso |
-| 5 | **Comandos básicos I** | Reglas de sintaxis. Comandos para manipulación de archivos y directorios (I). Instalación de paquetes y descarga de datos |
-| 6 | **Comandos básicos II** | Comandos para manipulación y gestión de archivos y directorios (II) |
-| 7 | **Evaluación** | Práctica calificada 1 + esquematización del trabajo parcial |
-| 8 | **Trabajo Parcial** | Presentación oral grupal |
-
-### Unidad II — Shell Scripting (Semanas 9–16)
-
-| Semana | Tema | Contenido |
-|--------|------|-----------|
-| 9 | **Introducción al Shell Scripting** | Utilidad y ventajas de los scripts. Tipos de Shell. Shell del sistema |
-| 10 | **Sintaxis Shell I — Variables** | Definición y tipos de variables. Variable del entorno global PATH. Variables especiales |
-| 11 | **Sintaxis Shell II — Expresiones regulares I** | Metacaracteres, contenedores, cuantificadores, punto de anclaje. Comandos de procesamiento de datos I |
-| 12 | **Sintaxis Shell III — Expresiones regulares II** | Expresiones regulares avanzadas. Comandos de procesamiento de datos II |
-| 13 | **Shell Scripting I** | Estructura básica de un script. Sentencias de control de flujo: bucles (loops) |
-| 14 | **Shell Scripting II** | Estructura básica de un script. Sentencias de control de flujo: condicionales |
-| 15 | **Evaluación** | Práctica calificada 2 + esquematización del trabajo final |
-| 16 | **Trabajo Final** | Presentación oral del script Shell que resuelve un problema biológico |
+El objetivo es que este espacio sea tu **referencia de consulta** durante el semestre y más allá de él.
 
 ---
 
-## Sistema de evaluación
+## 🧪 Descripción del curso
 
-### Fórmula de nota final
+La bioinformática es el puente entre la biología y la informática. Este curso te entrega las **herramientas computacionales fundamentales** que usan los investigadores para analizar datos genómicos, proteómicos y transcriptómicos.
 
-```
-Nota Final = 25% (LB1) + 25% (TP) + 25% (LB2) + 25% (TF)
-```
-
-### Cronograma de evaluaciones
-
-| Unidad | Evaluación | Sigla | Peso | Semanas | Evidencia | Recuperable |
-|--------|-----------|-------|------|---------|-----------|-------------|
-| 1 | Práctica de laboratorio 1 | LB1 | 25% | 1–7 | Informes semanales + examen virtual | No |
-| 1 | Trabajo parcial | TP | 25% | 8 | Presentación oral grupal | No |
-| 2 | Práctica de laboratorio 2 | LB2 | 25% | 9–15 | Informes semanales + examen virtual | No |
-| 2 | Trabajo final | TF | 25% | 16 | Presentación oral grupal | No |
-
-### Detalle de las Prácticas de Laboratorio (LB1 y LB2)
-
-Cada LB se califica de dos formas que suman el 25% de cada unidad:
-
-**A) Informes de actividades asincrónicas semanales (10% por unidad)**
-Entrega semanal de informe de actividades en Blackboard Collaborate.
-
-**B) Práctica calificada — examen virtual**
-Preguntas de opción múltiple y de desarrollo sobre los temas de cada unidad.
-Se rinde en semana 7 (para LB1) y semana 15 (para LB2).
-
-> Las prácticas de laboratorio (LB1 + LB2) representan el 50% del promedio final.
-
-### Trabajos grupales (TP y TF) — 50% del promedio final
-
-| Trabajo | Semana | Descripción |
-|---------|--------|-------------|
-| **Trabajo Parcial (TP)** | 8 | Presentación grupal sobre la aplicación de lenguajes de programación en bioinformática |
-| **Trabajo Final (TF)** | 16 | Desarrollo y presentación oral de un script en Shell que resuelva un problema biológico real |
-
-Ambos trabajos incluyen presentación oral con recursos audiovisuales y retroalimentación entre grupos.
+Al finalizar el curso, podrás:
+- Trabajar con fluidez en entornos GNU/Linux
+- Gestionar archivos y datos biológicos desde la terminal
+- Programar en Python para automatizar análisis biológicos
+- Instalar, configurar y ejecutar herramientas bioinformáticas
+- Comprender y manipular formatos de datos biológicos estándar (FASTA, FASTQ, SAM/BAM, VCF)
 
 ---
 
-## Estructura del repositorio
+## 📊 Evaluación
 
-```
-1ABL0014-Principios-Programacion-Bioinformatica/
-│
-├── sesion_00_introduccion/          # Presentación del curso
-│   ├── README.md
-│   └── slides_resumen.md
-│
-├── sesion_01/                       # Semana 1 — Sistema Operativo
-│   ├── README.md
-│   └── cheatsheet_comandos.md
-│
-├── recursos/
-│   └── links_utiles.md
-│
-└── README.md
+| Componente | Peso | Descripción |
+|---|---|---|
+| **LB1** — Laboratorio 1 | 25% | Evaluación práctica semanas 1–8 |
+| **TP** — Trabajo Parcial | 25% | Proyecto integrador semanas 1–8 |
+| **LB2** — Laboratorio 2 | 25% | Evaluación práctica semanas 9–16 |
+| **TF** — Trabajo Final | 25% | Proyecto integrador semanas 9–16 |
+
+> **Nota mínima aprobatoria:** 13 (escala vigesimal peruana)
+
+---
+
+## 🗓️ Contenido del Curso — 16 Semanas
+
+### Unidad 1: Fundamentos del Entorno de Trabajo
+
+| Semana | Sesión | Tema | Estado |
+|--------|--------|------|--------|
+| 1 | [Sesión 00](session_00/) | Introducción al curso y a la bioinformática | ✅ Disponible |
+| 1 | [Sesión 01](session_01/) | Sistemas Operativos — Linux y la terminal | ✅ Disponible |
+| 2 | [**Sesión 02**](session_02/) | **Ambiente de Trabajo — CLI y Conda** | ✅ Disponible |
+| 3 | [Sesión 03](session_03/) | Estructura de Directorios y Gestión de Archivos | 🔜 Próximamente |
+| 4 | [Sesión 04](session_04/) | Editores de Texto y Scripts Bash | 🔜 Próximamente |
+
+### Unidad 2: Programación en Python para Bioinformática
+
+| Semana | Sesión | Tema | Estado |
+|--------|--------|------|--------|
+| 5 | [Sesión 05](session_05/) | Introducción a Python — Variables y Tipos de Datos | 🔜 Próximamente |
+| 6 | [Sesión 06](session_06/) | Estructuras de Control — Condicionales y Bucles | 🔜 Próximamente |
+| 7 | [Sesión 07](session_07/) | Funciones y Módulos | 🔜 Próximamente |
+| 8 | [Sesión 08](session_08/) | Biopython — Manejo de Secuencias Biológicas | 🔜 Próximamente |
+
+### Unidad 3: Formatos y Bases de Datos Biológicas
+
+| Semana | Sesión | Tema | Estado |
+|--------|--------|------|--------|
+| 9 | [Sesión 09](session_09/) | Formatos FASTA, FASTQ y Control de Calidad | 🔜 Próximamente |
+| 10 | [Sesión 10](session_10/) | Bases de Datos Biológicas — NCBI, UniProt, Ensembl | 🔜 Próximamente |
+| 11 | [Sesión 11](session_11/) | Alineamiento de Secuencias — BLAST y Aplicaciones | 🔜 Próximamente |
+| 12 | [Sesión 12](session_12/) | Formatos SAM/BAM y Mapeo al Genoma de Referencia | 🔜 Próximamente |
+
+### Unidad 4: Pipelines y Análisis Avanzados
+
+| Semana | Sesión | Tema | Estado |
+|--------|--------|------|--------|
+| 13 | [Sesión 13](session_13/) | Variantes Genéticas — Formato VCF y Anotación | 🔜 Próximamente |
+| 14 | [Sesión 14](session_14/) | Análisis de Expresión Génica — RNA-seq Básico | 🔜 Próximamente |
+| 15 | [Sesión 15](session_15/) | Automatización de Pipelines con Bash y Snakemake | 🔜 Próximamente |
+| 16 | [Sesión 16](session_16/) | Presentación de Proyectos Finales | 🔜 Próximamente |
+
+---
+
+## 🚀 ¿Cómo empezar?
+
+### 1. Configura tu ambiente de trabajo
+
+Si aún no tienes GNU/Linux, elige una de estas opciones (detalladas en la [Sesión 02](session_02/)):
+
+```bash
+# Opción A: WSL2 en Windows (más rápido para empezar)
+wsl --install -d Ubuntu-22.04
+
+# Opción B: Ubuntu nativo o VirtualBox
+# Ver instrucciones en session_02/README.md
 ```
 
----
+### 2. Instala Miniconda
 
-## Herramientas del curso
+```bash
+mkdir -p ~/miniconda3
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
+     -O ~/miniconda3/miniconda.sh
+bash ~/miniconda3/miniconda.sh -b -u ~/miniconda3
+rm -f ~/miniconda3/miniconda.sh
+~/miniconda3/bin/conda init bash
+source ~/.bashrc
+```
 
-| Herramienta | Para qué |
-|-------------|---------|
-| **GNU/Linux (Ubuntu)** | Sistema operativo base de la bioinformática |
-| **Bash / Shell** | Automatización y scripting |
-| **Google Cloud Shell** | Terminal Linux en el navegador (entorno de práctica) |
-| **Conda / Bioconda** | Gestión de paquetes bioinformáticos |
-| **Blackboard Collaborate** | Plataforma de entrega de informes y evaluaciones |
+### 3. Configura los canales de Conda
 
----
+```bash
+conda config --add channels defaults
+conda config --add channels bioconda
+conda config --add channels conda-forge
+```
 
-## Bibliografía del curso
+### 4. Clona este repositorio
 
-| Autor y año | Título | Uso en el curso |
-|------------|--------|----------------|
-| Hausenblas, M. (2022) | *Learning Modern Linux*. O'Reilly | Semana 1 |
-| Blum & Bresnahan (2021) | *Linux Command Line and Shell Scripting Bible* (4a ed.). Wiley | Semanas 2, 3 y Unidad II |
-| Brian Ward (2021) | *How Linux Works* (3a ed.). No Starch Press | Semana 5 |
-| Daniel J. Barrett (2022) | *Efficient Linux at the Command Line*. O'Reilly | Semana 6 |
-| Daniel J. Barrett (2024) | *Linux Pocket Guide* (4a ed.). O'Reilly | Referencia general |
-| Kothari et al. (2011) | *Linux*. New Age International | Semana 4 |
-| Parker, S. (2011) | *Shell Scripting: Expert Recipes*. Wiley | Semanas 13–14 |
-| Foster-Johnson et al. (2005) | *Beginning Shell Scripting*. Wiley | Semana 14 |
-| Sobell & Helmke (2017) | *A Practical Guide to Linux Commands* (4a ed.). Pearson | Referencia general |
-| Akalin, A. (2021) | *Computational Genomics with R*. CRC | Semana 1 — contexto bioinformático |
-| Curry, E. R. (2020) | *Introduction to Bioinformatics with R*. CRC | Semana 1 — contexto bioinformático |
-
-Todos los libros están disponibles en el catálogo UPC: https://catalogo.upc.edu.pe
+```bash
+git clone https://github.com/[usuario]/principios-bioinformatica-upc.git
+cd principios-bioinformatica-upc
+```
 
 ---
 
-## Equipo docente
+## 📁 Estructura del Repositorio
 
-| Docente | Rol | Contacto |
-|--------|-----|---------|
-| Frank Guzman Escudero | Coordinación del curso | PCBLFGUZ@upc.edu.pe |
-| Manuel Ramírez Sáenz | Docente | PCBLMRAM@upc.edu.pe |
+```
+principios-bioinformatica-upc/
+│
+├── README.md                    ← este archivo
+├── .gitignore
+├── resources/
+│   ├── cheatsheet.md            ← referencia rápida de comandos
+│   ├── useful_links.md          ← enlaces recomendados
+│   └── github_setup.md          ← guía para configurar GitHub
+│
+├── session_00/
+│   └── README.md                ← Introducción al curso
+│
+├── session_01/
+│   └── README.md                ← Sistemas Operativos
+│
+├── session_02/
+│   └── README.md                ← Ambiente de Trabajo ← ESTÁS AQUÍ
+│
+└── session_03/ ... session_16/  ← Próximamente
+```
 
 ---
 
-## Sesiones disponibles
+## 📚 Bibliografía del Curso
 
-- [Sesión 00 — Presentación del curso](./sesion_00_introduccion/README.md)
-- [Sesión 01 — Sistema Operativo](./sesion_01/README.md)
-- Sesión 02 en adelante — próximamente
+| # | Referencia | Semanas |
+|---|------------|---------|
+| 1 | Blum, R. & Bresnahan, C. (2021). *Linux command line and Shell scripting bible* (4th ed.). Wiley | 1–4 |
+| 2 | Kross, S. (2017). *The Unix Workbench*. Leanpub | 1–4 |
+| 3 | Griffiths, A. et al. (2015). *Introduction to Genetic Analysis* (11th ed.). W.H. Freeman | 1–4 |
+| 4 | Cock, P. et al. (2009). Biopython: freely available Python tools for computational biology. *Bioinformatics* | 5–8 |
+| 5 | Lutz, M. (2013). *Learning Python* (5th ed.). O'Reilly | 5–8 |
+| 6 | Altschul, S.F. et al. (1990). Basic local alignment search tool. *J. Mol. Biol.* | 9–12 |
+| 7 | Li, H. et al. (2009). The Sequence Alignment/Map format and SAMtools. *Bioinformatics* | 9–12 |
+| 8 | DePristo, M. et al. (2011). A framework for variation discovery using next-generation DNA sequencing data. *Nature Genetics* | 13–16 |
+| 9 | Andrews, S. (2010). FastQC: A quality control tool for high throughput sequence data | 9–12 |
+| 10 | Bolger, A.M. et al. (2014). Trimmomatic: a flexible trimmer for Illumina sequence data. *Bioinformatics* | 9–12 |
+| 11 | Love, M.I. et al. (2014). Moderated estimation of fold change and dispersion for RNA-seq data. *Genome Biology* | 13–16 |
 
 ---
 
-*Repositorio mantenido por Manuel Ramírez Sáenz · Semestre 2026-1*
+## 🛠️ Recursos de Apoyo
+
+| Recurso | Descripción | Enlace |
+|---------|-------------|--------|
+| Cheatsheet | Referencia rápida de comandos Linux y Conda | [Ver](resources/cheatsheet.md) |
+| GitHub Setup | Cómo crear tu cuenta y trabajar con Git | [Ver](resources/github_setup.md) |
+| Useful Links | Bases de datos, tutoriales y herramientas recomendadas | [Ver](resources/useful_links.md) |
+
+---
+
+## 💡 Consejos para el Éxito en el Curso
+
+1. **Practica a diario**: 30 minutos de terminal por día valen más que 3 horas el fin de semana.
+2. **No copies y pegues comandos sin leerlos**: entiende qué hace cada parte antes de ejecutar.
+3. **Usa `--help` y `man`**: casi todo programa tiene documentación integrada.
+4. **Mantén un diario de comandos**: anota los que uses frecuentemente.
+5. **Los errores son normales**: aprende a leer los mensajes de error, son tus mejores maestros.
+6. **Organiza tus proyectos desde el inicio**: una buena estructura de carpetas te ahorra horas.
+
+---
+
+<div align="center">
+
+**Universidad Peruana de Ciencias Aplicadas — UPC**  
+Facultad de Ciencias de la Salud | Programa de Biología  
+*Exígete, innova*
+
+</div>
