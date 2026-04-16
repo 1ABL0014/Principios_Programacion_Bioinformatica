@@ -1,0 +1,11 @@
+organismo	reino	tamano_genoma_mb	genes_codificantes	accession
+Escherichia coli K-12	Bacteria	4.64	4140	NC_000913.3
+Salmonella enterica LT2	Bacteria	4.86	4425	NC_003197.2
+Saccharomyces cerevisiae S288C	Fungi	12.16	6692	GCF_000146045.2
+Homo sapiens	Animalia	3234.83	20442	GCF_000001405.40
+Arabidopsis thaliana	Plantae	135.23	27655	GCF_000001735.4
+Mycobacterium tuberculosis H37Rv	Bacteria	4.41	4018	NC_000962.3
+Drosophila melanogaster	Animalia	143.73	13968	GCF_000001215.4
+Caenorhabditis elegans	Animalia	100.27	20191	GCF_000002985.6
+Mus musculus	Animalia	2730.86	22598	GCF_000001635.27
+Bacillus subtilis 168	Bacteria	4.21	4185	NC_000964.3

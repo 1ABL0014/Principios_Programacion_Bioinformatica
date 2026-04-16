@@ -1,0 +1,27 @@
+[INFO] 2026-04-01 08:01:12 - Pipeline iniciado: analisis_rnaseq_muestra01
+[INFO] 2026-04-01 08:01:13 - Cargando archivo de entrada: muestra01_R1.fastq.gz (2.3 GB)
+[INFO] 2026-04-01 08:01:14 - Cargando archivo de entrada: muestra01_R2.fastq.gz (2.3 GB)
+[INFO] 2026-04-01 08:05:22 - FastQC: control de calidad completado
+[INFO] 2026-04-01 08:05:22 - Calidad promedio: Q32 - Aceptable
+[WARNING] 2026-04-01 08:05:23 - 12.4% de lecturas con adaptadores detectados - aplicando trimming
+[INFO] 2026-04-01 08:09:45 - Trimmomatic: trimming completado. Lecturas conservadas: 87.6%
+[INFO] 2026-04-01 08:09:46 - STAR: alineando contra genoma de referencia hg38
+[INFO] 2026-04-01 09:14:33 - STAR: alineamiento completado
+[INFO] 2026-04-01 09:14:33 - Lecturas alineadas: 92.3% (alineamiento único: 89.1%, múltiple: 3.2%)
+[WARNING] 2026-04-01 09:14:33 - 7.7% de lecturas sin alineamiento - posible contaminación
+[INFO] 2026-04-01 09:14:45 - SAMtools: ordenando y comprimiendo BAM
+[INFO] 2026-04-01 09:22:11 - SAMtools: indexando BAM
+[ERROR] 2026-04-01 09:22:45 - featureCounts: archivo de anotación GFF no encontrado en /data/ref/hg38.gff
+[ERROR] 2026-04-01 09:22:45 - Ruta esperada: /data/ref/hg38.gff - Ruta encontrada: /data/ref/hg38_v42.gff
+[INFO] 2026-04-01 09:22:46 - Reintentando con ruta alternativa: /data/ref/hg38_v42.gff
+[INFO] 2026-04-01 09:31:07 - featureCounts: conteo de lecturas por gen completado
+[INFO] 2026-04-01 09:31:07 - Genes detectados: 18,442 de 20,442 anotados (90.2%)
+[INFO] 2026-04-01 09:31:08 - DESeq2: análisis de expresión diferencial iniciado
+[WARNING] 2026-04-01 09:31:09 - DESeq2: solo 2 réplicas detectadas - resultados pueden ser poco robustos
+[INFO] 2026-04-01 09:35:22 - DESeq2: análisis completado
+[INFO] 2026-04-01 09:35:22 - Genes diferencialmente expresados (padj < 0.05): 1,247
+[INFO] 2026-04-01 09:35:22 - Genes sobreexpresados: 623 | Genes subexpresados: 624
+[INFO] 2026-04-01 09:35:23 - Generando gráficos: volcano plot, MA plot, heatmap
+[INFO] 2026-04-01 09:36:45 - Pipeline completado exitosamente
+[INFO] 2026-04-01 09:36:45 - Tiempo total de ejecución: 1h 35min 33seg
+[INFO] 2026-04-01 09:36:45 - Resultados guardados en: /resultados/muestra01/
