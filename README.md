@@ -22,9 +22,9 @@ La bioinformática moderna no puede entenderse sin programación. Este curso te 
 |--------|--------|------|--------|---------|
 | 1 | S00 | Presentación del curso | ✅ Disponible | [→ sesion_00](./sesion_00_introduccion/) |
 | 2 | S01 | Sistemas operativos y GNU/Linux. Terminal y comandos básicos | ✅ Disponible | [→ sesion_01](./sesion_01/) |
-| 3 | S02 | Ambiente de trabajo | ✅ Disponible | [→ sesion_02](./sesion_02/) |
-| 4 | S03 | Sistemas de archivos | ✅ Disponible | [→ sesion_03](./sesion_03/) |
-| 5 | S04 | **Flujo de datos** | ✅ Disponible | [→ sesion_04](./sesion_04/) |
+| 3 | S02 | Ambiente de trabajo | ✅ Disponible | [→ sesion_02](./Sesion_02/) |
+| 4 | S03 | Sistemas de archivos | ✅ Disponible | [→ sesion_03](./Sesion_03/) |
+| 5 | S04 | **Flujo de datos** | ✅ Disponible | [→ sesion_04](./Sesion_04/) |
 | 6 | S05 | Búsqueda de patrones | 🔜 Próximamente | — |
 | 7 | S06 | Manipulación de texto | 🔜 Próximamente | — |
 | 8 | —   | **LB1 — Laboratorio 1** | 📝 Semana 8 | — |
