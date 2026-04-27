@@ -520,7 +520,3 @@ Disponible en el catálogo UPC: [acceso aquí](https://catalogo.upc.edu.pe/perma
 ## 🔜 Próxima sesión
 
 **Sesión 06 — Comandos básicos II:** redirección, tuberías (`|`) y expresiones regulares con `grep`, `sed` y `awk`.
-
----
-
-*Material preparado por Manuel Ramírez Sáenz · Semestre 2026-1*
