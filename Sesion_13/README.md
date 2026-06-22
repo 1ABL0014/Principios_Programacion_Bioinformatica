@@ -7,30 +7,6 @@
 
 ---
 
-## 🎯 Logro de la Sesión
-
-Al finalizar esta sesión práctica, el estudiante:
-- Creará y manipulará **arrays (listas)** en Bash para almacenar colecciones de datos biológicos
-- Accederá, modificará y eliminará elementos de arrays usando índices
-- Usará **bucles `for` con listas** para procesar múltiples muestras o archivos automáticamente
-- Implementará **bucles `for` con tres expresiones** (estilo C) para controlar iteraciones numéricas precisas
-- Combinará arrays, bucles y condicionales para construir pipelines bioinformáticos reales
-- Automatizará el procesamiento de archivos FASTA, registros de muestras y reportes
-
-**Palabras clave:** Arrays, Listas, Bucles for, Automatización, Iteración, Rangos, Índices, Pipeline
-
----
-
-## 📋 Pre-requisitos
-
-- Haber completado las Sesiones 9 a 12
-- Saber crear y ejecutar scripts Bash (`chmod +x`, `./script.sh`)
-- Conocer variables, expansión de comandos y operaciones aritméticas (Sesión 12)
-- Conocer bucles `while` y estructuras `if/elif/else` (Sesión 11)
-- Conocer manipulación de cadenas: `${#var}`, `${var:n:m}`, `${var//x/y}` (Sesión 10)
-
----
-
 ## 🧠 1. Repaso Rápido
 
 En las sesiones anteriores construiste las tres columnas del scripting:
