@@ -7,39 +7,7 @@
 
 ---
 
-## 🧠 1. Repaso Rápido
-
-En las sesiones anteriores construiste las tres columnas del scripting:
-
-```bash
-# Sesión 10 — Manipulación de cadenas
-secuencia="ATCGATCGATCG"
-longitud=${#secuencia}          # → 12
-arn=${secuencia//T/U}           # → AUCGAUCGAUCG
-codon=${secuencia:0:3}          # → ATC
-
-# Sesión 11 — Bucles y condicionales
-for organismo in ecoli salmonella
-do
-    if [ ${#organismo} -gt 5 ]; then
-        echo "Nombre largo: $organismo"
-    fi
-done
-
-# Sesión 12 — Variables y operaciones
-MUESTRAS=100
-CALIDAD=$((MUESTRAS * 88 / 100))
-FECHA=$(date +"%Y-%m-%d")
-echo "Muestras con calidad: $CALIDAD — Fecha: $FECHA"
-```
-
-Hoy daremos el siguiente paso: en lugar de escribir manualmente cada elemento, los agruparemos en **arrays** y los procesaremos todos con una sola instrucción.
-
-> 💡 **La diferencia clave:** Con lo que sabías, para procesar 10 archivos FASTA necesitabas 10 comandos `grep`. Con arrays y `for`, necesitas exactamente 3 líneas — sin importar si son 10 o 10,000 archivos.
-
----
-
-## 🗃️ 2. Arrays (Listas) en Bash
+## 🗃️ 1. Arrays (Listas) en Bash
 
 ### ¿Qué es un array?
 
@@ -119,7 +87,7 @@ Primero: chr1   Último: chrY
 
 ---
 
-## 🛠️ 3. Operaciones con Arrays
+## 🛠️ 1. Operaciones con Arrays
 
 ### Leer el contenido del array
 
@@ -260,7 +228,7 @@ Total de muestras: 4
 
 ---
 
-## 🔄 4. Bucle FOR con Lista de Elementos
+## 🔄 3. Bucle FOR con Lista de Elementos
 
 ### Sintaxis y estructura
 
@@ -397,7 +365,7 @@ Total de bases en el ADN: 4
 
 ---
 
-## ⚙️ 5. Bucle FOR con Tres Expresiones (Estilo C)
+## ⚙️ 4. Bucle FOR con Tres Expresiones (Estilo C)
 
 ### Sintaxis
 
@@ -518,7 +486,7 @@ Progreso: 1000000 / 1000000 lecturas (100%)
 
 ---
 
-## 🧬 6. Scripts Bioinformáticos: De Simple a Complejo
+## 🧬 5. Scripts Bioinformáticos: De Simple a Complejo
 
 ---
 
