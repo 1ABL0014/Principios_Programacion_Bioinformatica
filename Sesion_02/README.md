@@ -1,5 +1,7 @@
 # Sesión 02 — Ambiente de Trabajo 🖥️🐧
 
+> 🔗 **Continuidad:** Continúa de **Sesión 01 — Sistema Operativo** (ya conoces la terminal y el shell). Los ejemplos con rutas y `cd`/`mkdir` aquí son una introducción ligera —el sílabo lo pide así—; **Sesión 03 — Sistemas de Archivos** los formaliza en detalle.
+
 > **Curso:** Principios de Programación en Bioinformática (1ABL0014)  
 > **Programa:** Biología — Facultad de Ciencias de la Salud  
 > **Universidad:** Universidad Peruana de Ciencias Aplicadas (UPC)  
@@ -747,8 +749,15 @@ conda env list
 
 ## 📚 Referencias y Recursos
 
-**Bibliografía del curso:**
-- Blum, R., & Bresnahan, C. (2021). *Linux command line and Shell scripting bible* (4th ed.). Wiley. Capítulos 1 y 2.
+**Obligatoria** (se envía una semana antes; base de las 5 preguntas de la evaluación inicial)
+- Blum, R., & Bresnahan, C. (2021). *Linux Command Line and Shell Scripting Bible* (4.ª ed.). Wiley. Capítulos 1 y 2 (~35 pp.). [Catálogo UPC](https://catalogo.upc.edu.pe/permalink/51UPC_INST/logil2/cdi_askewsholts_vlebooks_9781119700944)
+
+**Refuerzo** (opcional, no evaluable)
+- Barrett, D. J. (2022). *Efficient Linux at the Command Line*. O'Reilly Media. Parte 1, Capítulo 1.
+
+**Artículo** (opcional, aporta el "por qué biológico")
+- Grüning, B., Dale, R., Sjödin, A. et al. (2018). Bioconda: sustainable and comprehensive software distribution for the life sciences. *Nature Methods*, 15, 475–476. DOI [10.1038/s41592-018-0046-7](https://doi.org/10.1038/s41592-018-0046-7) — vía catálogo UPC.
+- Grüning, B., Chilton, J., Köster, J. et al. (2018). Practical Computational Reproducibility in the Life Sciences. *Cell Systems*, 6(6), 631–635. DOI [10.1016/j.cels.2018.03.014](https://doi.org/10.1016/j.cels.2018.03.014) — vía catálogo UPC.
 
 **Recursos en línea:**
 - [Documentación oficial de Conda](https://docs.conda.io/)
@@ -761,8 +770,6 @@ conda env list
 **Para profundizar:**
 - [Codecademy — Learn the Command Line](https://www.codecademy.com/learn/learn-the-command-line)
 - [Software Carpentry — The Unix Shell](https://swcarpentry.github.io/shell-novice/)
-
----
 
 ## 🔗 Navegación del Curso
 
