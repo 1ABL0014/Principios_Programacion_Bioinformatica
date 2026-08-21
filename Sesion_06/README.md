@@ -1,5 +1,7 @@
 # Sesión 06 — Comandos Básicos II
 
+> 🔗 **Continuidad:** Continúa de **Sesión 05 — Comandos Básicos I**. Cierra la Unidad I; **Sesión 07** inicia Shell Scripting usando estos mismos comandos dentro de scripts.
+
 > **Curso:** Principios de Programación en Bioinformática  
 > **Programa:** Biología · UPC · Facultad de Ciencias de la Salud  
 > **Docentes:** Frank Guzmán Escudero · Manuel Ramírez Sáenz  
@@ -1114,9 +1116,17 @@ awk '$3=="gene" {print $1, $4, $5, $7}' annotations.gff
 
 ## 📚 Referencias de la sesión
 
-- Sobell & Helmke (2017). *A Practical Guide to Linux Commands* (4a ed.). Pearson — **Cap. 4-5**
-- Shotts (2019). *The Linux Command Line* (2a ed.). No Starch Press — **Cap. 19-20**
-- Hausenblas (2022). *Learning Modern Linux*. O'Reilly — **Cap. 3**
+**Obligatoria** (se envía una semana antes; base de las 5 preguntas de la evaluación inicial)
+- Sobell, M., & Helmke, M. (2017). *A Practical Guide to Linux Commands, Editors, and Shell Programming* (4.ª ed.). Pearson. Capítulos 4–5 (~35 pp. — recortar rango exacto al confirmar en catálogo).
+
+**Refuerzo** (opcional, no evaluable)
+- Shotts, W. (2019). *The Linux Command Line* (2.ª ed.). No Starch Press. Capítulos 19–20 — expresiones regulares y procesamiento de texto.
+- Blum, R., & Bresnahan, C. (2021). *Linux Command Line and Shell Scripting Bible* (4.ª ed.). Wiley. Parte II, Capítulo 11. [Catálogo UPC](https://catalogo.upc.edu.pe/permalink/51UPC_INST/logil2/cdi_askewsholts_vlebooks_9781119700944)
+- Hausenblas, M. (2022). *Learning Modern Linux*. O'Reilly Media. Capítulo 3.
+
+**Artículo** (opcional, aporta el "por qué biológico" — cierre de la Unidad I)
+- Ziemann, M., Eren, Y., & El-Osta, A. (2016). Gene name errors are widespread in the scientific literature. *Genome Biology*, 17, 177. DOI [10.1186/s13059-016-1044-7](https://doi.org/10.1186/s13059-016-1044-7) — acceso abierto.
+- Cock, P. J. A., Fields, C. J., Goto, N. et al. (2010). The Sanger FASTQ file format for sequences with quality scores, and the Solexa/Illumina FASTQ variants. *Nucleic Acids Research*, 38(6), 1767–1771. DOI [10.1093/nar/gkp1137](https://doi.org/10.1093/nar/gkp1137) — acceso abierto.
 
 ---
 
@@ -1124,4 +1134,4 @@ awk '$3=="gene" {print $1, $4, $5, $7}' annotations.gff
 
 ---
 
-_Repositorio del curso 1ABL0014 · UPC · Semestre 2026-1_
+_Repositorio del curso 1ABL0014 · UPC · Semestre 2026-2_
