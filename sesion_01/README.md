@@ -1,5 +1,7 @@
 # 📘 Sesión 01 — Sistema Operativo
 
+> 🔗 **Continuidad:** **Sesión 01 de 6** — primera del curso. Prepara el terreno para **Sesión 02 — Ambiente de Trabajo**, donde se instala Conda y se retoma la terminal ya usada aquí.
+
 > **Curso:** 1ABL0014 · Principios de Programación en Bioinformática
 > **Unidad:** I — Introducción a GNU/Linux
 > **Duración:** 230 minutos
@@ -483,11 +485,20 @@ URL: [https://www.ncbi.nlm.nih.gov/genome/guide/human/](https://www.ncbi.nlm.nih
 
 ## Referencias
 
-- Hausenblas, M. (2022). *Learning Modern Linux*. O'Reilly Media. Capitulos 1 y 2.
-- Tanenbaum, A. S., & Bos, H. (2016). *Modern Operating Systems* (4th ed.). Pearson.
-- NCBI Human Genome Resources: https://www.ncbi.nlm.nih.gov/genome/guide/human/
+**Obligatoria** (se envía una semana antes; base de las 5 preguntas de la evaluación inicial)
+- Hausenblas, M. (2022). *Learning Modern Linux*. O'Reilly Media. Capítulo 1 (~20 pp.).
 
----
+**Refuerzo** (opcional, no evaluable)
+- Ward, B. (2021). *How Linux Works* (3.ª ed.). No Starch Press. Capítulo 1 — "The Big Picture".
+- Tanenbaum, A. S., & Bos, H. (2016). *Modern Operating Systems* (4th ed.). Pearson. Capítulo 1.
+- Akalin, A. (2021). *Computational Genomics with R*. Chapman and Hall/CRC. Capítulo 1.
+
+**Artículo** (opcional, aporta el "por qué biológico")
+- Stein, L. D. (2010). The case for cloud computing in genome informatics. *Genome Biology*, 11, 207. DOI [10.1186/gb-2010-11-5-207](https://doi.org/10.1186/gb-2010-11-5-207) — acceso abierto.
+- Langmead, B., & Nellore, A. (2018). Cloud computing for genomic data analysis and collaboration. *Nature Reviews Genetics*, 19, 208–219. DOI [10.1038/nrg.2017.113](https://doi.org/10.1038/nrg.2017.113) — vía catálogo UPC.
+
+**Recurso de práctica**
+- NCBI Human Genome Resources: https://www.ncbi.nlm.nih.gov/genome/guide/human/
 
 ## Proxima sesion
 
