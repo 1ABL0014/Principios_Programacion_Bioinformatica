@@ -1,5 +1,7 @@
 # Sesión 03 — Sistemas de Archivos
 
+> 🔗 **Continuidad:** Continúa de **Sesión 02 — Ambiente de Trabajo**, donde ya viste `cd`/`mkdir` de forma introductoria. Con la estructura de directorios y rutas dominadas, **Sesión 04 — Flujo de Datos** las usa para redirigir y encadenar comandos.
+
 **Curso:** Principios de Programación en Bioinformática (1ABL0014)  
 **Programa:** Biología — Facultad de Ciencias de la Salud, UPC  
 **Docentes:** Frank Guzman Escudero · Manuel Ramírez Sáenz  
@@ -448,12 +450,19 @@ Escoge una especie animal de tu interés (diferente a *Homo sapiens*) y construy
 
 ## Referencias bibliográficas
 
-- Blum, R., & Bresnahan, C. (2021). *Linux command line and Shell scripting bible* (4th ed.). Wiley. **Capítulo 3.**  
+**Obligatoria** (se envía una semana antes; base de las 5 preguntas de la evaluación inicial)
+- Blum, R., & Bresnahan, C. (2021). *Linux command line and Shell scripting bible* (4.ª ed.). Wiley. **Capítulo 3** (~30 pp.).
   [Acceso en catálogo UPC](https://catalogo.upc.edu.pe/permalink/51UPC_INST/logil2/cdi_askewsholts_vlebooks_9781119700944)
 
+**Refuerzo** (opcional, no evaluable)
+- Barrett, D. J. (2022). *Efficient Linux at the Command Line*. O'Reilly Media. Parte 1 — manipulación y gestión de archivos y directorios.
 - Pevsner, J. (2015). *Bioinformatics and Functional Genomics* (3rd ed.). Wiley-Blackwell. Capítulo 1.
-
 - Buffalo, V. (2015). *Bioinformatics Data Skills*. O'Reilly Media. Capítulos 3-4.
+
+**Artículo** (opcional, aporta el "por qué biológico")
+- Noble, W. S. (2009). A Quick Guide to Organizing Computational Biology Projects. *PLoS Computational Biology*, 5(7), e1000424. DOI [10.1371/journal.pcbi.1000424](https://doi.org/10.1371/journal.pcbi.1000424) — acceso abierto.
+- Hart, E. M., Barmby, P., LeBauer, D. et al. (2016). Ten Simple Rules for Digital Data Storage. *PLOS Computational Biology*, 12(10), e1005097. DOI [10.1371/journal.pcbi.1005097](https://doi.org/10.1371/journal.pcbi.1005097) — acceso abierto.
+- Wilkinson, M. D. et al. (2016). The FAIR Guiding Principles for scientific data management and stewardship. *Scientific Data*, 3, 160018. DOI [10.1038/sdata.2016.18](https://doi.org/10.1038/sdata.2016.18) — acceso abierto.
 
 ---
 
