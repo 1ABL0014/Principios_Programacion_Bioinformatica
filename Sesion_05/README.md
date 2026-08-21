@@ -1,5 +1,7 @@
 # Sesión 05 — Comandos básicos I
 
+> 🔗 **Continuidad:** Continúa de **Sesión 04 — Flujo de Datos** (redirección y tuberías ya vistas). **Sesión 06 — Comandos Básicos II** añade `grep`, `sed` y `awk` sobre esta misma base de comandos.
+
 > **Curso:** Principios de Programación en Bioinformática (1ABL0014)  
 > **Programa:** Biología · Facultad de Ciencias de la Salud · UPC  
 > **Docentes:** Frank Guzman Escudero · Manuel Ramírez Sáenz  
@@ -512,10 +514,17 @@ Sube tu solución como un script `.sh` al campus virtual.
 
 ## 📖 Referencia bibliográfica
 
-Ward, B. (2021). *How Linux Works* (3rd ed., Cap. 2). No Starch Press.  
-Disponible en el catálogo UPC: [acceso aquí](https://catalogo.upc.edu.pe/permalink/51UPC_INST/logil2/cdi_safari_books_v2_9781098128913)
+**Obligatoria** (se envía una semana antes; base de las 5 preguntas de la evaluación inicial)
+- Ward, B. (2021). *How Linux Works* (3.ª ed.). No Starch Press. Capítulo 2 — "Basic Commands and Directory Hierarchy" (~30 pp.).
+  Disponible en el catálogo UPC: [acceso aquí](https://catalogo.upc.edu.pe/permalink/51UPC_INST/logil2/cdi_safari_books_v2_9781098128913)
 
----
+**Refuerzo** (opcional, no evaluable)
+- Kothari, D., Shriram, K., & Sundaram, R. (2011). *Linux*. New Age International. Capítulo 5. [Catálogo UPC](https://catalogo.upc.edu.pe/permalink/51UPC_INST/logil2/cdi_proquest_ebookcentral_EBC5490883)
+- Sobell, M., & Helmke, M. (2017). *A Practical Guide to Linux Commands, Editors, and Shell Programming* (4.ª ed.). Pearson. Parte 1, Capítulo 5.
+
+**Artículo** (opcional, aporta el "por qué biológico")
+- Carey, M. A., & Papin, J. A. (2018). Ten simple rules for biologists learning to program. *PLOS Computational Biology*, 14(1), e1005871. DOI [10.1371/journal.pcbi.1005871](https://doi.org/10.1371/journal.pcbi.1005871) — acceso abierto.
+- Wilson, G., Bryan, J., Cranston, K. et al. (2017). Good enough practices in scientific computing. *PLOS Computational Biology*, 13(6), e1005510. DOI [10.1371/journal.pcbi.1005510](https://doi.org/10.1371/journal.pcbi.1005510) — acceso abierto.
 
 ## 🔜 Próxima sesión
 
