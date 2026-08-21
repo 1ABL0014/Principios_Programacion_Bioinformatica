@@ -1,5 +1,7 @@
 # 📘 Sesión 04 — Flujo de Datos
 
+> 🔗 **Continuidad:** Continúa de **Sesión 03 — Sistemas de Archivos** (rutas absolutas/relativas ya dominadas). **Sesión 05 — Comandos Básicos I** retoma estas tuberías para aplicarlas sobre archivos reales.
+
 > **Curso:** 1ABL0014 · Principios de Programación en Bioinformática  
 > **Unidad:** I — Introducción a GNU/Linux  
 > **Referencia:** Kothari, D., Shriram, K., & Sundaram, R. (2011). *Linux*. New Age International. Cap. 3.
@@ -450,9 +452,16 @@ Realiza los siguientes ejercicios en Google Cloud Shell y guarda los comandos us
 
 ## 📖 Referencias
 
-- Kothari, D., Shriram, K., & Sundaram, R. (2011). *Linux*. New Age International. Capítulo 3. [Acceso UPC](https://catalogo.upc.edu.pe/permalink/51UPC_INST/logil2/cdi_proquest_ebookcentral_EBC5490883)
-- Shotts, W. (2019). *The Linux Command Line* (2a ed.). No Starch Press. Capítulos 6–7.
-- Perez-Riverol, Y. et al. (2019). Ten Simple Rules for Taking Advantage of Git and GitHub. *PLOS Computational Biology*.
+**Obligatoria** (se envía una semana antes; base de las 5 preguntas de la evaluación inicial)
+- Kothari, D., Shriram, K., & Sundaram, R. (2011). *Linux*. New Age International. Capítulo 3 (~25 pp.). [Acceso UPC](https://catalogo.upc.edu.pe/permalink/51UPC_INST/logil2/cdi_proquest_ebookcentral_EBC5490883)
+
+**Refuerzo** (opcional, no evaluable)
+- Shotts, W. (2019). *The Linux Command Line* (2.ª ed.). No Starch Press. Capítulos 6–7 — redirección y "Seeing the World as the Shell Sees It".
+- Barrett, D. J. (2022). *Efficient Linux at the Command Line*. O'Reilly Media. Capítulo 1.
+
+**Artículo** (opcional, aporta el "por qué biológico")
+- Perez-Riverol, Y., Gatto, L., Wang, R. et al. (2016). Ten Simple Rules for Taking Advantage of Git and GitHub. *PLOS Computational Biology*, 12(7), e1004947. DOI [10.1371/journal.pcbi.1004947](https://doi.org/10.1371/journal.pcbi.1004947) — acceso abierto. *(Año corregido: el artículo es de 2016; 2019 corresponde a una corrección posterior del mismo, DOI 10.1371/journal.pcbi.1007142.)*
+- Leipzig, J. (2016). A review of bioinformatic pipeline frameworks. *Briefings in Bioinformatics*, 18(3), 530–536. DOI [10.1093/bib/bbw020](https://doi.org/10.1093/bib/bbw020) — verificar acceso vía catálogo.
 
 ---
 
