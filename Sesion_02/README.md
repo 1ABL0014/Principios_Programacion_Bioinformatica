@@ -727,26 +727,6 @@ Responde las siguientes preguntas para verificar tu comprensión:
    - Una captura de pantalla por cada paso importante
    - Una breve explicación de qué hace cada comando
 
-**Comandos de referencia:**
-```bash
-# FastQC en bio_01
-conda create -n bio_01 -c bioconda fastqc
-conda activate bio_01
-fastqc --version
-conda deactivate
-
-# Trimmomatic en bio_02
-conda create -n bio_02 -c bioconda trimmomatic
-conda activate bio_02
-trimmomatic -version
-conda deactivate
-
-# Verificar ambos entornos
-conda env list
-```
-
----
-
 ## 📚 Referencias y Recursos
 
 **Obligatoria** (se envía una semana antes; base de las 5 preguntas de la evaluación inicial)
