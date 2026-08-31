@@ -145,7 +145,7 @@ Todos los libros están disponibles en el catálogo UPC.
 
 ```bash
 # Primera vez: clonar el repositorio
-git clone https://github.com/1ABL0014/Principios_Programacion_Bioinformatica.git
+git clone https://github.com/1ABL0053/Principios_Programacion_Bioinformatica.git
 cd Principios_Programacion_Bioinformatica
 
 # Semanas siguientes: actualizar
