@@ -595,30 +595,6 @@ samtools --help
 conda deactivate
 ```
 
-#### Ejercicio 2 — FastQC (control de calidad de secuencias)
-
-```bash
-# Crear entorno para herramientas de QC
-conda create -n bio_01 -c bioconda fastqc
-
-conda activate bio_01
-fastqc --version
-
-conda deactivate
-```
-
-#### Ejercicio 3 — Trimmomatic (filtrado de lecturas)
-
-```bash
-# Crear entorno separado
-conda create -n bio_02 -c bioconda trimmomatic
-
-conda activate bio_02
-trimmomatic -version
-
-conda deactivate
-```
-
 ---
 
 ### ¿Por qué un entorno por herramienta?
