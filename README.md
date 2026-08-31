@@ -1,4 +1,4 @@
-# 🧬 1ABL0014 — Principios de Programación en Bioinformática
+# 🧬 1ABL0053 — Principios de Programación en Bioinformática
 
 > **Programa de Biología · Universidad Peruana de Ciencias Aplicadas (UPC)**
 > **Facultad de Ciencias de la Salud · Ciclo Cuarto · 2 créditos · 4 horas prácticas semanales**
