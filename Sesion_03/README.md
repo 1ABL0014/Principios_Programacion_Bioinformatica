@@ -2,10 +2,10 @@
 
 > 🔗 **Continuidad:** Continúa de **Sesión 02 — Ambiente de Trabajo**, donde ya viste `cd`/`mkdir` de forma introductoria. Con la estructura de directorios y rutas dominadas, **Sesión 04 — Flujo de Datos** las usa para redirigir y encadenar comandos.
 
-**Curso:** Principios de Programación en Bioinformática (1ABL0014)  
+**Curso:** Principios de Programación en Bioinformática (1ABL0053)  
 **Programa:** Biología — Facultad de Ciencias de la Salud, UPC  
 **Docentes:** Frank Guzman Escudero · Manuel Ramírez Sáenz  
-**Semestre:** 2026-1
+**Semestre:** 2026-2
 
 ---
 
