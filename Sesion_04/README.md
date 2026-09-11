@@ -399,44 +399,6 @@ ls -l datos_paciente.vcf
 
 ---
 
-## 📁 Archivos de esta sesión
-
-```
-sesion_04/
-├── README.md                    ← Estás aquí
-├── practica_guiada.sh           ← Script con todos los ejercicios comentados
-└── datos/
-    ├── README.md                ← Descripción de los archivos de datos
-    ├── ecoli_genes.fasta        ← 5 genes de E. coli K-12
-    ├── genes_resistencia.fasta  ← Genes de resistencia antibiótica
-    ├── especies_genomicas.tsv   ← Tabla de 10 organismos modelo
-    └── pipeline_rnaseq.log      ← Log simulado de pipeline RNA-seq
-```
-
----
-
-## 🚀 Cómo usar estos materiales
-
-```bash
-# 1. Clona el repositorio (solo la primera vez)
-git clone https://github.com/TU_USUARIO/1ABL0014-Principios-Programacion-Bioinformatica.git
-
-# 2. Actualiza si ya lo tienes
-cd 1ABL0014-Principios-Programacion-Bioinformatica
-git pull
-
-# 3. Ve a la carpeta de esta sesión
-cd sesion_04/datos/
-
-# 4. Verifica que tienes los archivos
-ls -lh
-
-# 5. Abre el script de práctica como guía
-cat ../practica_guiada.sh | less
-```
-
----
-
 ## ✅ Actividad asincrónica
 
 Realiza los siguientes ejercicios en Google Cloud Shell y guarda los comandos usados en un archivo `tarea_s04.sh`:
