@@ -506,9 +506,7 @@ Trabaja con `datos/seqs_1.fasta` y `datos/seqs_2.fasta` y responde usando comand
 3. Extrae y ordena los nombres de las secuencias de cada archivo.
 4. ¿Hay algún nombre que aparezca en ambos archivos?
 
-**Pista para la pregunta 4:** investiga el comando `comm` (compara dos archivos ordenados).
-
-Sube tu solución como un script `.sh` al campus virtual.
+**Pista para la pregunta 4:** investiga el comando `comm` (compara dos archivos ordenados, buscar información del comando).
 
 ---
 
