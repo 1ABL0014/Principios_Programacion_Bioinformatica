@@ -415,24 +415,7 @@ wget https://www.dropbox.com/s/jvuh9ot5808niuz/Myrtales_1.fasta
 
 ---
 
-## 4. Práctica guiada
-
-```bash
-# Obtener los materiales
-git clone https://github.com/1ABL0014/Principios_Programacion_Bioinformatica.git
-cd Principios_Programacion_Bioinformatica/Sesion_05
-
-# O actualizar si ya tienes el repositorio
-git pull
-cd Sesion_05
-
-# Ejecutar la práctica paso a paso
-bash practica_guiada.sh
-```
-
-Consulta [`datos/README.md`](datos/README.md) para ver la descripción de cada archivo y los resultados esperados.
-
----
+## 4. Práctica 
 
 ### 4.1 `cat` — crear, ver y concatenar
 
