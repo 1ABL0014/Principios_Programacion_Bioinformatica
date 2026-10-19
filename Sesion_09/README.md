@@ -340,7 +340,6 @@ En esta práctica **primero pensamos en papel y después tecleamos**. Cada ejerc
 | **S09-A** | Predecir | Lees un script completo, comentas cada línea y escribes la salida que esperas **antes** de ejecutarlo | 🟢 Básico |
 | **S09-B** | Completar | Llenas los espacios en blanco (`______`) para que el script funcione | 🟡 Intermedio |
 | **S09-C** | Crear | Escribes el script completo desde cero, solo con el objetivo y algunas pistas | 🔴 Avanzado |
-| **S09-D** | Completar | Llenas los huecos de un script que **lee** un FASTA que le das como entrada | 🟡 Intermedio |
 
 **¿Por qué los números de línea?** Porque Bash te avisa los errores por línea. Si ves:
 
@@ -450,107 +449,6 @@ wc -c secuencias.fasta
 ```
 
 > Tu solución puede ser distinta y estar igual de bien. Lo importante es que haga lo que pide el objetivo y que puedas explicar cada línea.
-
-</details>
-
-### Ejercicio 4: Un archivo FASTA como entrada
-📄 **Hoja S09-D · Completar** — Llena los 4 huecos, predice la salida y recién entonces ejecuta.
-
-En los ejercicios anteriores el script **creaba** sus propios datos. En el trabajo real pasa lo contrario: las secuencias ya existen (las descargaste de NCBI o salieron del secuenciador) y tu script tiene que **leerlas**. Además, quieres usar el **mismo script** con cualquier archivo, sin editarlo cada vez.
-
-Para eso escribes el nombre del archivo **al ejecutar el script**, después del nombre del script:
-
-```bash
-./ejercicio4_explorar_fasta.sh datos/genes_resistencia.fasta
-#           ↑ el script              ↑ la entrada (argumento)
-```
-
-Dentro del script, Bash guarda esa entrada en una variable especial llamada **`$1`** ("el primer argumento"). Si en la línea 06 escribes `ARCHIVO=$1`, desde ahí en adelante `$ARCHIVO` vale `datos/genes_resistencia.fasta`. En la Sesión 10 veremos las variables a fondo; hoy basta con esta idea: **`$1` es lo que escribiste después del nombre del script.**
-
-**Los datos de entrada** están en la carpeta [`datos/`](datos/) de esta sesión:
-
-| Archivo | Contenido |
-|---|---|
-| `genes_resistencia.fasta` | 5 genes de resistencia y referencia (*blaZ*, *tetM*, *mecA*, 16S, *cpa*) de distintas bacterias |
-| `ecoli_genes.fasta` | 5 genes codificantes de *E. coli* K-12 MG1655 (*thrL*, *thrA*, *thrB*, *thrC*, *yaaX*) |
-
-Ambos tienen **cada secuencia en una sola línea**. Esto importa: cuando una secuencia ocupa varias líneas, contar líneas ya no equivale a contar secuencias. Por eso contamos cabeceras (`>`), no líneas.
-
-**Cómo lo trabajamos:**
-
-1. Completa la Hoja S09-D y escribe la salida que predices para `genes_resistencia.fasta`.
-2. Teclea el script, dale permisos y ejecútalo:
-   ```bash
-   chmod +x ejercicio4_explorar_fasta.sh
-   ./ejercicio4_explorar_fasta.sh datos/genes_resistencia.fasta
-   ```
-3. **Sin cambiar ni una línea**, ejecútalo con el otro archivo:
-   ```bash
-   ./ejercicio4_explorar_fasta.sh datos/ecoli_genes.fasta
-   ```
-   Esa es la idea central del ejercicio: un script, muchas entradas.
-
-**Salida esperada** con `genes_resistencia.fasta`:
-```
-=== Archivo analizado: datos/genes_resistencia.fasta ===
-Número de secuencias: 5
-
-Identificadores:
->gene_resistencia_ampicilina
->gene_resistencia_tetraciclina
->gene_resistencia_meticilina
->gen_housekeeping_16S_rRNA
->gen_patogenicidad_toxina
-
-Organismos y cuántas secuencias tiene cada uno:
-      1 organism=Bacteria
-      1 organism=Clostridium perfringens
-      1 organism=Escherichia coli
-      2 organism=Staphylococcus aureus
-
-Total de nucleótidos: 473
-```
-
-Con `ecoli_genes.fasta` deberías obtener 5 secuencias, todas de `organism=Escherichia coli K-12`, y **2724** nucleótidos en total.
-
-**¿Qué hace cada pieza?**
-
-| Línea | Comando | Qué hace |
-|---|---|---|
-| 09 | `grep -c '>'` | Cuenta las líneas que tienen `>`, es decir, las cabeceras |
-| 12 | `cut -d ' ' -f 1` | Corta la cabecera en cada espacio y se queda con el primer pedazo: el identificador |
-| 15 | `grep -o 'organism=[^]]*'` | Extrae solo el texto `organism=...` hasta el corchete `]`. Es una expresión regular: las veremos en las Sesiones 11 y 12 |
-| 15 | `sort \| uniq -c` | Ordena y cuenta cuántas veces aparece cada organismo |
-| 17 | `grep -v '>' \| tr -d '\n' \| wc -c` | Toma solo las líneas de secuencia (`-v` invierte la búsqueda), las une quitando los saltos de línea y cuenta los caracteres |
-
-> ⚠️ **Error típico: olvidar la entrada.** Si ejecutas `./ejercicio4_explorar_fasta.sh` sin nombre de archivo, `$1` queda vacío y `grep` se queda **esperando que escribas algo con el teclado**: el script parece "congelado". Sal con `Ctrl + C` y vuelve a ejecutarlo con el archivo. En la Sesión 14 aprenderás a que el script detecte este error y te avise con un mensaje.
-
-**🔴 Reto (opcional):** agrega una línea que muestre la **primera secuencia completa** (cabecera y secuencia). Pista: `head`.
-
-<details>
-<summary>🔓 Ver solución completa (solo después de completar tu hoja)</summary>
-
-```bash
-#!/bin/bash
-# Autor: Tu Nombre   Fecha: 19/10/2026
-# ejercicio4_explorar_fasta.sh — explora CUALQUIER archivo FASTA
-# Uso: ./ejercicio4_explorar_fasta.sh datos/genes_resistencia.fasta
-
-ARCHIVO=$1
-
-echo "=== Archivo analizado: $ARCHIVO ==="
-echo "Número de secuencias: $(grep -c '>' $ARCHIVO)"
-echo ""
-echo "Identificadores:"
-grep '>' $ARCHIVO | cut -d ' ' -f 1
-echo ""
-echo "Organismos y cuántas secuencias tiene cada uno:"
-grep -o 'organism=[^]]*' $ARCHIVO | sort | uniq -c
-echo ""
-echo "Total de nucleótidos: $(grep -v '>' $ARCHIVO | tr -d '\n' | wc -c)"
-```
-
-**Reto:** `head -n 2 $ARCHIVO` muestra la cabecera y la secuencia del primer registro (funciona porque cada secuencia ocupa una sola línea).
 
 </details>
 
