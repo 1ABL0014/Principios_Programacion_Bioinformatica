@@ -329,31 +329,7 @@ bash mi_primer_script.sh
 ### Objetivo
 Crear un script que automatice tareas comunes en bioinformática: manejo de archivos de secuencias, directorios de trabajo y reportes.
 
-### 📄 Cómo trabajamos hoy: hojas de script
-
-En esta práctica **primero pensamos en papel y después tecleamos**. Cada ejercicio tiene una hoja impresa con líneas numeradas, la línea `01` ya escrita con el shebang `#!/bin/bash` y una columna `# Comentarios` donde explicas qué hace cada línea.
-
-👉 **Descarga e imprime las hojas de hoy:** [`hojas/Hojas_S09.pdf`](hojas/Hojas_S09.pdf)
-
-| Hoja | Tipo | Qué haces | Nivel |
-|---|---|---|---|
-| **S09-A** | Predecir | Lees un script completo, comentas cada línea y escribes la salida que esperas **antes** de ejecutarlo | 🟢 Básico |
-| **S09-B** | Completar | Llenas los espacios en blanco (`______`) para que el script funcione | 🟡 Intermedio |
-| **S09-C** | Crear | Escribes el script completo desde cero, solo con el objetivo y algunas pistas | 🔴 Avanzado |
-
-**¿Por qué los números de línea?** Porque Bash te avisa los errores por línea. Si ves:
-
-```
-./ejercicio1_bienvenida.sh: line 8: whomai: command not found
-```
-
-vas directo a la línea `08` de tu hoja y encuentras el error (`whomai` en lugar de `whoami`). Marca en la hoja si tu script funcionó a la primera y en qué línea estaba el error: es parte del aprendizaje.
-
-> 💡 **Regla de oro:** la columna `# Comentarios` de tu hoja es exactamente lo que vas a escribir después del `#` cuando tecleas el script. Si no puedes explicar una línea, todavía no la entiendes.
-
 ### Ejercicio 1: Script de Bienvenida y Navegación
-📄 **Hoja S09-A · Predecir** — Comenta cada línea y predice la salida antes de ejecutar.
-
 ```bash
 #!/bin/bash
 # ejercicio1_bienvenida.sh
@@ -374,21 +350,16 @@ df -h .
 ```
 
 ### Ejercicio 2: Creador de Estructura de Proyecto
-📄 **Hoja S09-B · Completar** — Llena los espacios en blanco de tu hoja. Abre la solución solo cuando hayas terminado.
-
-<details>
-<summary>🔓 Ver solución (solo después de completar tu hoja)</summary>
-
 ```bash
 #!/bin/bash
-# Autor: Tu Nombre   Fecha: 12/10/2026
-# ejercicio2_proyecto.sh — base de operaciones
+# ejercicio2_proyecto.sh
 
-PROYECTO="operacion_KPC"
+# Crear estructura de directorios para un proyecto de metagenómica
+PROYECTO="mi_proyecto_bioinfo"
 
 echo "Creando estructura de proyecto: $PROYECTO"
 
-mkdir -p $PROYECTO/{datos_crudos,datos_procesados,resultados,scripts,logs,referencias}
+mkdir -p $PROYECTO/{datos_raw,datos_procesados,resultados,scripts,logs,referencias}
 
 echo "Estructura creada:"
 find $PROYECTO -type d | sort
@@ -397,29 +368,7 @@ echo ""
 echo "¡Listo para comenzar tu análisis!"
 ```
 
-**Salida esperada:**
-```
-Creando estructura de proyecto: operacion_KPC
-Estructura creada:
-operacion_KPC
-operacion_KPC/datos_crudos
-operacion_KPC/datos_procesados
-operacion_KPC/logs
-operacion_KPC/referencias
-operacion_KPC/resultados
-operacion_KPC/scripts
-
-¡Listo para comenzar tu análisis!
-```
-
-</details>
-
 ### Ejercicio 3: Analizador de Archivos FASTA (Simulado)
-📄 **Hoja S09-C · Crear** — Escribe el script a mano, sin teclado. Objetivo: crear `secuencias.fasta` con 3 secuencias, contar cuántas hay, mostrar sus identificadores y el tamaño del archivo. Después tecléalo y ejecútalo.
-
-<details>
-<summary>🔓 Ver una solución posible (solo después de completar tu hoja)</summary>
-
 ```bash
 #!/bin/bash
 # ejercicio3_fasta.sh
@@ -448,10 +397,6 @@ echo "Longitud total del archivo:"
 wc -c secuencias.fasta
 ```
 
-> Tu solución puede ser distinta y estar igual de bien. Lo importante es que haga lo que pide el objetivo y que puedas explicar cada línea.
-
-</details>
-
 ---
 
 ## 📸 7. Actividad Asincrónica
@@ -479,8 +424,6 @@ wc -c secuencias.fasta
 > *Este mensaje se autodestruirá en 5 segundos.* 💥
 
 **Entrega:** sube tus scripts a tu repositorio de GitHub (`principios-programacion-bioinfo`) antes de la Sesión 10.
-
-**Primero en papel:** imprime la [plantilla de hoja de script](../recursos/hojas_bash/plantilla_hoja_bash.pdf) y escribe a mano cada fase antes de teclearla. Sube a tu repositorio la **foto de tu hoja** junto con la captura de la ejecución: así se ve cómo pensaste tu script, no solo el resultado.
 
 ---
 
@@ -600,7 +543,6 @@ Antes de abandonar el terreno, confirma:
 - [ ] Cada script tiene un comentario con mi nombre, la fecha y qué hace
 - [ ] Todos los scripts tienen permisos de ejecución (`chmod +x nombre_script.sh`)
 - [ ] Los scripts se ejecutan sin errores
-- [ ] Escribí cada fase primero en una hoja de script y subí la foto de cada hoja
 - [ ] Incluí capturas de pantalla de la ejecución exitosa de cada fase
 - [ ] Subí todo a GitHub con un mensaje de commit descriptivo (ej: `git commit -m "Sesion 09: Operacion KPC fases 1 y 2"`)
 
