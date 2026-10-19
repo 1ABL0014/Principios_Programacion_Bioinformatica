@@ -329,7 +329,32 @@ bash mi_primer_script.sh
 ### Objetivo
 Crear un script que automatice tareas comunes en bioinformática: manejo de archivos de secuencias, directorios de trabajo y reportes.
 
+### 📄 Cómo trabajamos hoy: hojas de script
+
+En esta práctica **primero pensamos en papel y después tecleamos**. Cada ejercicio tiene una hoja impresa con líneas numeradas, la línea `01` ya escrita con el shebang `#!/bin/bash` y una columna `# Comentarios` donde explicas qué hace cada línea.
+
+👉 **Descarga e imprime las hojas de hoy:** [`hojas/Hojas_S09.pdf`](hojas/Hojas_S09.pdf)
+
+| Hoja | Tipo | Qué haces | Nivel |
+|---|---|---|---|
+| **S09-A** | Predecir | Lees un script completo, comentas cada línea y escribes la salida que esperas **antes** de ejecutarlo | 🟢 Básico |
+| **S09-B** | Completar | Llenas los espacios en blanco (`______`) para que el script funcione | 🟡 Intermedio |
+| **S09-C** | Crear | Escribes el script completo desde cero, solo con el objetivo y algunas pistas | 🔴 Avanzado |
+| **S09-D** | Completar | Llenas los huecos de un script que **lee** un FASTA que le das como entrada | 🟡 Intermedio |
+
+**¿Por qué los números de línea?** Porque Bash te avisa los errores por línea. Si ves:
+
+```
+./ejercicio1_bienvenida.sh: line 8: whomai: command not found
+```
+
+vas directo a la línea `08` de tu hoja y encuentras el error (`whomai` en lugar de `whoami`). Marca en la hoja si tu script funcionó a la primera y en qué línea estaba el error: es parte del aprendizaje.
+
+> 💡 **Regla de oro:** la columna `# Comentarios` de tu hoja es exactamente lo que vas a escribir después del `#` cuando tecleas el script. Si no puedes explicar una línea, todavía no la entiendes.
+
 ### Ejercicio 1: Script de Bienvenida y Navegación
+📄 **Hoja S09-A · Predecir** — Comenta cada línea y predice la salida antes de ejecutar.
+
 ```bash
 #!/bin/bash
 # ejercicio1_bienvenida.sh
@@ -350,16 +375,21 @@ df -h .
 ```
 
 ### Ejercicio 2: Creador de Estructura de Proyecto
+📄 **Hoja S09-B · Completar** — Llena los espacios en blanco de tu hoja. Abre la solución solo cuando hayas terminado.
+
+<details>
+<summary>🔓 Ver solución (solo después de completar tu hoja)</summary>
+
 ```bash
 #!/bin/bash
-# ejercicio2_proyecto.sh
+# Autor: Tu Nombre   Fecha: 12/10/2026
+# ejercicio2_proyecto.sh — base de operaciones
 
-# Crear estructura de directorios para un proyecto de metagenómica
-PROYECTO="mi_proyecto_bioinfo"
+PROYECTO="operacion_KPC"
 
 echo "Creando estructura de proyecto: $PROYECTO"
 
-mkdir -p $PROYECTO/{datos_raw,datos_procesados,resultados,scripts,logs,referencias}
+mkdir -p $PROYECTO/{datos_crudos,datos_procesados,resultados,scripts,logs,referencias}
 
 echo "Estructura creada:"
 find $PROYECTO -type d | sort
@@ -368,7 +398,29 @@ echo ""
 echo "¡Listo para comenzar tu análisis!"
 ```
 
+**Salida esperada:**
+```
+Creando estructura de proyecto: operacion_KPC
+Estructura creada:
+operacion_KPC
+operacion_KPC/datos_crudos
+operacion_KPC/datos_procesados
+operacion_KPC/logs
+operacion_KPC/referencias
+operacion_KPC/resultados
+operacion_KPC/scripts
+
+¡Listo para comenzar tu análisis!
+```
+
+</details>
+
 ### Ejercicio 3: Analizador de Archivos FASTA (Simulado)
+📄 **Hoja S09-C · Crear** — Escribe el script a mano, sin teclado. Objetivo: crear `secuencias.fasta` con 3 secuencias, contar cuántas hay, mostrar sus identificadores y el tamaño del archivo. Después tecléalo y ejecútalo.
+
+<details>
+<summary>🔓 Ver una solución posible (solo después de completar tu hoja)</summary>
+
 ```bash
 #!/bin/bash
 # ejercicio3_fasta.sh
@@ -397,44 +449,264 @@ echo "Longitud total del archivo:"
 wc -c secuencias.fasta
 ```
 
+> Tu solución puede ser distinta y estar igual de bien. Lo importante es que haga lo que pide el objetivo y que puedas explicar cada línea.
+
+</details>
+
+### Ejercicio 4: Un archivo FASTA como entrada
+📄 **Hoja S09-D · Completar** — Llena los 4 huecos, predice la salida y recién entonces ejecuta.
+
+En los ejercicios anteriores el script **creaba** sus propios datos. En el trabajo real pasa lo contrario: las secuencias ya existen (las descargaste de NCBI o salieron del secuenciador) y tu script tiene que **leerlas**. Además, quieres usar el **mismo script** con cualquier archivo, sin editarlo cada vez.
+
+Para eso escribes el nombre del archivo **al ejecutar el script**, después del nombre del script:
+
+```bash
+./ejercicio4_explorar_fasta.sh datos/genes_resistencia.fasta
+#           ↑ el script              ↑ la entrada (argumento)
+```
+
+Dentro del script, Bash guarda esa entrada en una variable especial llamada **`$1`** ("el primer argumento"). Si en la línea 06 escribes `ARCHIVO=$1`, desde ahí en adelante `$ARCHIVO` vale `datos/genes_resistencia.fasta`. En la Sesión 10 veremos las variables a fondo; hoy basta con esta idea: **`$1` es lo que escribiste después del nombre del script.**
+
+**Los datos de entrada** están en la carpeta [`datos/`](datos/) de esta sesión:
+
+| Archivo | Contenido |
+|---|---|
+| `genes_resistencia.fasta` | 5 genes de resistencia y referencia (*blaZ*, *tetM*, *mecA*, 16S, *cpa*) de distintas bacterias |
+| `ecoli_genes.fasta` | 5 genes codificantes de *E. coli* K-12 MG1655 (*thrL*, *thrA*, *thrB*, *thrC*, *yaaX*) |
+
+Ambos tienen **cada secuencia en una sola línea**. Esto importa: cuando una secuencia ocupa varias líneas, contar líneas ya no equivale a contar secuencias. Por eso contamos cabeceras (`>`), no líneas.
+
+**Cómo lo trabajamos:**
+
+1. Completa la Hoja S09-D y escribe la salida que predices para `genes_resistencia.fasta`.
+2. Teclea el script, dale permisos y ejecútalo:
+   ```bash
+   chmod +x ejercicio4_explorar_fasta.sh
+   ./ejercicio4_explorar_fasta.sh datos/genes_resistencia.fasta
+   ```
+3. **Sin cambiar ni una línea**, ejecútalo con el otro archivo:
+   ```bash
+   ./ejercicio4_explorar_fasta.sh datos/ecoli_genes.fasta
+   ```
+   Esa es la idea central del ejercicio: un script, muchas entradas.
+
+**Salida esperada** con `genes_resistencia.fasta`:
+```
+=== Archivo analizado: datos/genes_resistencia.fasta ===
+Número de secuencias: 5
+
+Identificadores:
+>gene_resistencia_ampicilina
+>gene_resistencia_tetraciclina
+>gene_resistencia_meticilina
+>gen_housekeeping_16S_rRNA
+>gen_patogenicidad_toxina
+
+Organismos y cuántas secuencias tiene cada uno:
+      1 organism=Bacteria
+      1 organism=Clostridium perfringens
+      1 organism=Escherichia coli
+      2 organism=Staphylococcus aureus
+
+Total de nucleótidos: 473
+```
+
+Con `ecoli_genes.fasta` deberías obtener 5 secuencias, todas de `organism=Escherichia coli K-12`, y **2724** nucleótidos en total.
+
+**¿Qué hace cada pieza?**
+
+| Línea | Comando | Qué hace |
+|---|---|---|
+| 09 | `grep -c '>'` | Cuenta las líneas que tienen `>`, es decir, las cabeceras |
+| 12 | `cut -d ' ' -f 1` | Corta la cabecera en cada espacio y se queda con el primer pedazo: el identificador |
+| 15 | `grep -o 'organism=[^]]*'` | Extrae solo el texto `organism=...` hasta el corchete `]`. Es una expresión regular: las veremos en las Sesiones 11 y 12 |
+| 15 | `sort \| uniq -c` | Ordena y cuenta cuántas veces aparece cada organismo |
+| 17 | `grep -v '>' \| tr -d '\n' \| wc -c` | Toma solo las líneas de secuencia (`-v` invierte la búsqueda), las une quitando los saltos de línea y cuenta los caracteres |
+
+> ⚠️ **Error típico: olvidar la entrada.** Si ejecutas `./ejercicio4_explorar_fasta.sh` sin nombre de archivo, `$1` queda vacío y `grep` se queda **esperando que escribas algo con el teclado**: el script parece "congelado". Sal con `Ctrl + C` y vuelve a ejecutarlo con el archivo. En la Sesión 14 aprenderás a que el script detecte este error y te avise con un mensaje.
+
+**🔴 Reto (opcional):** agrega una línea que muestre la **primera secuencia completa** (cabecera y secuencia). Pista: `head`.
+
+<details>
+<summary>🔓 Ver solución completa (solo después de completar tu hoja)</summary>
+
+```bash
+#!/bin/bash
+# Autor: Tu Nombre   Fecha: 19/10/2026
+# ejercicio4_explorar_fasta.sh — explora CUALQUIER archivo FASTA
+# Uso: ./ejercicio4_explorar_fasta.sh datos/genes_resistencia.fasta
+
+ARCHIVO=$1
+
+echo "=== Archivo analizado: $ARCHIVO ==="
+echo "Número de secuencias: $(grep -c '>' $ARCHIVO)"
+echo ""
+echo "Identificadores:"
+grep '>' $ARCHIVO | cut -d ' ' -f 1
+echo ""
+echo "Organismos y cuántas secuencias tiene cada uno:"
+grep -o 'organism=[^]]*' $ARCHIVO | sort | uniq -c
+echo ""
+echo "Total de nucleótidos: $(grep -v '>' $ARCHIVO | tr -d '\n' | wc -c)"
+```
+
+**Reto:** `head -n 2 $ARCHIVO` muestra la cabecera y la secuencia del primer registro (funciona porque cada secuencia ocupa una sola línea).
+
+</details>
+
 ---
 
 ## 📸 7. Actividad Asincrónica
 
-### Entregables Obligatorios
+### 🕶️ Misión: Operación KPC
 
-Subir a tu repositorio de GitHub (`principios-programacion-bioinfo`) los siguientes **2 o 3 scripts funcionales**:
+```
+══════════════════════════════════════════════════════════════
+  TRANSMISIÓN CLASIFICADA — FUERZA BIOINFORMÁTICA DE INTERVENCIÓN
+  Destinatario : Agente de campo (tú)
+  Nivel de acceso: Estudiante de Bioinformática — Semana 9
+══════════════════════════════════════════════════════════════
+```
 
-#### Script 1: Informe del Sistema (Obligatorio)
-Crear un script llamado `informe_sistema.sh` que muestre:
-- Nombre del usuario actual
+> *Buenas tardes, agente.*
+>
+> *Hace 72 horas, la Unidad de Cuidados Intensivos de un hospital de Lima reportó tres pacientes con infecciones por **Klebsiella pneumoniae** que no responden a los carbapenémicos, los antibióticos de "última línea". El laboratorio de microbiología sospecha de una cepa productora de **carbapenemasa KPC** y ya secuenció los aislados.*
+>
+> *El problema: el bioinformático anterior abandonó el laboratorio sin dejar nada organizado. El servidor está sin documentar, no hay estructura de carpetas y las secuencias están sueltas. Nadie puede empezar el análisis del brote hasta que alguien ponga orden.*
+>
+> ***Tu misión, si decides aceptarla,*** *consiste en tres fases: reconocer el terreno, montar la base de operaciones e interceptar las primeras secuencias. Solo puedes usar las herramientas que recibiste hoy: la terminal, un editor de texto y tus primeros scripts en Bash.*
+>
+> *Como siempre, si tú o algún miembro de tu equipo es capturado por un `Permission denied`, la Fuerza negará cualquier conocimiento de tus acciones.*
+>
+> *Este mensaje se autodestruirá en 5 segundos.* 💥
+
+**Entrega:** sube tus scripts a tu repositorio de GitHub (`principios-programacion-bioinfo`) antes de la Sesión 10.
+
+**Primero en papel:** imprime la [plantilla de hoja de script](../recursos/hojas_bash/plantilla_hoja_bash.pdf) y escribe a mano cada fase antes de teclearla. Sube a tu repositorio la **foto de tu hoja** junto con la captura de la ejecución: así se ve cómo pensaste tu script, no solo el resultado.
+
+---
+
+### 🔍 Fase 1 — Reconocimiento del terreno: `informe_sistema.sh` *(Obligatorio)*
+
+**Contexto de la misión:** antes de tocar cualquier dato, un buen agente inspecciona el servidor en el que va a trabajar. ¿Con qué usuario entraste? ¿Dónde estás parado? ¿Hay espacio suficiente para guardar genomas?
+
+**Tu script debe mostrar:**
+- Nombre del usuario actual (tu "nombre en clave")
 - Fecha y hora del sistema
 - Directorio de trabajo actual
 - Uso de disco del directorio actual
 - Lista de archivos con detalles
 
-#### Script 2: Organizador de Datos (Obligatorio)
-Crear un script llamado `organizador_datos.sh` que:
-- Cree una estructura de carpetas para un proyecto bioinformático (mínimo 5 directorios)
-- Cree archivos de ejemplo dentro de al menos 2 directorios
-- Liste la estructura completa creada
+**Pistas del cuartel general:** `whoami`, `date`, `pwd`, `du -sh .`, `ls -lh`. Recuerda que puedes insertar el resultado de un comando dentro de un `echo` con `$(comando)`.
 
-#### Script 3: Procesador de Secuencias (Opcional - Bonus)
-Crear un script llamado `procesador_fasta.sh` que:
-- Genere un archivo FASTA con al menos 3 secuencias de diferentes organismos
-- Cuente el número de secuencias
-- Extraiga los identificadores (líneas que comienzan con `>`)
-- Calcule la longitud aproximada de cada secuencia.
+**Salida de ejemplo:**
+```
+==========================================
+   INFORME DE RECONOCIMIENTO DEL SERVIDOR
+==========================================
+Agente (usuario)   : manuel_ramirez
+Fecha y hora       : Mon Oct 12 14:32:10 -05 2026
+Ubicación actual   : /home/manuel_ramirez
+Espacio ocupado    : 48K   .
 
-### Checklist de Verificación
+Archivos encontrados en el terreno:
+total 12K
+-rwxr-xr-x 1 manuel_ramirez manuel_ramirez 412 Oct 12 14:30 informe_sistema.sh
+```
+
+---
+
+### 🏗️ Fase 2 — Base de operaciones: `organizador_datos.sh` *(Obligatorio)*
+
+**Contexto de la misión:** un análisis de brote genera cientos de archivos: lecturas crudas, ensamblajes, reportes, registros. Sin una estructura clara, los datos del paciente 1 terminan mezclados con los del paciente 3, y eso en una investigación epidemiológica es un error grave. Tu base de operaciones debe estar ordenada desde el primer día.
+
+**Tu script debe:**
+- Crear un directorio principal llamado `operacion_KPC/`
+- Crear dentro de él **al menos 5 subdirectorios** (por ejemplo: `datos_crudos`, `datos_procesados`, `resultados`, `scripts`, `logs`, `referencias`)
+- Crear archivos de ejemplo en **al menos 2 subdirectorios** (por ejemplo, un `LEEME.txt` en `datos_crudos/` y un `registro.log` en `logs/`)
+- Mostrar en pantalla la estructura completa creada
+
+**Pistas del cuartel general:** `mkdir -p` con llaves `{ }` para crear varias carpetas de un solo golpe, `touch` o `echo "texto" > archivo` para crear archivos, y `find operacion_KPC | sort` para ver todo lo que construiste.
+
+**Salida de ejemplo:**
+```
+Montando base de operaciones: operacion_KPC ...
+operacion_KPC
+operacion_KPC/datos_crudos
+operacion_KPC/datos_crudos/LEEME.txt
+operacion_KPC/datos_procesados
+operacion_KPC/logs
+operacion_KPC/logs/registro.log
+operacion_KPC/referencias
+operacion_KPC/resultados
+operacion_KPC/scripts
+Base de operaciones lista. Esperando secuencias...
+```
+
+---
+
+### 🧬 Fase 3 — Interceptar las secuencias: `procesador_fasta.sh` *(Opcional — Bonus)*
+
+**Contexto de la misión:** el laboratorio acaba de enviarte fragmentos de secuencia de los aislados de la UCI. Tu tarea es guardarlos en formato FASTA dentro de tu base de operaciones y hacer un primer inventario: cuántas secuencias llegaron, de quién son y qué tan largas son.
+
+**Tu script debe:**
+- Generar el archivo `operacion_KPC/datos_crudos/aislados_uci.fasta` con **al menos 3 secuencias**. Usa cabeceras informativas, por ejemplo: `>KP_UCI_001|Klebsiella_pneumoniae|paciente_01`
+- Contar el número de secuencias
+- Extraer los identificadores (las líneas que comienzan con `>`)
+- Calcular la longitud aproximada de cada secuencia
+
+**Pistas del cuartel general:** `cat > archivo << 'EOF'` para escribir el FASTA desde el script, `grep -c ">"` para contar, `grep ">"` para listar cabeceras. Para la longitud, `grep -A1 "KP_UCI_001" archivo | tail -1 | wc -c` aísla la línea de secuencia y cuenta sus caracteres. Ojo: `wc -c` también cuenta el salto de línea, por eso la longitud es *aproximada* (+1). En la Sesión 10 aprenderás a medirla con exactitud.
+
+**Salida de ejemplo:**
+```
+Secuencias interceptadas: 3
+
+Identificadores:
+>KP_UCI_001|Klebsiella_pneumoniae|paciente_01
+>KP_UCI_002|Klebsiella_pneumoniae|paciente_02
+>KP_UCI_003|Klebsiella_pneumoniae|paciente_03
+
+Longitud aproximada:
+KP_UCI_001 : 61 caracteres
+KP_UCI_002 : 61 caracteres
+KP_UCI_003 : 55 caracteres
+```
+
+> 💡 **Dato real para tu informe:** la carbapenemasa KPC está codificada por el gen *bla*<sub>KPC</sub>, que suele viajar en plásmidos y puede transferirse entre bacterias. Por eso los laboratorios de vigilancia secuencian los aislados completos: no solo quieren saber *qué* bacteria es, sino *cómo* se está diseminando la resistencia. Ese análisis lo construiremos paso a paso en las próximas sesiones, hasta el pipeline completo de la Sesión 14.
+
+---
+
+### 🕶️ Detalle de agente *(Opcional — solo por estilo)*
+
+Todo mensaje de misión que se respete se autodestruye. Agrega al final de cualquiera de tus scripts una cuenta regresiva usando `echo` y `sleep 1`:
+
+```bash
+echo "Este mensaje se autodestruirá en..."
+echo "3"; sleep 1
+echo "2"; sleep 1
+echo "1"; sleep 1
+clear
+```
+
+> *(Sin bucles, por ahora. En la Sesión 11 aprenderás a hacer esto en tres líneas.)*
+
+---
+
+### ✅ Protocolo de extracción (Checklist de entrega)
+
+Antes de abandonar el terreno, confirma:
 
 - [ ] Verifiqué mi shell con `echo $SHELL`
 - [ ] Verifiqué la versión de bash con `echo $BASH_VERSION`
-- [ ] Todos los scripts incluyen shebang `#!/bin/bash`
-- [ ] Todos los scripts tienen permisos de ejecución (`chmod +x`)
+- [ ] Todos los scripts incluyen el shebang `#!/bin/bash` en la primera línea
+- [ ] Cada script tiene un comentario con mi nombre, la fecha y qué hace
+- [ ] Todos los scripts tienen permisos de ejecución (`chmod +x nombre_script.sh`)
 - [ ] Los scripts se ejecutan sin errores
-- [ ] Incluí screenshots de la ejecución exitosa
-- [ ] Subí todo a GitHub con mensajes de commit descriptivos
+- [ ] Escribí cada fase primero en una hoja de script y subí la foto de cada hoja
+- [ ] Incluí capturas de pantalla de la ejecución exitosa de cada fase
+- [ ] Subí todo a GitHub con un mensaje de commit descriptivo (ej: `git commit -m "Sesion 09: Operacion KPC fases 1 y 2"`)
+
+> 🎖️ *Misión cumplida, agente. El laboratorio ya tiene un servidor documentado, una base de operaciones ordenada y un primer inventario de secuencias. En la Sesión 10 empezaremos a leer lo que esas secuencias tienen para decirnos.*
 
 ---
 
