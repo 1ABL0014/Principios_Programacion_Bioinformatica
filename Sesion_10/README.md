@@ -14,6 +14,7 @@ Al finalizar esta sesión práctica, el estudiante:
 - Medirá la longitud de cadenas de texto con `${#variable}`
 - Extraerá fragmentos de secuencias biológicas usando subcadenas en Bash
 - Realizará reemplazos en cadenas para simular conversiones moleculares (ej. ADN → ARN)
+- Capturará una secuencia desde un archivo FASTA en una variable para analizarla con precisión
 
 **Palabras clave:** Shell scripting, strings, subcadenas, manipulación de texto, automatización
 
@@ -24,6 +25,7 @@ Al finalizar esta sesión práctica, el estudiante:
 - Acceso a Google Cloud Shell o cualquier terminal Linux
 - Haber completado la Sesión 9 (creación y ejecución de scripts básicos en Bash)
 - Saber usar `nano` o `vim` para editar archivos
+- Tener tu carpeta `operacion_KPC/` de la Operación KPC (Sesión 9). Si no la terminaste, en la sección 3 te mostramos cómo crear el archivo de secuencias que necesitas
 
 ---
 
@@ -35,6 +37,14 @@ Antes de continuar, recordemos los tres elementos que todo script necesita:
 #!/bin/bash                        # 1. Shebang: le dice al sistema qué intérprete usar
 # Autor: Mi nombre                 # 2. Comentarios: explican qué hace el código
 echo "¡Hola desde mi script!"      # 3. Código ejecutable: los comandos que corren
+```
+
+Y una herramienta que usamos mucho en la Operación KPC: **guardar el resultado de un comando** con `$(comando)`:
+
+```bash
+lugar=$(pwd)                       # guarda la ruta actual en la variable lugar
+echo "Estoy en: $lugar"
+echo "Hoy es: $(date)"             # también se puede usar directo dentro de echo
 ```
 
 También vimos cómo crear y ejecutar un script:
@@ -142,7 +152,7 @@ Tipo de muestra (sangre/tejido/cultivo): cultivo
 Investigador : Ana García
 Organismo    : Staphylococcus aureus
 Tipo         : cultivo
-Fecha        : Mon Jun  2 13:05:00 UTC 2025
+Fecha        : Mon Oct 26 13:05:00 -05 2026
 ----------------------------
 ```
 
@@ -243,6 +253,58 @@ echo $secuencia | awk '{print length}'   # Resultado: 8 ✓
 # ✅ RECOMENDADO: ${#variable} — más simple y directo
 echo ${#secuencia}             # Resultado: 8 ✓
 ```
+
+### 🔗 De la Operación KPC a hoy: la longitud exacta
+
+¿Recuerdas la Fase 3 de la Operación KPC? Para medir cada secuencia usamos `wc -c`, y el resultado salía con **un carácter de más** porque `wc -c` también cuenta el salto de línea. Hoy lo resolvemos combinando dos cosas que ya conoces: `$(comando)` para **guardar la secuencia en una variable** y `${#variable}` para **medirla**.
+
+Si no tienes el archivo de los aislados, créalo en tu carpeta `operacion_KPC/datos_crudos/` (también está en la carpeta [`datos/`](datos/) de esta sesión):
+
+```bash
+mkdir -p operacion_KPC/datos_crudos
+cat > operacion_KPC/datos_crudos/aislados_uci.fasta << 'EOF'
+>KP_UCI_001|Klebsiella_pneumoniae|paciente_01
+ATGTACCCGCCGGGGGGTCCTGGCGTGATGCCGTGGCGGGCCCCATCCACCGAAAGATAA
+>KP_UCI_002|Klebsiella_pneumoniae|paciente_02
+ATGTGCCTTAACATAATAACGAACGGCCGGCCGTCAAATAGGTGCTCAGCTCTCTATTAG
+>KP_UCI_003|Klebsiella_pneumoniae|paciente_03
+ATGCCCGGGTCGGGGCAAGACCTGGATAGTCCTTTAGCCAGGGAAATGGTATGA
+EOF
+```
+
+> 🧪 **Nota:** son **fragmentos simulados** con fines didácticos (empiezan en `ATG` y terminan en un codón de parada), no secuencias reales del gen *bla*<sub>KPC</sub>.
+
+### 🔬 Pruébalo en tu terminal:
+
+```bash
+cd operacion_KPC/datos_crudos
+
+# 1. Así medíamos en la Sesión 9 (sobra 1 carácter: el salto de línea)
+grep -A1 "KP_UCI_001" aislados_uci.fasta | tail -1 | wc -c
+
+# 2. Así medimos hoy: guardamos la secuencia y contamos sus caracteres
+secuencia=$(grep -A1 "KP_UCI_001" aislados_uci.fasta | tail -1)
+echo "Secuencia: $secuencia"
+echo "Longitud exacta: ${#secuencia} nucleótidos"
+```
+
+**Resultado esperado:**
+```
+61
+Secuencia: ATGTACCCGCCGGGGGGTCCTGGCGTGATGCCGTGGCGGGCCCCATCCACCGAAAGATAA
+Longitud exacta: 60 nucleótidos
+```
+
+¿Qué hace cada parte de la línea que guarda la secuencia?
+
+| Parte | Qué hace |
+|---|---|
+| `grep -A1 "KP_UCI_001" aislados_uci.fasta` | Busca la cabecera del aislado y muestra también **1 línea después** (`-A1` = *After 1*): la secuencia |
+| `\| tail -1` | De esas 2 líneas se queda solo con la última: la secuencia, sin la cabecera |
+| `secuencia=$( ... )` | Guarda ese resultado en la variable `secuencia` (Bash quita el salto de línea final) |
+| `${#secuencia}` | Cuenta los caracteres de la variable: la longitud exacta |
+
+> ⚠️ Este truco funciona porque en nuestro archivo **cada secuencia ocupa una sola línea**. Muchos FASTA reales parten la secuencia en líneas de 60 u 80 caracteres; para esos archivos necesitarás otras herramientas que veremos más adelante en el curso.
 
 ---
 
@@ -388,6 +450,11 @@ archivo="secuencia.fasta"
 
 sin_extension=${archivo%.fasta}    # → secuencia
 echo $sin_extension
+
+# Muy útil para obtener el ID de una muestra desde el nombre de su archivo
+archivo="KP_UCI_001.fasta"
+id_muestra=${archivo%.fasta}       # → KP_UCI_001
+echo "Analizando la muestra $id_muestra"
 ```
 
 ### 🧪 Ejercicio 4 — Extracción de genes de cáncer:
@@ -548,7 +615,7 @@ Ingresa la secuencia de ADN    : ATGCTTGCAATCGATCGATTT
 
 1. Longitud de la secuencia : 21 bp
 2. Extremo 5' (primeros 6nt): ATGCTT
-3. Extremo 3' (últimos 6nt) : GATTT
+3. Extremo 3' (últimos 6nt) : CGATTT
 4. ARN mensajero            : AUGCUUGCAAUCGAUCGAUUU
 
 Análisis completado.
@@ -558,97 +625,158 @@ Análisis completado.
 
 ## 📸 8. Actividad Asincrónica
 
-### 🎯 Misión: Construir tu propio kit de herramientas de secuencias
+### 🕶️ Misión: Operación KPC — Parte 2: Descifrar las secuencias
 
-Vas a crear **3 scripts** que simulan herramientas básicas de un laboratorio de bioinformática. Cada script aplica lo aprendido hoy.
+```
+══════════════════════════════════════════════════════════════
+  TRANSMISIÓN CLASIFICADA — FUERZA BIOINFORMÁTICA DE INTERVENCIÓN
+  Destinatario : Agente de campo (tú)
+  Nivel de acceso: Estudiante de Bioinformática — Semana 10
+══════════════════════════════════════════════════════════════
+```
+
+> *Buen trabajo, agente.*
+>
+> *Gracias a ti, el laboratorio ya tiene una base de operaciones ordenada y un primer inventario de los aislados de la UCI. Pero el comité de control de infecciones necesita más que un inventario: quiere saber **qué dicen** esas secuencias.*
+>
+> *Tu reporte anterior tenía un detalle que no pasó desapercibido en el cuartel general: las longitudes salieron con **un nucleótido de más**. En una investigación de brote, un error así puede hacer que dos aislados parezcan distintos cuando son la misma cepa.*
+>
+> *Mientras tanto, el laboratorio de microbiología envió su informe: en el aislado del paciente 1 se detectaron varios genes de resistencia, escritos en una sola línea separados por comas. Alguien tiene que ordenarlos.*
+>
+> ***Tu misión, si decides aceptarla,*** *consiste en tres fases: medir las secuencias con precisión, transcribirlas y decodificar el informe del laboratorio. Esta vez cuentas con nuevas herramientas: `read`, `$(comando)` y la manipulación de cadenas.*
+>
+> *Como siempre, si un `${variable}` mal escrito te deja con una pantalla vacía, la Fuerza negará cualquier conocimiento de tus acciones.*
+>
+> *Este mensaje se autodestruirá en 5 segundos.* 💥
+
+**Entrega:** sube tus scripts a tu repositorio de GitHub (`principios-programacion-bioinfo`) antes de la Sesión 11. Guárdalos dentro de `operacion_KPC/scripts/`.
+
+**Antes de empezar:** necesitas el archivo `operacion_KPC/datos_crudos/aislados_uci.fasta`. Si no lo tienes de la Sesión 9, créalo como se muestra en la sección 3 ("De la Operación KPC a hoy").
 
 ---
 
-### 🧬 Script 1: `calculadora_secuencia.sh` *(Obligatorio)*
+### 📏 Fase 1 — Medición de precisión: `calculadora_secuencia.sh` *(Obligatorio)*
 
-**Objetivo:** Pedir al usuario una secuencia de ADN e informar su longitud, los primeros 3 nucleótidos (posible codón de inicio) y el extremo 3'.
+**Contexto de la misión:** el cuartel general necesita la longitud **exacta** de cada aislado y sus dos extremos: el inicio (¿empieza con el codón `ATG`?) y el final (¿termina en un codón de parada?).
 
-**Requisitos:**
-- Usar `read -p` para pedir la secuencia
-- Calcular la longitud con `${#variable}`
-- Extraer los primeros 3 nucleótidos con subcadenas
-- Extraer los últimos 3 nucleótidos con índice negativo
+**Tu script debe:**
+- Pedir al usuario el ID del aislado con `read -p` (por ejemplo, `KP_UCI_002`)
+- Guardar la secuencia de ese aislado en una variable con `$(grep -A1 ... | tail -1)`
+- Calcular la longitud exacta con `${#variable}`
+- Extraer los primeros 3 nucleótidos con subcadenas (`${variable:0:3}`)
+- Extraer los últimos 3 nucleótidos con índice negativo (`${variable: -3}`)
+
+**Pistas del cuartel general:** usa la variable dentro de las comillas del `grep`: `grep -A1 "$id" archivo`. Y no olvides el espacio en `${secuencia: -3}`.
 
 **Salida de ejemplo:**
 ```
-Secuencia ingresada : ATGCCCGTATTTAAGCCC
-Longitud            : 18 nucleótidos
-Posibles inicio 5'  : ATG
-Extremo 3'          : CCC
+ID del aislado: KP_UCI_002
+
+Aislado             : KP_UCI_002
+Secuencia           : ATGTGCCTTAACATAATAACGAACGGCCGGCCGTCAAATAGGTGCTCAGCTCTCTATTAG
+Longitud exacta     : 60 nucleótidos
+Posible inicio 5'   : ATG
+Extremo 3'          : TAG
 ```
+
+> 🔎 **Verificación cruzada:** ejecuta tu script con los tres aislados. Deberías obtener **60, 60 y 54** nucleótidos. Compáralos con las longitudes aproximadas de tu Fase 3 de la Sesión 9: cada una debería ser exactamente 1 menos.
 
 ---
 
-### 🔬 Script 2: `transcriptor.sh` *(Obligatorio)*
+### 🔬 Fase 2 — Transcripción: `transcriptor.sh` *(Obligatorio)*
 
-**Objetivo:** Pedir al usuario una secuencia de ADN, convertirla a ARN mensajero y mostrar ambas secuencias con el número de bases modificadas.
+**Contexto de la misión:** para estudiar cómo se expresa un gen, el equipo de biología molecular necesita la versión en ARN mensajero de cada aislado.
 
-**Requisitos:**
-- Usar `read -p` para pedir la secuencia de ADN
+**Tu script debe:**
+- Pedir el ID del aislado con `read -p` y guardar su secuencia de ADN en una variable (como en la Fase 1)
 - Hacer la conversión T→U con `${variable//T/U}`
 - Mostrar el ADN original y el ARN resultante
 - Mostrar la longitud de ambas (deben ser iguales)
 
 **Salida de ejemplo:**
 ```
-=== TRANSCRIPCIÓN: ADN → ARNm ===
-ADN (5'→3') : ATGCTTGCAATCGATCGATTT
-ARN (5'→3') : AUGCUUGCAAUCGAUCGAUUU
-Longitud    : 21 bases (sin cambios)
+ID del aislado: KP_UCI_003
+
+=== TRANSCRIPCIÓN: ADN → ARNm — KP_UCI_003 ===
+ADN (5'→3') : ATGCCCGGGTCGGGGCAAGACCTGGATAGTCCTTTAGCCAGGGAAATGGTATGA
+ARN (5'→3') : AUGCCCGGGUCGGGGCAAGACCUGGAUAGUCCUUUAGCCAGGGAAAUGGUAUGA
+Longitud    : 54 bases (sin cambios)
 ```
+
+> 💭 **Pregunta para tu informe:** ¿por qué la longitud no cambia después de la transcripción? Respóndela en una línea de comentario dentro de tu script.
 
 ---
 
-### 🧩 Script 3: `lector_genes.sh` *(Obligatorio)*
+### 🧩 Fase 3 — Decodificar el informe del laboratorio: `lector_genes.sh` *(Obligatorio)*
 
-**Objetivo:** Dado una lista de genes separados por comas, extraer el primer gen, el último gen, y la lista sin el primer gen.
+**Contexto de la misión:** el laboratorio envió los genes de resistencia detectados en el aislado del paciente 1 en una sola línea, separados por comas. El comité quiere ver primero el gen principal, luego el último de la lista y finalmente el resto.
 
-**Requisitos:**
-- Usar `read -p` para pedir la lista de genes (ej: `BRCA1,TP53,PTEN,ATM`)
+**Tu script debe:**
+- Pedir con `read -p` el nombre del archivo del aislado (ejemplo: `KP_UCI_001.fasta`) y obtener su ID quitando la extensión con `${variable%.fasta}`
+- Pedir con `read -p` la lista de genes (ejemplo: `blaKPC-2,blaSHV-11,blaTEM-1,ompK36`)
 - Extraer el primer gen con `${variable%%,*}`
 - Extraer el último gen con `${variable##*,}`
 - Mostrar la lista sin el primer gen con `${variable#*,}`
 
 **Salida de ejemplo:**
 ```
-Lista ingresada  : BRCA1,TP53,PTEN,ATM
-Primer gen       : BRCA1
-Último gen       : ATM
-Resto de la lista: TP53,PTEN,ATM
+Archivo del aislado : KP_UCI_001.fasta
+Genes detectados    : blaKPC-2,blaSHV-11,blaTEM-1,ompK36
+
+=== INFORME DE RESISTENCIA — KP_UCI_001 ===
+Gen principal       : blaKPC-2
+Último gen          : ompK36
+Resto de la lista   : blaSHV-11,blaTEM-1,ompK36
 ```
+
+> 💡 **Dato real para tu informe:** *bla*<sub>KPC-2</sub> codifica la carbapenemasa que destruye a los carbapenémicos. *bla*<sub>SHV</sub> y *bla*<sub>TEM</sub> son β-lactamasas frecuentes en *K. pneumoniae*. *ompK36* codifica una porina de la membrana externa: cuando la bacteria la pierde o la modifica, entra menos antibiótico, y eso puede sumarse a la resistencia.
 
 ---
 
-### 🏆 Script Bonus: `analizador_completo.sh` *(Opcional — para nota extra)*
+### 🏆 Fase 4 — Informe para el comité de infecciones: `analizador_completo.sh` *(Opcional — para nota extra)*
 
-Combina los 3 scripts anteriores en uno solo, más un paso adicional: que el usuario pueda ingresar también el nombre del organismo y la fecha del análisis, generando un reporte de texto con todo.
-
-El reporte debe guardarse en un archivo llamado `reporte_analisis.txt` usando redirección:
+Combina las tres fases anteriores en un solo script que pida el ID del aislado, la lista de genes y la fecha del análisis, y guarde un informe en `operacion_KPC/resultados/reporte_<ID>.txt` usando redirección:
 
 ```bash
-echo "Reporte generado el $(date)" > reporte_analisis.txt
-echo "Organismo: $organismo" >> reporte_analisis.txt
-# ... continúa el reporte
+reporte="operacion_KPC/resultados/reporte_${id}.txt"
+echo "INFORME — Operación KPC" > $reporte
+echo "Generado el $(date)" >> $reporte
+echo "Aislado: $id" >> $reporte
+# ... continúa el informe: longitud, extremos, ARN y genes
 ```
+
+Al final, muestra el informe en pantalla con `cat $reporte`.
 
 ---
 
-### ✅ Checklist de entrega
+### 🕶️ Detalle de agente *(Opcional — solo por estilo)*
 
-Antes de subir a GitHub, verifica:
+El cuartel general envía sus órdenes cifradas: reemplaza los espacios por guiones bajos para que nadie las lea de un vistazo. Descífralas con lo que aprendiste hoy:
 
-- [ ] Los 3 scripts obligatorios están creados
+```bash
+mensaje="LA_CEPA_ES_KPC._AISLAR_A_LOS_TRES_PACIENTES"
+echo "Mensaje cifrado   : $mensaje"
+echo "Mensaje descifrado: ${mensaje//_/ }"
+```
+
+> *(¿Qué pasa si usas una sola `/`? Pruébalo y explica la diferencia en un comentario.)*
+
+---
+
+### ✅ Protocolo de extracción (Checklist de entrega)
+
+Antes de abandonar el terreno, confirma:
+
+- [ ] Los 3 scripts obligatorios están creados en `operacion_KPC/scripts/`
 - [ ] Cada script tiene el shebang `#!/bin/bash` en la primera línea
-- [ ] Cada script tiene al menos un comentario con tu nombre y la fecha
+- [ ] Cada script tiene un comentario con mi nombre, la fecha y qué hace
 - [ ] Todos tienen permisos de ejecución (`chmod +x nombre_script.sh`)
 - [ ] Los 3 scripts ejecutan sin errores
-- [ ] Incluiste capturas de pantalla de la ejecución de cada script
-- [ ] Subiste todo a tu repositorio GitHub con un mensaje de commit descriptivo (ej: `git commit -m "Sesion 10: scripts de manipulacion de cadenas"`)
+- [ ] Probé la Fase 1 con los tres aislados y obtuve 60, 60 y 54 nucleótidos
+- [ ] Incluí capturas de pantalla de la ejecución de cada fase
+- [ ] Subí todo a GitHub con un mensaje de commit descriptivo (ej: `git commit -m "Sesion 10: Operacion KPC parte 2"`)
+
+> 🎖️ *Misión cumplida, agente. Ahora el laboratorio tiene longitudes exactas, transcritos y un informe de resistencia ordenado. Pero analizaste los aislados **uno por uno**, escribiendo cada ID a mano. En la Sesión 11 aprenderás a procesarlos todos de una sola vez.*
 
 ---
 
@@ -657,12 +785,15 @@ Antes de subir a GitHub, verifica:
 | Operación | Sintaxis | Ejemplo | Resultado |
 |-----------|----------|---------|-----------|
 | Leer entrada del usuario | `read -p "Mensaje: " var` | `read -p "Nombre: " n` | Guarda lo escrito en `n` |
-| Medir longitud | `${#variable}` | `${#"ATCG"}` | `4` |
+| Guardar la salida de un comando | `var=$(comando)` | `s=$(grep -A1 "KP_UCI_001" a.fasta \| tail -1)` | Guarda la secuencia en `s` |
+| Medir longitud | `${#variable}` | `s="ATCG"; echo ${#s}` | `4` |
 | Extraer subcadena | `${var:inicio:largo}` | `${s:0:3}` | Primeros 3 caracteres |
 | Extraer desde el final | `${var: -n}` | `${s: -3}` | Últimos 3 caracteres |
 | Eliminar prefijo (1ra vez) | `${var#*patron}` | `${g#*,}` | Quita hasta la 1ra coma |
 | Eliminar prefijo (última vez) | `${var##*patron}` | `${g##*,}` | Quita hasta la última coma |
-| Eliminar sufijo (1ra vez) | `${var%patron*}` | `${f%.txt}` | Quita extensión `.txt` |
+| Eliminar sufijo (corto, desde la derecha) | `${var%patron*}` | `${g%,*}` | Quita desde la última coma |
+| Eliminar sufijo (largo, desde la derecha) | `${var%%patron*}` | `${g%%,*}` | Deja solo el primer elemento |
+| Quitar una extensión | `${var%.ext}` | `${f%.fasta}` | `KP_UCI_001.fasta` → `KP_UCI_001` |
 | Reemplazar primera ocurrencia | `${var/buscar/nuevo}` | `${s/T/U}` | Cambia la primera T |
 | Reemplazar todas las ocurrencias | `${var//buscar/nuevo}` | `${s//T/U}` | Cambia todas las T |
 
