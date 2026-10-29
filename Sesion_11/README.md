@@ -1,773 +1,528 @@
-# 🧬 Sesión 11: Elementos de la Sintaxis de Shell Scripting III
-## Principios de Programación en Bioinformática - Unidad 2
+# 🧬 Sesión 11: Elementos de la Sintaxis de Shell Scripting II
+## Variables: definición, tipos y alcance
 
-**Docentes:** Frank Guzmán Escudero, Manuel Ramírez Sáenz  
-**Universidad:** UPC - Facultad de Ciencias de la Salud - Programa de Biología  
+**Docentes:** Frank Guzmán Escudero, Manuel Ramírez Sáenz
+**Universidad:** UPC - Facultad de Ciencias de la Salud - Programa de Biología
 **Horario:** 1:00 pm - 5:00 pm (Descanso: 2:45 pm - 3:00 pm)
+**Bloque de esta sesión:** Variables (1:00 pm - 2:00 pm)
 
 ---
 
 ## 🎯 Logro de la Sesión
 
-Al finalizar esta sesión práctica, el estudiante:
-- Ejecutará comandos repetidamente usando bucles `for` y `while`
-- Tomará decisiones dentro de un script usando estructuras `if / elif / else`
-- Usará operadores de comparación para números, texto y archivos
-- Combinará bucles con condicionales para automatizar tareas bioinformáticas
+Al finalizar este bloque, el estudiante:
+- Define y declara variables en Bash respetando la sintaxis y las reglas de nombres
+- Distingue entre variables de usuario, variables de entorno y variables del sistema
+- Usa comillas simples, dobles y ninguna de forma correcta según el caso
+- Diferencia una variable local de una global (`export`) y explica el papel de la subshell
+- Consulta y modifica la variable de entorno `PATH` para ejecutar herramientas bioinformáticas
 
-**Palabras clave:** Bucles, for, while, if-then-else, operadores de comparación, control de flujo
+**Palabras clave:** Variable, declaración, asignación, comillas, variable local, variable de entorno, `export`, subshell, `PATH`
 
 ---
 
 ## 📋 Pre-requisitos
 
 - Haber completado las Sesiones 9 y 10
-- Saber crear y ejecutar scripts Bash (`chmod +x`, `./script.sh`)
-- Conocer variables, `read` y manipulación básica de cadenas
+- Saber crear un script con shebang (`#!/bin/bash`) y ejecutarlo (`chmod +x`, `./script.sh`)
+- Manejar comandos básicos de navegación y archivos (`pwd`, `ls`, `cd`, `mkdir`, `cat`, `echo`)
 
 ---
 
 ## 🧠 1. Repaso Rápido
 
-Estos son los conceptos de las sesiones anteriores que vamos a usar hoy:
+```bash
+#!/bin/bash                 # Shebang: indica qué intérprete ejecuta el script
+echo "Hola, bioinformática" # Imprime un mensaje
+pwd                         # Muestra el directorio actual
+mkdir -p datos/raw          # Crea directorios (con -p crea también los padres)
+```
+
+Hoy vamos a guardar valores en memoria con nombre, usarlos y controlar dónde son visibles.
+
+---
+
+## 📦 2. ¿Qué es una variable?
+
+Una **variable** es un espacio en memoria con un nombre, donde se guarda un valor que puedes consultar o cambiar cuando lo necesites.
+
+**Analogía:** una variable es como un tubo de microcentrífuga rotulado. El rótulo es el nombre y lo que hay dentro es el valor.
+
+```
+  ┌──────────────────┐
+  │ MUESTRA = "K12"  │   ← nombre: MUESTRA    valor: K12
+  └──────────────────┘
+```
+
+### Sintaxis básica
 
 ```bash
-# Variable y su longitud
-secuencia="ATCGATCG"
-echo ${#secuencia}          # → 8
+nombre_variable=valor      # Asignar (declarar) un valor
+echo $nombre_variable      # Leer el valor
+echo ${nombre_variable}    # Leer el valor (forma explícita)
+```
 
-# Entrada del usuario
-read -p "Organismo: " org
+> ⚠️ **Regla crítica:** no pongas espacios alrededor del `=`. El shell interpretaría la palabra anterior como un comando.
 
-# Sustitución de texto
-arn=${secuencia//T/U}       # → AUCGAUCG
+```bash
+# ✅ CORRECTO
+PROYECTO="Analisis_RNA"
+NUM_MUESTRAS=50
+
+# ❌ INCORRECTO: error "command not found"
+PROYECTO = "Analisis_RNA"
+```
+
+### Reglas para los nombres
+
+| Regla | Ejemplo correcto | Ejemplo incorrecto |
+|-------|------------------|--------------------|
+| Solo letras, números y `_` | `NUM_MUESTRAS` | `num-muestras` |
+| No puede empezar con número | `CEPA_1` | `1_CEPA` |
+| Convención: MAYÚSCULAS para constantes | `RUTA_DATOS` | `ruta datos` |
+| Nombres descriptivos | `ARCHIVO_ENTRADA` | `a` |
+
+---
+
+## 🔤 3. Leer variables: `$VAR` y `${VAR}`
+
+```bash
+ARCHIVO="genoma"
+
+echo $ARCHIVO            # Forma simple
+echo ${ARCHIVO}          # Forma con llaves
+echo ${ARCHIVO}v1.fasta  # ✅ imprime: genomav1.fasta
+echo $ARCHIVOv1.fasta    # ❌ busca la variable $ARCHIVOv1, que no existe
+```
+
+Usa llaves cuando el nombre de la variable va pegado a otro texto.
+
+### 🔬 Pruébalo en tu terminal
+
+```bash
+ORGANISMO="Escherichia coli"
+CEPA="K-12"
+ANIO=2026
+
+echo "Organismo: $ORGANISMO"
+echo "Cepa: $CEPA"
+echo "Año: $ANIO"
+echo "ID completo: ${ORGANISMO}_${CEPA}_${ANIO}"
+```
+
+**Salida esperada:**
+```
+Organismo: Escherichia coli
+Cepa: K-12
+Año: 2026
+ID completo: Escherichia coli_K-12_2026
 ```
 
 ---
 
-## 🔁 2. Bucle `for`: Repetir con una lista
+## 🔣 4. Comillas: qué interpreta el shell
 
-Un bucle `for` te permite ejecutar los mismos comandos para cada elemento de una lista, sin tener que escribirlos una y otra vez.
+Las comillas deciden si el shell expande las variables o las trata como texto literal.
 
-### Sintaxis:
+| Tipo | Ejemplo | Resultado |
+|------|---------|-----------|
+| Dobles `" "` | `echo "Hola $USER"` | expande la variable |
+| Simples `' '` | `echo 'Hola $USER'` | texto literal: `Hola $USER` |
+| Ninguna | `echo Hola $USER` | expande, pero se rompe con espacios |
 
-```bash
-for variable in lista_de_elementos
-do
-    comandos
-done
-```
-
-### 🔬 Pruébalo en tu terminal — ejemplo básico:
+### El problema de los espacios
 
 ```bash
-for organismo in "E. coli" "S. aureus" "M. tuberculosis"
-do
-    echo "Procesando: $organismo"
-done
+RUTA="mis datos"
+
+mkdir $RUTA      # ❌ crea DOS carpetas: "mis" y "datos"
+mkdir "$RUTA"    # ✅ crea UNA carpeta: "mis datos"
 ```
 
-**Salida esperada:**
-```
-Procesando: E. coli
-Procesando: S. aureus
-Procesando: M. tuberculosis
-```
+> ⚠️ **Regla de oro:** escribe siempre las variables entre comillas dobles: `"$VARIABLE"`. Los nombres de organismos, cepas y rutas suelen tener espacios.
 
-Cada vez que el bucle da una vuelta, la variable `organismo` toma el siguiente valor de la lista.
-
-### `for` con una secuencia numérica:
-
-```bash
-for i in 1 2 3 4 5
-do
-    echo "Muestra número: $i"
-done
-```
-
-**Salida esperada:**
-```
-Muestra número: 1
-Muestra número: 2
-Muestra número: 3
-Muestra número: 4
-Muestra número: 5
-```
-
-También puedes usar la forma compacta `{inicio..fin}`:
-
-```bash
-for i in {1..5}
-do
-    echo "Muestra número: $i"
-done
-```
-
-El resultado es idéntico. La forma `{1..5}` es más corta cuando el rango es largo.
-
-### `for` recorriendo archivos del directorio:
-
-```bash
-for archivo in *.sh
-do
-    echo "Script encontrado: $archivo"
-done
-```
-
-Esto recorre todos los archivos `.sh` del directorio actual. El `*` es un comodín que significa "cualquier nombre".
-
-### 🧪 Ejercicio 1 — Realízalo en tu terminal:
+### 🔬 Pruébalo en tu terminal
 
 ```bash
 #!/bin/bash
-# ejercicio1_for.sh
-# Procesa una lista de bacterias patógenas
+# comillas.sh
+ARCHIVO="genoma_k12.fasta"
+RUTA="/datos/referencias"
 
-echo "=== INVENTARIO DE MUESTRAS ==="
-echo ""
-
-bacterias="Staphylococcus_aureus Escherichia_coli Pseudomonas_aeruginosa Klebsiella_pneumoniae"
-
-contador=1
-for bacteria in $bacterias
-do
-    echo "Muestra $contador: $bacteria"
-    contador=$((contador + 1))
-done
+echo "=== COMILLAS DOBLES ==="
+echo "Archivo : $ARCHIVO"
+echo "Ruta    : $RUTA"
 
 echo ""
-echo "Total de muestras registradas: $((contador - 1))"
+echo "=== COMILLAS SIMPLES ==="
+echo 'Archivo : $ARCHIVO'
+echo 'Ruta    : $RUTA'
 ```
 
 **Salida esperada:**
 ```
-=== INVENTARIO DE MUESTRAS ===
+=== COMILLAS DOBLES ===
+Archivo : genoma_k12.fasta
+Ruta    : /datos/referencias
 
-Muestra 1: Staphylococcus_aureus
-Muestra 2: Escherichia_coli
-Muestra 3: Pseudomonas_aeruginosa
-Muestra 4: Klebsiella_pneumoniae
-
-Total de muestras registradas: 4
+=== COMILLAS SIMPLES ===
+Archivo : $ARCHIVO
+Ruta    : $RUTA
 ```
-
-> 💡 `$((expresión))` es la forma de hacer aritmética en Bash. `$((contador + 1))` suma 1 al valor de `contador`.
 
 ---
 
-## 🔄 3. Bucle `while`: Repetir mientras una condición sea verdadera
+## 🔢 5. Tipos de variables
 
-El bucle `while` sigue ejecutándose mientras una condición se cumpla. Es útil cuando no sabes de antemano cuántas vueltas va a dar el bucle.
-
-### Sintaxis:
+En Bash todas las variables guardan **texto** por defecto. Cuando necesitas operar con números, usa la aritmética con `$(( ))`, que trabaja solo con enteros.
 
 ```bash
-while [ condición ]
-do
-    comandos
-done
+MUESTRAS=12
+EXTRA=$((MUESTRAS + 3))     # 15
+TOTAL=$((EXTRA * 2))        # 30
+echo "Total de muestras: $TOTAL"
 ```
 
-> ⚠️ Los espacios dentro de `[ ]` son **obligatorios**. `[$var -gt 5]` da error; `[ $var -gt 5 ]` es correcto.
+> 💡 Los decimales no se calculan con `$(( ))`. Se verán en una sesión posterior con la herramienta `bc`.
 
-### 🔬 Pruébalo en tu terminal:
+Según su alcance y origen, las variables se clasifican en tres grupos:
 
-```bash
-contador=1
-while [ $contador -le 5 ]
-do
-    echo "Iteración: $contador"
-    contador=$((contador + 1))
-done
-echo "Bucle terminado."
-```
+| Tipo | Quién la crea | Ejemplo | ¿Se hereda a subprocesos? |
+|------|---------------|---------|---------------------------|
+| **Local** (de usuario) | Tú, en el script o la terminal | `CEPA="MG1655"` | No |
+| **De entorno** (global) | Tú, con `export` | `export DB_PATH="/data/refs"` | Sí |
+| **Del sistema** (predefinida) | El sistema operativo | `$HOME`, `$USER`, `$PATH` | Sí |
 
-**Salida esperada:**
-```
-Iteración: 1
-Iteración: 2
-Iteración: 3
-Iteración: 4
-Iteración: 5
-Bucle terminado.
-```
+---
 
-El bucle sigue mientras `$contador` sea menor o igual a 5 (`-le`). Cuando llega a 6, la condición es falsa y el bucle termina.
+## 🌍 6. Variables locales y globales
 
-### ⚠️ Error clásico: el bucle infinito
+### Variable local
 
-Si olvidamos incrementar el contador, el bucle nunca termina:
-
-```bash
-# ❌ INCORRECTO — bucle infinito, nunca para
-contador=1
-while [ $contador -le 5 ]
-do
-    echo "Iteración: $contador"
-    # Falta: contador=$((contador + 1))
-done
-
-# ✅ CORRECTO — siempre incrementar dentro del bucle
-contador=1
-while [ $contador -le 5 ]
-do
-    echo "Iteración: $contador"
-    contador=$((contador + 1))    # ← esto es esencial
-done
-```
-
-> Si ejecutas un bucle infinito por error, presiónα **Ctrl + C** para detenerlo.
-
-### 🧪 Ejercicio 2 — Contador de nucleótidos:
+Existe solo en el shell o script donde fue creada.
 
 ```bash
 #!/bin/bash
-# ejercicio2_while.sh
-# Cuenta cuántas veces aparece la Adenina en una secuencia
+# ejemplo_local.sh
+MUESTRA="bacteria_001"
+echo "Dentro del script: $MUESTRA"
+```
 
-secuencia="ATCGATCGAATTTAAA"
-longitud=${#secuencia}
-posicion=0
-conteo_a=0
+```bash
+bash ejemplo_local.sh     # Dentro del script: bacteria_001
+echo "$MUESTRA"           # (vacío: la variable no existe en tu terminal)
+```
 
-echo "Secuencia: $secuencia"
-echo "Longitud : $longitud nucleótidos"
-echo ""
+### Variable global (de entorno)
 
-while [ $posicion -lt $longitud ]
-do
-    base=${secuencia:$posicion:1}    # Extrae una base a la vez
-    if [ "$base" = "A" ]; then
-        conteo_a=$((conteo_a + 1))
-    fi
-    posicion=$((posicion + 1))
-done
+Se exporta con `export` y puede ser leída por los procesos que se lanzan desde ese shell.
 
-echo "Adeninas (A) encontradas: $conteo_a"
+```bash
+export LABORATORIO="Genómica Computacional"
+bash -c 'echo "En subshell: $LABORATORIO"'   # sí la ve
+```
+
+### 🔬 Pruébalo en tu terminal: la diferencia crítica
+
+```bash
+# Variable local
+SECUENCIA_LOCAL="ATCG"
+bash -c 'echo "Local en subshell: $SECUENCIA_LOCAL"'     # → vacío
+
+# Variable global
+export SECUENCIA_GLOBAL="GCTA"
+bash -c 'echo "Global en subshell: $SECUENCIA_GLOBAL"'   # → GCTA
 ```
 
 **Salida esperada:**
 ```
-Secuencia: ATCGATCGAATTTAAA
-Longitud : 17 nucleótidos
-
-Adeninas (A) encontradas: 6
+Local en subshell: 
+Global en subshell: GCTA
 ```
 
----
+### 🐚 Shell, subshell y `source`
 
-## 📊 4. Operadores de Comparación
+Al ejecutar `bash script.sh`, Linux crea un **subshell** (proceso hijo) con su propia memoria. Los cambios que hace el hijo no regresan al padre.
 
-Para que los bucles y condicionales tomen decisiones, necesitamos operadores que comparen valores.
+```
+TERMINAL (shell padre)
+│   export DB_PATH="/data/refs"
+│
+├─► bash analisis.sh   (subshell)
+│       DB_PATH="/data/refs"     ← heredada, porque fue exportada
+│       TEMP="valor_temp"        ← nueva, NO sube al padre
+│
+└── echo $TEMP                   # → vacío
+```
 
-### Para números (`-eq`, `-ne`, `-lt`, `-gt`, `-le`, `-ge`):
+| Comando | ¿Dónde se ejecuta? | ¿Las variables quedan en tu terminal? |
+|---------|--------------------|---------------------------------------|
+| `bash script.sh` | En un subshell | ❌ No |
+| `source script.sh` | En tu shell actual | ✅ Sí |
 
-| Operador | Significado | Ejemplo | ¿Verdadero si...? |
-|----------|-------------|---------|-------------------|
-| `-eq` | igual a | `[ $a -eq 5 ]` | `a` vale 5 |
-| `-ne` | no igual a | `[ $a -ne 5 ]` | `a` no vale 5 |
-| `-lt` | menor que | `[ $a -lt 10 ]` | `a` es menor que 10 |
-| `-gt` | mayor que | `[ $a -gt 10 ]` | `a` es mayor que 10 |
-| `-le` | menor o igual | `[ $a -le 10 ]` | `a` es ≤ 10 |
-| `-ge` | mayor o igual | `[ $a -ge 10 ]` | `a` es ≥ 10 |
-
-> 💡 Las letras vienen del inglés: **l**ess **t**han, **g**reater **t**han, **e**qual, **n**ot **e**qual.
-
-### Para texto (`=`, `!=`, `-z`, `-n`):
-
-| Operador | Significado | Ejemplo | ¿Verdadero si...? |
-|----------|-------------|---------|-------------------|
-| `=` | igual (texto) | `[ "$a" = "ATG" ]` | `a` es exactamente "ATG" |
-| `!=` | no igual (texto) | `[ "$a" != "ATG" ]` | `a` no es "ATG" |
-| `-z` | cadena vacía | `[ -z "$a" ]` | `a` no tiene ningún carácter |
-| `-n` | cadena no vacía | `[ -n "$a" ]` | `a` tiene al menos un carácter |
-
-> ⚠️ Para comparar texto, siempre pon la variable entre comillas: `"$variable"`. Sin comillas, si la variable está vacía, el comando falla.
-
-### Para archivos (`-e`, `-f`, `-d`, `-s`):
-
-| Operador | Significado | Ejemplo | ¿Verdadero si...? |
-|----------|-------------|---------|-------------------|
-| `-e` | existe | `[ -e "datos.fasta" ]` | el archivo existe |
-| `-f` | es un archivo | `[ -f "datos.fasta" ]` | existe y es un archivo (no carpeta) |
-| `-d` | es un directorio | `[ -d "resultados/" ]` | existe y es una carpeta |
-| `-s` | tiene contenido | `[ -s "datos.fasta" ]` | existe y no está vacío |
-| `-r` | tiene permiso de lectura | `[ -r "datos.fasta" ]` | se puede leer |
-| `-x` | es ejecutable | `[ -x "script.sh" ]` | se puede ejecutar |
-
-### 🔬 Pruébalo en tu terminal:
+### 🔬 Pruébalo: `bash` frente a `source`
 
 ```bash
-# Comparaciones numéricas
-longitud=150
+echo 'export DATOS_REF="/home/usuario/referencias"' > config_proyecto.sh
 
-[ $longitud -gt 100 ] && echo "Secuencia larga (>100 bp)"
-[ $longitud -lt 100 ] && echo "Secuencia corta (<100 bp)"
-[ $longitud -eq 150 ] && echo "Longitud exacta: 150 bp"
+bash config_proyecto.sh
+echo "$DATOS_REF"          # → vacío
+
+source config_proyecto.sh
+echo "$DATOS_REF"          # → /home/usuario/referencias
 ```
 
-**Salida esperada:**
-```
-Secuencia larga (>100 bp)
-Longitud exacta: 150 bp
-```
+> 💡 Las herramientas bioinformáticas suelen activarse con `source`. Por ejemplo: `source activate mi_entorno`.
 
-El operador `&&` significa "si lo anterior fue verdadero, ejecuta esto". Es una forma compacta de escribir un `if` simple.
+### 🧪 Ejercicio 1: alcance de las variables
 
----
-
-## 🧠 5. Estructuras Condicionales `if / elif / else`
-
-Con `if` el script puede tomar decisiones: ejecutar un bloque de código si una condición se cumple, y otro bloque si no se cumple.
-
-### Estructura básica:
-
-```bash
-# Solo if (hacer algo si la condición es verdadera)
-if [ condición ]
-then
-    comandos
-fi
-
-# if-else (una cosa u otra)
-if [ condición ]
-then
-    comandos_si_verdadero
-else
-    comandos_si_falso
-fi
-
-# if-elif-else (múltiples opciones)
-if [ condición1 ]
-then
-    comandos_caso1
-elif [ condición2 ]
-then
-    comandos_caso2
-else
-    comandos_ninguno
-fi
-```
-
-> 💡 `fi` es simplemente `if` al revés — es la forma de cerrar el bloque condicional.
-
-### 🔬 Pruébalo en tu terminal — clasificador de longitud:
-
-```bash
-secuencia="ATCGATCGATCGATCGATCG"
-longitud=${#secuencia}
-
-if [ $longitud -lt 50 ]
-then
-    echo "Secuencia corta: $longitud bp"
-elif [ $longitud -lt 200 ]
-then
-    echo "Secuencia media: $longitud bp"
-else
-    echo "Secuencia larga: $longitud bp"
-fi
-```
-
-**Salida esperada:**
-```
-Secuencia corta: 20 bp
-```
-
-### ⚠️ Error clásico con los corchetes:
-
-```bash
-# ❌ INCORRECTO — falta espacio después del [ y antes del ]
-if [$longitud -lt 50]; then
-
-# ✅ CORRECTO — espacio obligatorio después de [ y antes de ]
-if [ $longitud -lt 50 ]; then
-```
-
-### 🧪 Ejercicio 3 — Clasificador de calidad de secuencia:
+Crea `ejercicio1_alcance.sh`:
 
 ```bash
 #!/bin/bash
-# ejercicio3_if.sh
-# Clasifica una secuencia según su longitud (criterio simplificado de calidad)
+# ejercicio1_alcance.sh
+# Muestra el alcance de variables locales y globales
 
-read -p "Ingresa una secuencia de ADN: " secuencia
-longitud=${#secuencia}
+ESPECIE_LOCAL="Salmonella enterica"
+export ESPECIE_GLOBAL="Mycobacterium tuberculosis"
 
+echo "=== SCRIPT PRINCIPAL ==="
+echo "Local  : $ESPECIE_LOCAL"
+echo "Global : $ESPECIE_GLOBAL"
 echo ""
-echo "Secuencia : $secuencia"
-echo "Longitud  : $longitud bp"
-echo ""
 
-if [ $longitud -eq 0 ]
-then
-    echo "ERROR: No ingresaste ninguna secuencia."
-elif [ $longitud -lt 20 ]
-then
-    echo "ADVERTENCIA: Secuencia muy corta. Podría ser un fragmento."
-elif [ $longitud -le 500 ]
-then
-    echo "OK: Longitud adecuada para análisis básico."
-else
-    echo "OK: Secuencia larga. Apta para ensamblaje."
-fi
-```
-
-**Ejemplo de ejecución:**
-```
-Ingresa una secuencia de ADN: ATCGATCGATCG
-
-Secuencia : ATCGATCGATCG
-Longitud  : 12 bp
-
-ADVERTENCIA: Secuencia muy corta. Podría ser un fragmento.
-```
-
----
-
-## 🔀 6. Combinando `for` + `if`
-
-La combinación más poderosa en scripting es un bucle que procesa cada elemento y toma una decisión sobre él. Esto es exactamente lo que hacen los pipelines bioinformáticos.
-
-### 🔬 Pruébalo en tu terminal — clasificar archivos:
-
-Primero crea algunos archivos de prueba:
-
-```bash
-mkdir prueba_archivos
-touch prueba_archivos/genoma.fasta
-touch prueba_archivos/resultados.txt
-mkdir prueba_archivos/datos_raw
-```
-
-Luego ejecuta:
-
-```bash
-for elemento in prueba_archivos/*
-do
-    if [ -d "$elemento" ]
-    then
-        echo "📁 DIRECTORIO : $elemento"
-    elif [ -f "$elemento" ]
-    then
-        echo "📄 ARCHIVO    : $elemento"
-    fi
-done
+echo "=== SUBSHELL ==="
+bash -c 'echo "Local  : $ESPECIE_LOCAL"; echo "Global : $ESPECIE_GLOBAL"'
 ```
 
 **Salida esperada:**
 ```
-📁 DIRECTORIO : prueba_archivos/datos_raw
-📄 ARCHIVO    : prueba_archivos/genoma.fasta
-📄 ARCHIVO    : prueba_archivos/resultados.txt
+=== SCRIPT PRINCIPAL ===
+Local  : Salmonella enterica
+Global : Mycobacterium tuberculosis
+
+=== SUBSHELL ===
+Local  : 
+Global : Mycobacterium tuberculosis
 ```
 
-### 🧪 Ejercicio 4 — Análisis de codones de inicio y parada:
+**Pregunta de control:** si cambias `export` por una asignación normal en `ESPECIE_GLOBAL`, ¿qué línea del subshell cambia? Escribe tu respuesta antes de ejecutar.
 
-Los ribosomas buscan el codón AUG para iniciar la traducción, y UAA/UAG/UGA para terminarla. Vamos a detectarlos:
+---
+
+## ⚙️ 7. Variables del sistema
+
+Son variables que el sistema define al iniciar tu sesión. Están disponibles en cualquier script.
+
+| Variable | Contenido | Ejemplo de valor |
+|----------|-----------|------------------|
+| `$HOME` | Directorio personal | `/home/estudiante` |
+| `$USER` | Usuario actual | `estudiante` |
+| `$SHELL` | Shell por defecto | `/bin/bash` |
+| `$PWD` | Directorio de trabajo | `/home/estudiante/proyecto` |
+| `$HOSTNAME` | Nombre de la máquina | `cloudshell-vm` |
+| `$LANG` | Idioma y codificación | `es_PE.UTF-8` |
+| `$PATH` | Rutas donde se buscan los programas | `/usr/local/bin:/usr/bin:/bin` |
+
+Para verlas:
+
+```bash
+echo $HOME
+printenv            # Lista todas las variables de entorno
+env | grep -i path  # Filtra las que contienen "path"
+```
+
+### 🧪 Ejercicio 2: informe del entorno
+
+Crea `ejercicio2_entorno.sh`:
 
 ```bash
 #!/bin/bash
-# ejercicio4_codones_clave.sh
-# Identifica codones de inicio y parada en una lista
+# ejercicio2_entorno.sh
+# Informe del entorno usando variables del sistema
 
-codones="AUG UCG AAA UGA GCU UAG CCC AUG UAA"
+echo "=== INFORME DEL ENTORNO ==="
+echo "Usuario        : $USER"
+echo "Máquina        : $HOSTNAME"
+echo "Shell          : $SHELL"
+echo "Directorio HOME: $HOME"
+echo "Directorio actual: $PWD"
+echo "Idioma         : $LANG"
+```
 
-echo "Secuencia de codones: $codones"
-echo ""
-echo "=== ANÁLISIS DE CODONES CLAVE ==="
-echo ""
+**Salida esperada (los valores dependen de tu cuenta):**
+```
+=== INFORME DEL ENTORNO ===
+Usuario        : estudiante
+Máquina        : cloudshell-vm
+Shell          : /bin/bash
+Directorio HOME: /home/estudiante
+Directorio actual: /home/estudiante
+Idioma         : es_PE.UTF-8
+```
 
-inicio=0
-parada=0
+---
 
-for codon in $codones
-do
-    if [ "$codon" = "AUG" ]
-    then
-        echo "▶ INICIO encontrado : $codon (Metionina)"
-        inicio=$((inicio + 1))
-    elif [ "$codon" = "UAA" ] || [ "$codon" = "UAG" ] || [ "$codon" = "UGA" ]
-    then
-        echo "⏹ PARADA encontrado : $codon"
-        parada=$((parada + 1))
-    else
-        echo "  Codón normal      : $codon"
-    fi
-done
+## 🛤️ 8. La variable `PATH`
 
-echo ""
-echo "--- RESUMEN ---"
-echo "Codones de inicio (AUG) : $inicio"
-echo "Codones de parada       : $parada"
+`PATH` es la lista de carpetas donde el sistema busca un programa cuando escribes su nombre. Si la herramienta no está en ninguna de ellas, aparece `command not found`.
+
+```
+Escribes: fastqc
+
+Shell busca fastqc en:
+  /usr/local/bin      ← no está
+  /usr/bin            ← no está
+  /bin                ← no está
+  ~/biotools/FastQC   ← ✅ está en PATH → se ejecuta
+```
+
+### Ver y agregar rutas
+
+```bash
+echo $PATH | tr ':' '\n'           # Una ruta por línea
+
+export PATH=$PATH:/ruta/nueva      # Agregar al final (menor prioridad)
+export PATH=/ruta/nueva:$PATH      # Agregar al inicio (mayor prioridad)
+```
+
+Un `export` solo dura mientras la terminal esté abierta. Para que sea permanente, agrega la línea al final de `~/.bashrc` y recarga el archivo con `source ~/.bashrc`.
+
+### 🔬 Pruébalo en tu terminal: simulación de instalación
+
+```bash
+mkdir -p "$HOME/mis_biotools/bin"
+
+cat > "$HOME/mis_biotools/bin/mibiotool" << 'EOF'
+#!/bin/bash
+echo "MiBioTool v1.0: herramienta bioinformática"
+echo "Analizando: $1"
+EOF
+
+chmod +x "$HOME/mis_biotools/bin/mibiotool"
+
+mibiotool genoma.fasta                       # → command not found
+
+export PATH="$PATH:$HOME/mis_biotools/bin"
+mibiotool genoma.fasta                       # → funciona
 ```
 
 **Salida esperada:**
 ```
-Secuencia de codones: AUG UCG AAA UGA GCU UAG CCC AUG UAA
-
-=== ANÁLISIS DE CODONES CLAVE ===
-
-▶ INICIO encontrado : AUG (Metionina)
-  Codón normal      : UCG
-  Codón normal      : AAA
-⏹ PARADA encontrado : UGA
-  Codón normal      : GCU
-⏹ PARADA encontrado : UAG
-  Codón normal      : CCC
-▶ INICIO encontrado : AUG (Metionina)
-⏹ PARADA encontrado : UAA
-
---- RESUMEN ---
-Codones de inicio (AUG) : 2
-Codones de parada       : 3
+bash: mibiotool: command not found
+MiBioTool v1.0: herramienta bioinformática
+Analizando: genoma.fasta
 ```
 
-> 💡 El operador `||` significa "o". `[ "$codon" = "UAA" ] || [ "$codon" = "UAG" ]` es verdadero si el codón es UAA **o** UAG.
+### 🧪 Ejercicio 3: configurar PATH para un proyecto
 
----
-
-## 🧬 7. Integrando Todo: Script de Verificación de Archivos
-
-En bioinformática, antes de correr un análisis siempre verificamos que los archivos de entrada existan y tengan contenido. Este script lo hace automáticamente:
+Crea `ejercicio3_path.sh`:
 
 ```bash
 #!/bin/bash
-# verificador_pipeline.sh
-# Verifica que los archivos necesarios para un pipeline existan
+# ejercicio3_path.sh
+# Agrega carpetas de herramientas al PATH del script
 
-echo "============================================"
-echo "  VERIFICACIÓN DE ARCHIVOS DEL PIPELINE"
-echo "============================================"
-echo ""
+BIOTOOLS_DIR="$HOME/biotools"
+mkdir -p "$BIOTOOLS_DIR/FastQC" "$BIOTOOLS_DIR/samtools/bin"
 
-# Lista de archivos que el pipeline necesita
-archivos_requeridos="muestra1.fastq muestra2.fastq referencia.fasta adaptadores.txt"
+export PATH="$PATH:$BIOTOOLS_DIR/FastQC"
+export PATH="$PATH:$BIOTOOLS_DIR/samtools/bin"
 
-archivos_ok=0
-archivos_faltantes=0
-
-for archivo in $archivos_requeridos
-do
-    if [ -f "$archivo" ] && [ -s "$archivo" ]
-    then
-        echo "✅ OK       : $archivo"
-        archivos_ok=$((archivos_ok + 1))
-    elif [ -f "$archivo" ]
-    then
-        echo "⚠️  VACÍO   : $archivo (existe pero está vacío)"
-        archivos_faltantes=$((archivos_faltantes + 1))
-    else
-        echo "❌ FALTANTE : $archivo"
-        archivos_faltantes=$((archivos_faltantes + 1))
-    fi
-done
-
-echo ""
-echo "--- RESULTADO ---"
-echo "Archivos listos  : $archivos_ok"
-echo "Archivos con problema: $archivos_faltantes"
-echo ""
-
-if [ $archivos_faltantes -eq 0 ]
-then
-    echo "✅ Pipeline listo para ejecutarse."
-else
-    echo "❌ Corrige los archivos faltantes antes de continuar."
-fi
+echo "Rutas de biotools en el PATH:"
+echo "$PATH" | tr ':' '\n' | grep "biotools"
 ```
 
-**Salida esperada** (cuando los archivos no existen):
+**Salida esperada:**
 ```
-============================================
-  VERIFICACIÓN DE ARCHIVOS DEL PIPELINE
-============================================
-
-❌ FALTANTE : muestra1.fastq
-❌ FALTANTE : muestra2.fastq
-❌ FALTANTE : referencia.fasta
-❌ FALTANTE : adaptadores.txt
-
---- RESULTADO ---
-Archivos listos      : 0
-Archivos con problema: 4
-
-❌ Corrige los archivos faltantes antes de continuar.
+Rutas de biotools en el PATH:
+/home/estudiante/biotools/FastQC
+/home/estudiante/biotools/samtools/bin
 ```
+
+> 💡 Este script exporta el PATH solo dentro de su propio subshell. Para ver el cambio en tu terminal, ejecútalo con `source`.
 
 ---
 
-## 📸 8. Actividad Asincrónica
+## 📸 9. Actividad Asincrónica
 
-### 🎯 Misión: Construir herramientas de control de flujo bioinformático
+### 🎯 Misión: primer toolkit de variables
 
-Vas a crear **3 scripts** que usan bucles y condicionales para resolver problemas reales de laboratorio.
+Crea los siguientes scripts en tu repositorio de GitHub, dentro de la carpeta `Sesion_11/`.
 
----
+### 🧬 Script 1: `ficha_muestra.sh` *(Obligatorio)*
 
-### 🧬 Script 1: `clasificador_secuencias.sh` *(Obligatorio)*
-
-**Objetivo:** Dada una lista de secuencias de ADN, clasificar cada una como "corta" (<50 bp), "media" (50–500 bp) o "larga" (>500 bp), y contar cuántas hay de cada tipo.
-
-**Secuencias de prueba** (inclúyelas directamente en el script como variable):
-```
-ATCG
-ATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCG
-ATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCG
-GCTAGCTA
-```
+**Objetivo:** generar una ficha de identificación de una muestra usando variables locales y globales.
 
 **Requisitos:**
-- Usar un bucle `for` para recorrer las secuencias
-- Usar `if / elif / else` para clasificar según la longitud
-- Al final mostrar el conteo de cada categoría
+- Define al menos 4 variables locales: organismo, cepa, tipo de muestra y responsable
+- Exporta al menos una variable con `export`
+- Muestra la ficha con `echo`, usando comillas dobles en todas las variables
+- Incluye la fecha con `$(date +"%Y-%m-%d")`
 
 **Salida de ejemplo:**
 ```
-=== CLASIFICADOR DE SECUENCIAS ===
-
-Secuencia 1 (4 bp)   → CORTA
-Secuencia 2 (48 bp)  → CORTA
-Secuencia 3 (504 bp) → LARGA
-Secuencia 4 (8 bp)   → CORTA
-
---- RESUMEN ---
-Secuencias cortas  (<50 bp)  : 3
-Secuencias medias  (50-500)  : 0
-Secuencias largas  (>500 bp) : 1
+══════════════════════════════════
+          FICHA DE MUESTRA
+══════════════════════════════════
+ Organismo   : Escherichia coli
+ Cepa        : K-12
+ Tipo        : cultivo puro
+ Responsable : Ana García
+ Fecha       : 2026-11-02
+══════════════════════════════════
 ```
 
----
+### 🔬 Script 2: `configurador_path.sh` *(Obligatorio)*
 
-### 🔬 Script 2: `buscador_genes.sh` *(Obligatorio)*
-
-**Objetivo:** Dado un gen ingresado por el usuario, verificar si está en una lista de genes de resistencia antimicrobiana conocidos.
-
-**Lista de genes de resistencia** (inclúyela en el script):
-```
-blaKPC blaNDM blaOXA mecA vanA tetM ermB
-```
+**Objetivo:** crear una carpeta para una herramienta bioinformática y agregarla al `PATH`.
 
 **Requisitos:**
-- Usar `read -p` para pedir el nombre del gen al usuario
-- Usar un bucle `for` para recorrer la lista
-- Usar `if` para detectar si el gen ingresado coincide con alguno de la lista
-- Mostrar si se encontró o no, y si se encontró, el número de posición en la lista
-
-**Salida de ejemplo (gen encontrado):**
-```
-Ingresa el nombre del gen: mecA
-
-Buscando mecA en base de datos de resistencia...
-
-✅ Gen ENCONTRADO: mecA
-   Posición en la base de datos: 4
-   Asociado con resistencia a meticilina (MRSA)
-```
-
-**Salida de ejemplo (gen no encontrado):**
-```
-Ingresa el nombre del gen: gyrA
-
-Buscando gyrA en base de datos de resistencia...
-
-ℹ️  Gen no encontrado en la base de datos actual.
-   gyrA podría estar en bases de datos adicionales.
-```
-
----
-
-### 🧪 Script 3: `analizador_fasta.sh` *(Obligatorio)*
-
-**Objetivo:** Crear un archivo FASTA con varias secuencias y luego analizarlo con un bucle `while` que lea línea por línea, contando cuántas secuencias contiene y reportando la longitud de cada una.
-
-**Requisitos:**
-- El script debe crear el archivo FASTA al inicio (usando `cat > archivo.fasta << 'EOF'`)
-- Usar un bucle `while read` para leer el archivo línea por línea
-- Usar `if` para detectar las líneas de cabecera (las que empiezan con `>`)
-- Contar el número de secuencias y acumular la longitud de cada una
-- Mostrar un reporte final
-
-**El archivo FASTA debe contener al menos estas 3 secuencias:**
-```
->seq1|Staphylococcus_aureus
-ATCGATCGATCGATCGATCG
->seq2|Escherichia_coli
-GCTAGCTAGCTAGCTAGCTA
->seq3|Mycobacterium_tuberculosis
-TTTTAAAACCCCGGGGTTTT
-```
-
-**Salida esperada:**
-```
-=== ANÁLISIS DEL ARCHIVO FASTA ===
-
-Secuencia 1: seq1|Staphylococcus_aureus    → 20 bp
-Secuencia 2: seq2|Escherichia_coli         → 20 bp
-Secuencia 3: seq3|Mycobacterium_tuberculosis → 20 bp
-
---- REPORTE FINAL ---
-Total de secuencias   : 3
-Longitud promedio     : 20 bp
-```
-
----
-
-### 🏆 Script Bonus: `pipeline_qc.sh` *(Opcional — para nota extra)*
-
-Crea un script que combine los tres anteriores: verifica que el archivo FASTA exista, lo analiza, y para cada secuencia clasifica su longitud. Al final, guarda el reporte en un archivo `reporte_qc.txt` usando redirección (`>`).
-
----
+- Define la variable `HERRAMIENTA` con el nombre de la herramienta (por ejemplo, `fastqc`)
+- Crea la carpeta `$HOME/biotools/$HERRAMIENTA/bin` con `mkdir -p`
+- Agrega esa carpeta al `PATH` con `export`
+- Imprime la nueva ruta con `echo` y `grep`
 
 ### ✅ Checklist de entrega
 
-Antes de subir a GitHub, verifica:
-
-- [ ] Los 3 scripts obligatorios están creados
-- [ ] Cada script tiene `#!/bin/bash` en la primera línea
-- [ ] Cada script tiene al menos un comentario con tu nombre y fecha
-- [ ] Todos tienen permisos de ejecución (`chmod +x nombre_script.sh`)
-- [ ] Los 3 scripts se ejecutan sin errores
-- [ ] Incluiste capturas de pantalla de la ejecución de cada script
-- [ ] Subiste todo a tu repositorio con un commit descriptivo
+- [ ] Los dos scripts están en `Sesion_11/`
+- [ ] Cada script empieza con `#!/bin/bash`
+- [ ] Cada script tiene un comentario con tu nombre y la fecha
+- [ ] Tienen permiso de ejecución (`chmod +x`)
+- [ ] Pasan la revisión de sintaxis (`bash -n script.sh`)
+- [ ] Ambos se ejecutan sin errores
+- [ ] Incluiste capturas de la ejecución
+- [ ] Commit: `git commit -m "Sesion 11: variables y PATH"`
 
 ---
 
 ## 🗂️ Resumen de Comandos de la Sesión
 
-| Estructura | Sintaxis | ¿Cuándo usarla? |
-|------------|----------|-----------------|
-| `for` | `for var in lista; do ...; done` | Cuando conoces los elementos de antemano |
-| `while` | `while [ condición ]; do ...; done` | Cuando repites hasta que algo cambie |
-| `if` simple | `if [ cond ]; then ...; fi` | Para ejecutar algo solo si se cumple |
-| `if-else` | `if [ cond ]; then ...; else ...; fi` | Para elegir entre dos opciones |
-| `if-elif-else` | `if ...; elif ...; else ...; fi` | Para elegir entre tres o más opciones |
-| `&&` | `cmd1 && cmd2` | Ejecutar cmd2 solo si cmd1 fue exitoso |
-| `\|\|` | `cmd1 \|\| cmd2` | Ejecutar cmd2 solo si cmd1 falló |
-
-### Operadores más usados:
-
-| Tipo | Operador | Significado |
-|------|----------|-------------|
-| Número | `-eq` `-ne` `-lt` `-gt` `-le` `-ge` | igual, distinto, menor, mayor, ≤, ≥ |
-| Texto | `=` `!=` `-z` `-n` | igual, distinto, vacío, no vacío |
-| Archivo | `-e` `-f` `-d` `-s` | existe, es archivo, es carpeta, no está vacío |
+| Operación | Sintaxis | Ejemplo |
+|-----------|----------|---------|
+| Crear variable local | `VAR=valor` | `CEPA="MG1655"` |
+| Crear variable de entorno | `export VAR=valor` | `export DB="/data/refs"` |
+| Leer variable | `$VAR` o `${VAR}` | `echo ${CEPA}_v2` |
+| Cargar configuración en la sesión | `source archivo.sh` | `source config.sh` |
+| Aritmética entera | `$((expr))` | `$((10 * 3))` → `30` |
+| Variable entre comillas | `"$VAR"` | `mkdir "$RUTA"` |
+| Ver PATH legible | `echo $PATH \| tr ':' '\n'` | |
+| Agregar al PATH | `export PATH="$PATH:/ruta"` | |
 
 ---
 
 ## 📚 Referencias Bibliográficas
 
-1. Blum, R., & Bresnahan, C. (2021). *Linux Command Line and Shell Scripting Bible* (4th ed.). Wiley. Capítulo 11–13.
-
-2. Documentación oficial de Bash — Conditional expressions:  
-   [https://www.gnu.org/software/bash/manual/bash.html#Bash-Conditional-Expressions](https://www.gnu.org/software/bash/manual/bash.html#Bash-Conditional-Expressions)
-
-3. ShellCheck — Verificador de sintaxis online:  
+1. Blum, R., & Bresnahan, C. (2021). *Linux Command Line and Shell Scripting Bible* (4th ed.). Wiley. Capítulos sobre variables y entorno de shell.
+2. Documentación oficial de GNU Bash: *Shell Variables* y *Shell Parameter Expansion*.
+   [https://www.gnu.org/software/bash/manual/bash.html](https://www.gnu.org/software/bash/manual/bash.html)
+3. ShellCheck: validador de sintaxis Bash.
    [https://www.shellcheck.net/](https://www.shellcheck.net/)
 
 ---
 
-> 🎓 *"Un script que solo ejecuta líneas en orden es como un protocolo de laboratorio que no puede adaptarse si falla un paso. Con bucles y condicionales, tus scripts toman decisiones — igual que tú lo harías en el banco de trabajo."*
+> 🎓 *"Una variable bien nombrada es como un rótulo bien escrito en un tubo: cualquiera que abra tu código sabe qué contiene sin tener que adivinarlo."*
 
 ---
 
-*Documento preparado para la Sesión 09 - Semana 11 del curso Principios de Programación en Bioinformática. UPC exígete, innova.*
+*Documento preparado para la Sesión 11 del curso Principios de Programación en Bioinformática. UPC exígete, innova.*
