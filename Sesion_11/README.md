@@ -451,6 +451,62 @@ export PATH=/ruta/nueva:$PATH      # Agregar al inicio (mayor prioridad)
 
 Un `export` solo dura mientras la terminal esté abierta. Para que sea permanente, agrega la línea al final de `~/.bashrc` y recarga el archivo con `source ~/.bashrc`.
 
+### 🧾 Crear archivos con `cat` y `EOF`
+
+`cat` muestra el contenido de un archivo. Combinado con `>` y un **here-document** (`<< EOF`), también permite escribir varias líneas en un archivo sin abrir un editor.
+
+```bash
+cat > archivo.txt << EOF
+primera línea
+segunda línea
+EOF
+```
+
+**Cómo se lee:**
+- `cat > archivo.txt` crea el archivo, o lo sobrescribe si ya existe.
+- `<< EOF` indica que las líneas siguientes son el contenido, hasta encontrar la palabra de cierre.
+- La línea `EOF` de cierre debe ir sola, sin espacios antes ni después.
+- `EOF` es solo una convención. Puede ser `FIN` o cualquier palabra, siempre que la de cierre sea idéntica a la de apertura.
+
+| Operador | Efecto |
+|----------|--------|
+| `>` | crea o sobrescribe el archivo |
+| `>>` | agrega al final del archivo sin borrar lo anterior |
+| `<< EOF` | toma como contenido las líneas hasta encontrar `EOF` |
+
+**Comillas en `EOF`:** la diferencia está en si el shell expande las variables dentro del contenido.
+- `<< EOF` (sin comillas): las variables y `$(...)` se reemplazan por su valor.
+- `<< 'EOF'` (con comillas simples): el contenido se escribe tal cual.
+
+### 🔬 Pruébalo en tu terminal: expansión con y sin comillas
+
+```bash
+NOMBRE="Escherichia coli"
+
+cat > sin_comillas.txt << EOF
+Organismo: $NOMBRE
+Fecha: $(date +"%Y-%m-%d")
+EOF
+
+cat > con_comillas.txt << 'EOF'
+Organismo: $NOMBRE
+Fecha: $(date +"%Y-%m-%d")
+EOF
+
+cat sin_comillas.txt
+cat con_comillas.txt
+```
+
+**Salida esperada** (la fecha será la del día en que lo ejecutes):
+```
+Organismo: Escherichia coli
+Fecha: 2026-10-29
+Organismo: $NOMBRE
+Fecha: $(date +"%Y-%m-%d")
+```
+
+> 💡 En la simulación de instalación de abajo usamos `<< 'EOF'` a propósito: queremos que `$1` quede escrito dentro del archivo del programa, no que el shell lo reemplace al crearlo.
+
 ### 🔬 Pruébalo en tu terminal: simulación de instalación
 
 ```bash
@@ -571,6 +627,8 @@ Crea los siguientes scripts en tu repositorio de GitHub, dentro de la carpeta `S
 | Aritmética entera | `$((expr))` | `$((10 * 3))` → `30` |
 | Variable entre comillas | `"$VAR"` | `mkdir "$RUTA"` |
 | Ver PATH legible | `echo $PATH \| tr ':' '\n'` | |
+| Crear archivo con varias líneas | `cat > archivo << EOF` ... `EOF` | `cat > notas.txt << EOF` |
+| Agregar al final sin borrar | `cat >> archivo << EOF` ... `EOF` | `cat >> notas.txt << EOF` |
 | Agregar al PATH | `export PATH="$PATH:/ruta"` | |
 
 ---
