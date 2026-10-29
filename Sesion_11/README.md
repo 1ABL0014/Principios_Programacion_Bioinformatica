@@ -565,19 +565,27 @@ Rutas de biotools en el PATH:
 
 ## 📸 9. Actividad Asincrónica
 
-### 🎯 Misión: primer toolkit de variables
+### 🕵️ Operación: EXPEDIENTE GENOMA
 
-Crea los siguientes scripts en tu repositorio de GitHub, dentro de la carpeta `Sesion_11/`.
+> *Agente: el Laboratorio Central de Genómica perdió los registros de cuatro muestras. Las rutas de sus herramientas dejaron de funcionar y nadie sabe qué versión del análisis se ejecutó. Si decides aceptar la misión, tendrás que reconstruir el sistema desde sus variables. La operación tiene tres misiones obligatorias y un bonus. Las pistas se retomarán en las sesiones siguientes.*
 
-### 🧬 Script 1: `ficha_muestra.sh` *(Obligatorio)*
+**Reglas de la operación:**
+- Trabaja en la carpeta `Sesion_11/`, con un archivo por misión.
+- Cada script empieza con `#!/bin/bash` y un comentario con tu nombre y tu clave de agente.
+- Antes de pedir ayuda, lee el mensaje de error completo. Casi siempre indica la línea y el motivo.
 
-**Objetivo:** generar una ficha de identificación de una muestra usando variables locales y globales.
+---
+
+### 🆔 Misión 1: Identidad secreta *(Obligatoria)*
+
+**Objetivo:** crear la ficha de identificación de una muestra usando variables locales y una variable global.
 
 **Requisitos:**
-- Define al menos 4 variables locales: organismo, cepa, tipo de muestra y responsable
-- Exporta al menos una variable con `export`
-- Muestra la ficha con `echo`, usando comillas dobles en todas las variables
-- Incluye la fecha con `$(date +"%Y-%m-%d")`
+- Cuatro variables locales: `ORGANISMO`, `CEPA`, `TIPO_MUESTRA` y `RESPONSABLE`
+- Una variable exportada con `export`, por ejemplo `export LABORATORIO="..."`
+- Un identificador que use llaves, por ejemplo `ID_MUESTRA="${ORGANISMO}_${CEPA}"`
+- Todas las variables dentro de `echo` van entre comillas dobles
+- La fecha se obtiene con `$(date +"%Y-%m-%d")`
 
 **Salida de ejemplo:**
 ```
@@ -589,29 +597,75 @@ Crea los siguientes scripts en tu repositorio de GitHub, dentro de la carpeta `S
  Tipo        : cultivo puro
  Responsable : Ana García
  Fecha       : 2026-11-02
+ ID          : Escherichia coli_K-12
 ══════════════════════════════════
 ```
 
-### 🔬 Script 2: `configurador_path.sh` *(Obligatorio)*
+**Pista del agente:** `echo $ID_MUESTRA_v1` y `echo ${ID_MUESTRA}_v1` no dan el mismo resultado. Escribe en un comentario por qué.
 
-**Objetivo:** crear una carpeta para una herramienta bioinformática y agregarla al `PATH`.
+---
+
+### 🛰️ Misión 2: Línea de comunicación *(Obligatoria)*
+
+**Objetivo:** preparar una carpeta para una herramienta bioinformática y registrarla en el `PATH`.
 
 **Requisitos:**
-- Define la variable `HERRAMIENTA` con el nombre de la herramienta (por ejemplo, `fastqc`)
-- Crea la carpeta `$HOME/biotools/$HERRAMIENTA/bin` con `mkdir -p`
-- Agrega esa carpeta al `PATH` con `export`
-- Imprime la nueva ruta con `echo` y `grep`
+- Variable `HERRAMIENTA` con el nombre de la herramienta (por ejemplo, `fastqc`)
+- Crear la carpeta `"$HOME/biotools/$HERRAMIENTA/bin"` con `mkdir -p`
+- Agregar esa carpeta al `PATH` con `export PATH="$PATH:..."`
+- Mostrar la ruta con `echo "$PATH" | tr ':' '\n' | grep "$HERRAMIENTA"`
+- Ejecuta el script primero con `bash` y comprueba el `PATH`. Luego ejecútalo con `source` y comprueba otra vez.
+
+**Pregunta de cierre:** ¿por qué la ruta no aparece en tu terminal después de `bash configurador_path.sh`? Responde en un comentario al final del script.
+
+---
+
+### 📼 Misión 3: Bitácora de operaciones *(Obligatoria)*
+
+**Objetivo:** escribir el informe de la operación en un archivo usando `cat` con `EOF`.
+
+**Requisitos:**
+- Define tus propias variables dentro del script; no dependas de las misiones 1 y 2
+- Crea `informe_mision.txt` con `cat > informe_mision.txt << EOF`, sin comillas en `EOF`, para que las variables se expandan
+- Usa `${}` en al menos una variable pegada a texto
+- Agrega una última línea con `cat >> informe_mision.txt << 'EOF'` que contenga `Estado: $ESTADO`, para que el `$` quede literal
+- Muestra el archivo con `cat informe_mision.txt`
+
+**Salida de ejemplo:**
+```
+OPERACIÓN EXPEDIENTE GENOMA
+Responsable : Ana García
+Muestra     : Escherichia coli_K-12
+Herramienta : fastqc
+Fecha       : 2026-11-02
+Estado: $ESTADO
+```
+
+---
+
+### 🎖️ Bonus: El agente fantasma *(Opcional, nota extra)*
+
+**Objetivo:** demostrar con un script que una variable exportada se hereda al subshell y una local no.
+
+**Requisitos:**
+- Archivo `agente_fantasma.sh` con una variable local `CLAVE_LOCAL` y una exportada `CLAVE_AGENTE`
+- Dentro del script, `bash -c` debe mostrar ambas
+- Un comentario de dos líneas al inicio que explique el resultado
+- Ejecútalo con `bash` y luego con `source`. Escribe en un comentario qué cambia en tu terminal.
+
+---
 
 ### ✅ Checklist de entrega
 
-- [ ] Los dos scripts están en `Sesion_11/`
-- [ ] Cada script empieza con `#!/bin/bash`
-- [ ] Cada script tiene un comentario con tu nombre y la fecha
+- [ ] Misiones 1, 2 y 3 en `Sesion_11/`
+- [ ] Cada script empieza con `#!/bin/bash` y tiene nombre y clave de agente en un comentario
 - [ ] Tienen permiso de ejecución (`chmod +x`)
 - [ ] Pasan la revisión de sintaxis (`bash -n script.sh`)
-- [ ] Ambos se ejecutan sin errores
-- [ ] Incluiste capturas de la ejecución
-- [ ] Commit: `git commit -m "Sesion 11: variables y PATH"`
+- [ ] Las tres misiones se ejecutan sin errores
+- [ ] Respondiste la pregunta de cierre de la Misión 2
+- [ ] Incluiste capturas de cada ejecución
+- [ ] Bonus entregado (opcional)
+- [ ] Commit: `git commit -m "Sesion 11: Operación Expediente Genoma"`
 
 ---
 
