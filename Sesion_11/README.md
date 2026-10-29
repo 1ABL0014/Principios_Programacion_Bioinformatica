@@ -120,6 +120,69 @@ ID completo: Escherichia coli_K-12_2026
 
 ---
 
+### 🧪 Ejercicio 1: ¿dónde termina el nombre de la variable?
+
+El shell lee el nombre de una variable hasta encontrar un carácter que no puede formar parte de él. El guion bajo `_` **sí** forma parte del nombre; el punto y el guion medio **no**. Por eso las llaves hacen falta cuando el texto que sigue a la variable empieza con letras, números o `_`.
+
+Crea `ejercicio1_llaves.sh`:
+
+```bash
+#!/bin/bash
+# ejercicio1_llaves.sh
+# Compara $VAR y ${VAR} cuando el nombre va seguido de otros caracteres
+
+ARCHIVO="genoma"
+ESPECIE="ecoli"
+
+echo "--- Caso 1: guion bajo después de la variable ---"
+echo "A: $ARCHIVO_v1"
+echo "B: ${ARCHIVO}_v1"
+
+echo "--- Caso 2: punto después de la variable ---"
+echo "A: $ARCHIVO.fasta"
+echo "B: ${ARCHIVO}.fasta"
+
+echo "--- Caso 3: número después de la variable ---"
+echo "A: $ARCHIVO1"
+echo "B: ${ARCHIVO}1"
+
+echo "--- Caso 4: varias variables seguidas ---"
+echo "A: $ESPECIE_$ARCHIVO"
+echo "B: ${ESPECIE}_${ARCHIVO}"
+```
+
+**Salida esperada** (en la línea A de los casos 1 y 3 no aparece nada después de `A: `):
+```
+--- Caso 1: guion bajo después de la variable ---
+A: 
+B: genoma_v1
+--- Caso 2: punto después de la variable ---
+A: genoma.fasta
+B: genoma.fasta
+--- Caso 3: número después de la variable ---
+A: 
+B: genoma1
+--- Caso 4: varias variables seguidas ---
+A: genoma
+B: ecoli_genoma
+```
+
+**Tabla de lectura:** antes de ejecutar, completa mentalmente la última columna.
+
+| Escribes | El shell busca la variable | Resultado |
+|----------|----------------------------|-----------|
+| `$ARCHIVO_v1` | `ARCHIVO_v1` (no existe) | vacío |
+| `${ARCHIVO}_v1` | `ARCHIVO` | `genoma_v1` |
+| `$ARCHIVO.fasta` | `ARCHIVO` | `genoma.fasta` |
+| `$ARCHIVO1` | `ARCHIVO1` (no existe) | vacío |
+| `${ARCHIVO}1` | `ARCHIVO` | `genoma1` |
+
+**Predice antes de ejecutar:** ¿qué imprime `echo $ESPECIE_$ARCHIVO`? ¿Y `echo ${ESPECIE}_${ARCHIVO}`? Escribe tu respuesta y compárala con la salida.
+
+> 💡 Regla práctica: si tienes dudas, usa `${VAR}`. Es válido en todos los casos y evita errores difíciles de encontrar.
+
+---
+
 ## 🔣 4. Comillas: qué interpreta el shell
 
 Las comillas deciden si el shell expande las variables o las trata como texto literal.
@@ -274,13 +337,13 @@ echo "$DATOS_REF"          # → /home/usuario/referencias
 
 > 💡 Las herramientas bioinformáticas suelen activarse con `source`. Por ejemplo: `source activate mi_entorno`.
 
-### 🧪 Ejercicio 1: alcance de las variables
+### 🧪 Ejercicio 2: alcance de las variables
 
-Crea `ejercicio1_alcance.sh`:
+Crea `ejercicio2_alcance.sh`:
 
 ```bash
 #!/bin/bash
-# ejercicio1_alcance.sh
+# ejercicio2_alcance.sh
 # Muestra el alcance de variables locales y globales
 
 ESPECIE_LOCAL="Salmonella enterica"
@@ -332,13 +395,13 @@ printenv            # Lista todas las variables de entorno
 env | grep -i path  # Filtra las que contienen "path"
 ```
 
-### 🧪 Ejercicio 2: informe del entorno
+### 🧪 Ejercicio 3: informe del entorno
 
-Crea `ejercicio2_entorno.sh`:
+Crea `ejercicio3_entorno.sh`:
 
 ```bash
 #!/bin/bash
-# ejercicio2_entorno.sh
+# ejercicio3_entorno.sh
 # Informe del entorno usando variables del sistema
 
 echo "=== INFORME DEL ENTORNO ==="
@@ -414,13 +477,13 @@ MiBioTool v1.0: herramienta bioinformática
 Analizando: genoma.fasta
 ```
 
-### 🧪 Ejercicio 3: configurar PATH para un proyecto
+### 🧪 Ejercicio 4: configurar PATH para un proyecto
 
-Crea `ejercicio3_path.sh`:
+Crea `ejercicio4_path.sh`:
 
 ```bash
 #!/bin/bash
-# ejercicio3_path.sh
+# ejercicio4_path.sh
 # Agrega carpetas de herramientas al PATH del script
 
 BIOTOOLS_DIR="$HOME/biotools"
@@ -502,7 +565,8 @@ Crea los siguientes scripts en tu repositorio de GitHub, dentro de la carpeta `S
 |-----------|----------|---------|
 | Crear variable local | `VAR=valor` | `CEPA="MG1655"` |
 | Crear variable de entorno | `export VAR=valor` | `export DB="/data/refs"` |
-| Leer variable | `$VAR` o `${VAR}` | `echo ${CEPA}_v2` |
+| Leer variable | `$VAR` o `${VAR}` | `echo $CEPA` |
+| Delimitar el nombre con llaves | `${VAR}texto` | `echo ${ARCHIVO}_v1` → `genoma_v1` |
 | Cargar configuración en la sesión | `source archivo.sh` | `source config.sh` |
 | Aritmética entera | `$((expr))` | `$((10 * 3))` → `30` |
 | Variable entre comillas | `"$VAR"` | `mkdir "$RUTA"` |
